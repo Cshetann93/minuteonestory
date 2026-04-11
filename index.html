@@ -15,8 +15,30 @@
     <img src="logo.png" alt="MinuteOneStory Logo" class="h-10 w-auto hover:opacity-80 transition">
 </a>
         <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-widest text-slate-400">
-            <a href="portfolio.html" class="hover:text-amber-400 transition">Our Work</a>
-            <a href="about.html" class="hover:text-amber-400 transition">About Us</a>
+           <nav class="hidden md:flex items-center space-x-8">
+    <a href="/portfolio.html" class="text-slate-400 hover:text-white font-semibold text-sm transition">Our Work</a>
+    <a href="/about.html" class="text-slate-400 hover:text-white font-semibold text-sm transition">About Us</a>
+    
+    <div class="relative group">
+        <button class="flex items-center text-slate-400 group-hover:text-white font-semibold text-sm transition outline-none">
+            More
+            <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </button>
+
+        <div class="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100 z-50">
+            <div class="py-2 p-1">
+                <a href="/terms.html" class="block px-4 py-3 text-sm text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition">Terms of Service</a>
+                <a href="/privacy.html" class="block px-4 py-3 text-sm text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+    <a href="/contact.html" class="bg-amber-400 hover:bg-amber-500 text-black px-5 py-2.5 rounded-full font-bold text-sm transition transform hover:scale-105">
+        Work With Us
+    </a>
+</nav>
         </div>
     </nav>
 
