@@ -200,25 +200,38 @@
 </body>
 </html>
 
-   <script>
-    const btn = document.getElementById('menu-btn');
-    const menu = document.getElementById('mobile-menu');
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('menu-btn');
+        const menu = document.getElementById('mobile-menu');
 
-    if (btn && menu) {
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-            console.log("Menu button clicked!"); // This helps us debug
-        });
-
-        // Close menu when clicking any link inside it
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                // Toggle the hidden class
+                menu.classList.toggle('hidden');
+                
+                // Optional: Prevent scrolling when menu is open
+                if (!menu.classList.contains('hidden')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = 'auto';
+                }
+                
+                console.log("Menu state toggled");
             });
-        });
-    } else {
-        console.log("Error: Could not find the menu button or panel in the HTML.");
-    }
+
+            // Close menu if a link is clicked
+            const links = menu.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+        } else {
+            console.error("Critical Error: Menu elements not found. Check your IDs.");
+        }
+    });
 </script>
 </body>
 </html>
