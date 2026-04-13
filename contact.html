@@ -24,11 +24,13 @@
         <a href="/" class="text-slate-400 hover:text-white font-semibold text-sm transition">← Back</a>
     </nav>
 
-    <nav class="max-w-6xl ml-0 md:mx-auto px-6 py-2 text-xs text-slate-500 uppercase tracking-widest text-left">
-        <a href="/" class="hover:text-amber-400">Home</a> 
-        <span class="mx-2">/</span> 
-        <span class="text-slate-300">Contact Us</span>
-    </nav>
+    <div class="max-w-6xl mx-auto w-full px-6">
+        <nav class="py-2 text-xs text-slate-500 uppercase tracking-widest text-left">
+            <a href="/" class="hover:text-amber-400">Home</a> 
+            <span class="mx-2">/</span> 
+            <span class="text-slate-300">Contact Us</span>
+        </nav>
+    </div>
 
     <div class="relative flex-grow flex flex-col justify-center">
         <div class="absolute inset-0 z-0">
@@ -73,15 +75,15 @@
                     <form action="#" method="POST" class="space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-bold text-slate-300 mb-2">Your Name</label>
-                            <input type="text" id="name" placeholder="Your Name" class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition">
+                            <input type="text" id="name" placeholder="Your Name" class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 transition">
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-bold text-slate-300 mb-2">Email Address</label>
-                            <input type="email" id="email" placeholder="xyz@example.com" class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition">
+                            <input type="email" id="email" placeholder="xyz@example.com" class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 transition">
                         </div>
                         <div>
                             <label for="project" class="block text-sm font-bold text-slate-300 mb-2">What are we building?</label>
-                            <select id="project" class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition appearance-none">
+                            <select id="project" class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 transition appearance-none">
                                 <option value="" disabled selected>Select a project type...</option>
                                 <option value="reels">Instagram Reels / Youtube Shorts</option>
                                 <option value="youtube">YouTube Long-Form Storytelling</option>
@@ -110,12 +112,10 @@
                     <a href="/">
                         <img src="logo.png" alt="MinuteOneStory Logo" class="h-10 w-auto mb-4 hover:opacity-80 transition">
                     </a>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                       Translating your vision into screen ready stories.
-                    </p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Translating your vision into screen ready stories.</p>
                 </div>
                 <div class="md:col-span-2">
-                  <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Navigation</h4>
+                    <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Navigation</h4>
                     <ul class="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4 text-sm text-slate-400">
                         <li><a href="/" class="hover:text-amber-400 transition">Home</a></li>
                         <li><a href="/portfolio.html" class="hover:text-amber-400 transition">Our Portfolio</a></li>
@@ -130,12 +130,6 @@
                     <div class="flex space-x-4">
                       <a href="https://instagram.com/minuteonestory" target="_blank" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-black transition">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-                      </a>
-                      <a href="unnamed" target="_blank" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-black transition">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                      </a>
-                      <a href="unnamed" target="_blank" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-black transition">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
                       </a>
                     </div>
                 </div>
