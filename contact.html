@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | MinuteOneStory</title>
@@ -18,15 +17,14 @@
 </head>
 <body class="bg-[#0f172a] text-slate-200 flex flex-col min-h-screen">
 
-    <nav class="relative z-10 p-6 max-w-6xl mx-auto w-full flex justify-between items-center">
+    <nav class="relative z-50 p-6 max-w-6xl mx-auto w-full flex justify-between items-center">
         <a href="/">
             <img src="logo.png" alt="MinuteOneStory Logo" class="h-16 w-auto hover:opacity-80 transition">
         </a>
-        <a href="/" class="text-slate-400 hover:text-white font-semibold text-sm transition">←  Back</a>
+        <a href="/" class="text-slate-400 hover:text-white font-semibold text-sm transition">← Back</a>
     </nav>
 
     <div class="relative flex-grow flex flex-col justify-center">
-        
         <div class="absolute inset-0 z-0">
             <img src="script-writing.png" alt="Background" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-[#0f172a]/85"></div>
@@ -38,7 +36,7 @@
                 <div>
                     <h1 class="text-5xl font-extrabold text-white mb-6 leading-tight">Let's craft your next <span class="text-amber-400">viral story.</span></h1>
                     <p class="text-slate-400 text-lg mb-10 leading-relaxed">
-                        Whether you need a high-retention script for a YouTube Short, a compelling narrative for a brand campaign, or a full cinematic screenplay, we are ready to write it. Drop us a line below.
+                        Whether you need a high-retention script, a brand campaign, or a full cinematic screenplay, we are ready to write it.
                     </p>
 
                     <div class="space-y-6">
@@ -49,7 +47,7 @@
                             <div class="flex flex-col space-y-1">
                                 <p class="text-sm text-slate-500 font-bold uppercase tracking-widest mb-1">Direct Emails</p>
                                 <a href="mailto:team@minuteonestory.com" class="text-white font-semibold hover:text-amber-400 transition">team@minuteonestory.com</a>
-                                <a href="mailto:chetan@minuteonestory.com" class="text-white font-semibold hover:text-amber-400 transition">minuteonestory@gmail.com</a>
+                                <a href="mailto:minuteonestory@gmail.com" class="text-white font-semibold hover:text-amber-400 transition">minuteonestory@gmail.com</a>
                             </div>
                         </div>
 
@@ -65,7 +63,7 @@
                     </div>
                 </div>
 
-                <div class="bg-slate-900/60 border border-slate-800 p-10 rounded-3xl backdrop-blur-xl">
+                <div class="group bg-slate-900/60 border border-slate-800 p-10 rounded-3xl backdrop-blur-xl transition-all duration-500 hover:border-amber-400/20">
                     <form action="#" method="POST" class="space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-bold text-slate-300 mb-2">Your Name</label>
@@ -77,7 +75,7 @@
                         </div>
                         <div>
                             <label for="project" class="block text-sm font-bold text-slate-300 mb-2">What are we building?</label>
-                            <select id="project" class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition appearance-none">
+                            <select id="project" class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 transition appearance-none">
                                 <option value="" disabled selected>Select a project type...</option>
                                 <option value="reels">Instagram Reels / Youtube Shorts</option>
                                 <option value="youtube">YouTube Long-Form Storytelling</option>
@@ -87,9 +85,14 @@
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-bold text-slate-300 mb-2">Project Details</label>
-                            <textarea id="message" rows="4" placeholder="Tell us about your audience, your vision..." class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition resize-none"></textarea>
+                            <textarea id="message" rows="4" placeholder="Tell us about your audience, your vision..." class="w-full bg-[#0b1120]/80 border border-slate-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-amber-400 transition resize-none"></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-white text-black font-bold text-lg py-4 rounded-xl hover:bg-amber-400 transition duration-300">
+
+                        <div class="flex justify-center -mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                            <img src="logo.gif" alt="Animated Logo" class="h-24 w-24 object-contain">
+                        </div>
+
+                        <button type="submit" class="w-full bg-white text-black font-bold text-lg py-4 rounded-xl hover:bg-amber-400 transition duration-300 transform active:scale-95">
                             Send Message
                         </button>
                     </form>
@@ -102,22 +105,18 @@
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-1">
-                    <a href="/">
-                        <img src="logo.png" alt="MinuteOneStory Logo" class="h-10 w-auto mb-4 hover:opacity-80 transition">
-                    </a>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                       Translating your vision into screen ready stories.
-                    </p>
+                    <a href="/"><img src="logo.png" alt="MinuteOneStory Logo" class="h-10 w-auto mb-4 hover:opacity-80 transition"></a>
+                    <p class="text-slate-400 text-sm leading-relaxed">Translating your vision into screen-ready stories.</p>
                 </div>
                 <div class="md:col-span-2">
-                  <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Navigation</h4>
+                    <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Navigation</h4>
                     <ul class="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4 text-sm text-slate-400">
                         <li><a href="/" class="hover:text-amber-400 transition">Home</a></li>
                         <li><a href="/portfolio.html" class="hover:text-amber-400 transition">Our Portfolio</a></li>
                         <li><a href="/about.html" class="hover:text-amber-400 transition">About the Team</a></li>
                         <li><a href="/contact.html" class="hover:text-amber-400 transition">Work With Us</a></li>
-                        <li><a href="/privacy" class="hover:text-amber-400 transition">Privacy Policy</a></li>
-                        <li><a href="/terms" class="hover:text-amber-400 transition">Terms of Service</a></li>
+                        <li><a href="/privacy.html" class="hover:text-amber-400 transition">Privacy Policy</a></li>
+                        <li><a href="/terms.html" class="hover:text-amber-400 transition">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div class="col-span-1">
@@ -125,12 +124,6 @@
                     <div class="flex space-x-4">
                       <a href="https://instagram.com/minuteonestory" target="_blank" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-black transition">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-                      </a>
-                      <a href="unnamed" target="_blank" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-black transition">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                      </a>
-                      <a href="unnamed" target="_blank" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-black transition">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
                       </a>
                     </div>
                 </div>
