@@ -234,7 +234,6 @@
         }
 
         .process-item {
-            opacity: 0 !important;
             animation: slideInUp 0.8s ease-out forwards !important;
         }
 
@@ -565,18 +564,10 @@
         observer.observe(element);
     });
 
-    // Process Items Scroll Reveal
-    const processObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.process-item').forEach(element => {
-        processObserver.observe(element);
+    // Process Items - Show immediately with animation
+    const processItems = document.querySelectorAll('.process-item');
+    processItems.forEach(item => {
+        item.style.opacity = '1';
     });
 </script>
 </body>
