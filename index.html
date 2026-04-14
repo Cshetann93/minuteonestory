@@ -44,13 +44,23 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Prevent layout shift - reserve space */
+        /* FIXED: Logo container with proper sizing */
         .logo-container {
-            min-width: 64px;
-            min-height: 64px;
+            width: 80px;
+            height: 64px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            animation: logoFloat 3s ease-in-out infinite;
+            max-width: 100%;
+            height: auto;
+            width: auto;
+            max-height: 64px;
+            object-fit: contain;
         }
 
         .nav-header {
@@ -78,12 +88,6 @@
         @keyframes logoFloat {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
-        }
-
-        .logo-container img {
-            animation: logoFloat 3s ease-in-out infinite;
-            max-width: 100%;
-            height: auto;
         }
 
         @keyframes fadeInSlideUp {
@@ -140,17 +144,67 @@
             }
         }
 
-        /* Load rest of styles deferred */
-    </style>
+        /* Hamburger Menu Styles */
+        .hamburger {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-    <link rel="preload" as="style" href="#deferred-styles">
+        .hamburger span {
+            width: 24px;
+            height: 2.5px;
+            background: currentColor;
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block;
+        }
+
+        .hamburger span:nth-child(1) {
+            margin-bottom: 6px;
+        }
+
+        .hamburger span:nth-child(2) {
+            margin-bottom: 6px;
+            opacity: 1;
+        }
+
+        .hamburger span:nth-child(3) {
+            margin-bottom: 0;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(12px);
+            background-color: #fbbf24;
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-12px);
+            background-color: #fbbf24;
+        }
+
+        .hamburger:hover span {
+            background-color: #fbbf24;
+        }
+    </style>
 </head>
 <body class="bg-[#0f172a] text-slate-200">
 
 <div class="nav-header w-full border-b border-amber-400/30">
     <nav class="relative z-[100] p-6 max-w-6xl mx-auto w-full flex justify-between items-center">
         <a href="/" class="flex-shrink-0 logo-container">
-            <img src="logo.png" alt="MinuteOneStory Logo" class="h-16 w-auto" loading="eager" width="64" height="64">
+            <img src="logo.png" alt="MinuteOneStory Logo" loading="eager">
         </a>
 
         <button id="menu-btn" class="md:hidden text-slate-400 hover:text-amber-400 focus:outline-none relative z-[110] hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -287,7 +341,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-1">
                     <a href="/">
-                        <img src="logo.png" alt="MinuteOneStory Logo" class="h-10 w-auto mb-4 hover:opacity-80 transition" loading="lazy" width="40" height="40">
+                        <img src="logo.png" alt="MinuteOneStory Logo" class="h-10 w-auto mb-4 hover:opacity-80 transition" loading="lazy">
                     </a>
                     <p class="text-slate-400 text-sm leading-relaxed">Translating your vision into screen ready stories.</p>
                 </div>
@@ -367,11 +421,6 @@
         processItems.forEach(item => {
             item.style.opacity = '1';
         });
-    });
-
-    // Lazy load non-critical script
-    window.addEventListener('load', function() {
-        // Additional tracking or features can be loaded here
     });
 </script>
 </body>
