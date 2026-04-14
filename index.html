@@ -17,7 +17,7 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         h1, h2, h3 { font-family: 'Playfair Display', serif; }
         
-        /* Fade-in Slide-up Animation */
+        /* ===== HERO ANIMATIONS ===== */
         @keyframes fadeInSlideUp {
             from {
                 opacity: 0;
@@ -33,10 +33,175 @@
             animation: fadeInSlideUp 0.8s ease-out forwards;
         }
         
-        /* Stagger effect for multiple elements */
         .hero-content:nth-child(1) { animation-delay: 0.1s; }
         .hero-content:nth-child(2) { animation-delay: 0.3s; }
         .hero-content:nth-child(3) { animation-delay: 0.5s; }
+
+        /* ===== SERVICE CARDS ANIMATIONS ===== */
+        @keyframes cardHoverGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3), 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(251, 191, 36, 0.6), 0 12px 24px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover {
+            transform: scale(1.05) translateY(-8px);
+            border-color: rgba(251, 191, 36, 0.8) !important;
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.5), 0 12px 24px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover h4 {
+            color: #fbbf24;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+
+        /* ===== PROCESS SECTION ANIMATIONS ===== */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .process-item {
+            opacity: 0;
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .process-item:nth-child(1) { animation-delay: 0.1s; }
+        .process-item:nth-child(2) { animation-delay: 0.3s; }
+        .process-item:nth-child(3) { animation-delay: 0.5s; }
+
+        .process-item-box {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .process-item-box:hover {
+            transform: translateY(-10px);
+            border-color: rgba(251, 191, 36, 0.8) !important;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.4), 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .process-item-box:hover h3 {
+            color: #fbbf24;
+        }
+
+        /* ===== BUTTON ANIMATIONS ===== */
+        @keyframes buttonGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+            }
+        }
+
+        .cta-button {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(251, 191, 36, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.08);
+            background-color: #fbbf24 !important;
+            color: #000 !important;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .cta-button:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* ===== SCROLL REVEAL ANIMATION ===== */
+        @keyframes fadeInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInFromLeft 0.8s ease-out;
+        }
+
+        /* ===== TEXT HOVER GLOW ===== */
+        .text-glow {
+            transition: all 0.3s ease;
+        }
+
+        .text-glow:hover {
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+            color: #fbbf24;
+        }
+
+        /* ===== SMOOTH TRANSITIONS ===== */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-[#0f172a] text-slate-200">
@@ -71,8 +236,6 @@
                     </div>
                 </div>
             </div>
-            
-            <a href="/contact.html" class="bg-amber-400 hover:bg-amber-500 text-black px-6 py-2.5 rounded-full font-bold text-sm transition transform hover:scale-105">Contact</a>
         </div>
 
         <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-xl border-b border-amber-400/20 z-[105] flex flex-col items-center py-10 space-y-6">
@@ -94,27 +257,27 @@
                 From an idea to full length screenplays. A writing team dedicated to impactful storytelling.
             </p>
             <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up hero-content">
-                <a href="portfolio.html" class="bg-white text-black px-14 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-amber-400 transition transform hover:scale-105">View Portfolio</a>
+                <a href="portfolio.html" class="cta-button bg-white text-black px-14 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-amber-400 transition transform">View Portfolio</a>
             </div>
         </div>
 
-        <div class="group bg-slate-900/40 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all duration-500 hover:border-amber-400/20 shadow-2xl">
+        <div class="group bg-slate-900/40 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all duration-500 hover:border-amber-400/20 shadow-2xl scroll-reveal">
             <div class="grid md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-white/10">
-                <div class="pb-6 md:pb-0 md:pr-6">
+                <div class="service-card pb-6 md:pb-0 md:pr-6">
                     <div class="flex items-center gap-3 mb-2">
                         <span class="text-amber-400 font-bold text-xs">01</span>
                         <h4 class="text-white font-bold text-sm uppercase tracking-wider">Short-Form</h4>
                     </div>
                     <p class="text-slate-400 text-xs leading-relaxed">Viral-ready scripts for Reels and Shorts that stop the scroll.</p>
                 </div>
-                <div class="py-6 md:py-0 md:px-6">
+                <div class="service-card py-6 md:py-0 md:px-6">
                     <div class="flex items-center gap-3 mb-2">
                         <span class="text-amber-400 font-bold text-xs">02</span>
                         <h4 class="text-white font-bold text-sm uppercase tracking-wider">Narratives</h4>
                     </div>
                     <p class="text-slate-400 text-xs leading-relaxed">10-20 minute short films with deep character arcs and payoffs.</p>
                 </div>
-                <div class="pt-6 md:pt-0 md:pl-6">
+                <div class="service-card pt-6 md:pt-0 md:pl-6">
                     <div class="flex items-center gap-3 mb-2">
                         <span class="text-amber-400 font-bold text-xs">03</span>
                         <h4 class="text-white font-bold text-sm uppercase tracking-wider">Features</h4>
@@ -130,7 +293,7 @@
     <div class="absolute inset-0 bg-[#0f172a]/90"></div>
 
     <div class="relative z-10 max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16 scroll-reveal">
             <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">The <span class="text-amber-400">Process</span></h2>
             <p class="text-slate-400 max-w-2xl mx-auto text-lg">From a blank page to a production-ready script in three professional steps.</p>
         </div>
@@ -138,24 +301,24 @@
         <div class="grid md:grid-cols-3 gap-12 relative">
             <div class="hidden md:block absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent -z-10"></div>
 
-            <div class="text-center group">
-                <div class="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:border-amber-400/50 transition-all duration-300">
+            <div class="process-item text-center group">
+                <div class="process-item-box w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:border-amber-400/50 transition-all duration-300">
                     <span class="text-amber-400 font-bold text-xl">01</span>
                 </div>
                 <h3 class="text-xl font-bold text-white mb-3">Discovery Call</h3>
                 <p class="text-slate-400 text-sm leading-relaxed">We deep-dive into your vision, target audience, and core message to define the story's "DNA."</p>
             </div>
 
-            <div class="text-center group">
-                <div class="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:border-amber-400/50 transition-all duration-300">
+            <div class="process-item text-center group">
+                <div class="process-item-box w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:border-amber-400/50 transition-all duration-300">
                     <span class="text-amber-400 font-bold text-xl">02</span>
                 </div>
                 <h3 class="text-xl font-bold text-white mb-3">The First Draft</h3>
                 <p class="text-slate-400 text-sm leading-relaxed">Our duo crafts a high-impact draft focused on strong hooks and cinematic pacing.</p>
             </div>
 
-            <div class="text-center group">
-                <div class="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:border-amber-400/50 transition-all duration-300">
+            <div class="process-item text-center group">
+                <div class="process-item-box w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:border-amber-400/50 transition-all duration-300">
                     <span class="text-amber-400 font-bold text-xl">03</span>
                 </div>
                 <h3 class="text-xl font-bold text-white mb-3">Refine & Finalize</h3>
@@ -169,7 +332,7 @@
     <footer class="bg-[#0b1120] pt-16 pb-8">
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div class="col-span-1 md:col-span-1">
+                <div class="col-span-1 md:col-span-1 scroll-reveal">
                     <a href="/">
                         <img src="logo.png" alt="MinuteOneStory Logo" class="h-10 w-auto mb-4 hover:opacity-80 transition">
                     </a>
@@ -178,19 +341,19 @@
                     </p>
                 </div>
 
-                <div class="md:col-span-2">
+                <div class="md:col-span-2 scroll-reveal">
                     <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Navigation</h4>
                     <ul class="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4 text-sm text-slate-400">
-                        <li><a href="/" class="hover:text-amber-400 transition">Home</a></li>
-                        <li><a href="/portfolio.html" class="hover:text-amber-400 transition">Our Work</a></li>
-                        <li><a href="/about.html" class="hover:text-amber-400 transition">About Us</a></li>
-                        <li><a href="/contact.html" class="hover:text-amber-400 transition">Contact Us</a></li>
-                        <li><a href="/privacy.html" class="hover:text-amber-400 transition">Privacy Policy</a></li>
-                        <li><a href="/terms.html" class="hover:text-amber-400 transition">Terms of Service</a></li>
+                        <li><a href="/" class="text-glow hover:text-amber-400 transition">Home</a></li>
+                        <li><a href="/portfolio.html" class="text-glow hover:text-amber-400 transition">Our Work</a></li>
+                        <li><a href="/about.html" class="text-glow hover:text-amber-400 transition">About Us</a></li>
+                        <li><a href="/contact.html" class="text-glow hover:text-amber-400 transition">Contact Us</a></li>
+                        <li><a href="/privacy.html" class="text-glow hover:text-amber-400 transition">Privacy Policy</a></li>
+                        <li><a href="/terms.html" class="text-glow hover:text-amber-400 transition">Terms of Service</a></li>
                     </ul>
                 </div>
 
-                <div class="col-span-1">
+                <div class="col-span-1 scroll-reveal">
                     <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Connect</h4>
                     <div class="flex space-x-4 mb-6">
                         <a href="https://instagram.com/minuteonestory" target="_blank" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-400 hover:text-black transition">
@@ -219,6 +382,7 @@
 </div>
 
 <script>
+    // Mobile Menu Toggle
     document.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('mobile-menu');
@@ -235,6 +399,39 @@
                 });
             });
         }
+    });
+
+    // Scroll Reveal Animation
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-reveal').forEach(element => {
+        observer.observe(element);
+    });
+
+    // Process Items Scroll Reveal
+    const processObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.process-item').forEach(element => {
+        processObserver.observe(element);
     });
 </script>
 </body>
