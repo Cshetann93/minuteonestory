@@ -13,25 +13,12 @@
     <meta name="description" content="MinuteOneStory - Professional screenplay writing services for short films, reels, and features.">
     <title>MinuteOneStory - Professional Script Writing</title>
     
-    <!-- Preload critical fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        :root {
-            --primary: #fbbf24;
-            --dark: #0f172a;
-            --darker: #0b1120;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #0f172a;
@@ -42,17 +29,11 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Original logo container - FIXED SIZE */
-        .logo-container {
-            flex-shrink: 0;
-        }
-
+        /* EXACT SAME AS OTHER PAGES */
         .logo-container img {
             animation: logoFloat 3s ease-in-out infinite;
-            max-width: 100%;
-            height: auto;
+            max-height: 64px;
             width: auto;
-            display: block;
         }
 
         .nav-header {
@@ -120,12 +101,6 @@
         .process-item:nth-child(2) { animation-delay: 0.3s; }
         .process-item:nth-child(3) { animation-delay: 0.5s; }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
@@ -134,7 +109,7 @@
             }
         }
 
-        /* Hamburger Menu Styles */
+        /* Hamburger Menu */
         .hamburger {
             width: 32px;
             height: 32px;
@@ -144,7 +119,6 @@
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .hamburger span {
@@ -162,11 +136,6 @@
 
         .hamburger span:nth-child(2) {
             margin-bottom: 6px;
-            opacity: 1;
-        }
-
-        .hamburger span:nth-child(3) {
-            margin-bottom: 0;
         }
 
         .hamburger.active span:nth-child(1) {
@@ -193,7 +162,7 @@
 
 <div class="nav-header w-full border-b border-amber-400/30">
     <nav class="relative z-[100] p-6 max-w-6xl mx-auto w-full flex justify-between items-center">
-        <a href="/" class="flex-shrink-0 logo-container">
+        <a href="/" class="flex-shrink-0">
             <img src="logo.png" alt="MinuteOneStory Logo" class="h-16 w-auto" loading="eager">
         </a>
 
@@ -378,7 +347,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Hamburger menu
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('mobile-menu');
 
@@ -399,13 +367,11 @@
             });
         }
 
-        // Hero animations
         const heroElements = document.querySelectorAll('.hero-content.animate-fade-in-up');
         heroElements.forEach((el, index) => {
             el.style.animationDelay = (index * 0.2 + 0.1) + 's';
         });
 
-        // Process items visibility
         const processItems = document.querySelectorAll('.process-item');
         processItems.forEach(item => {
             item.style.opacity = '1';
