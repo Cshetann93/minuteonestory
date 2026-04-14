@@ -13,13 +13,43 @@
     <meta name="description" content="MinuteOneStory - Professional screenplay writing services for short films, reels, and features.">
     <title>MinuteOneStory - Professional Script Writing</title>
     
-    <!-- Preload fonts first -->
+    <!-- CRITICAL ABOVE-THE-FOLD CSS ONLY -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: auto; }
+        body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background-color: #0f172a; color: #cbd5e1; }
+        h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
+        img { max-width: 100%; height: auto; display: block; }
+        
+        .nav-header { position: sticky; top: 0; z-index: 50; background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%); border-bottom: 1px solid rgba(251, 191, 36, 0.1); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
+        .nav-header nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; max-width: 1280px; margin: 0 auto; width: 100%; }
+        
+        .hamburger { width: 32px; height: 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; background: none; border: none; color: #94a3b8; padding: 0; }
+        .hamburger span { width: 24px; height: 2.5px; background: currentColor; border-radius: 2px; display: block; margin-bottom: 6px; transition: all 0.3s ease; }
+        .hamburger span:last-child { margin-bottom: 0; }
+        
+        #mobile-menu { display: none; }
+        #mobile-menu.active { display: flex; }
+        
+        @media (max-width: 768px) {
+            .desktop-nav { display: none !important; }
+            #menu-btn { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+            #menu-btn { display: none !important; }
+            #mobile-menu { display: none !important; }
+        }
+    </style>
+
+    <!-- Preload fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind - KEEP SYNCHRONOUS for proper mobile rendering -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Tailwind asynchronously to avoid render blocking -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <script async src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Fallback CSS while Tailwind loads -->
     <style>
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -120,6 +150,9 @@
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
         }
 
         .hamburger span {
@@ -158,6 +191,9 @@
             background-color: #fbbf24;
         }
     </style>
+
+    <!-- Defer non-critical Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 </head>
 <body class="bg-[#0f172a] text-slate-200">
 
@@ -173,7 +209,7 @@
             <span></span>
         </button>
 
-        <div class="hidden md:flex items-center space-x-8">
+        <div id="desktop-nav" class="desktop-nav hidden md:flex items-center space-x-8">
             <a href="/portfolio.html" class="text-slate-400 hover:text-amber-400 font-semibold text-sm transition-all duration-300">Our work</a>
             <a href="/about.html" class="text-slate-400 hover:text-amber-400 font-semibold text-sm transition-all duration-300">About us</a>
             
@@ -353,9 +389,9 @@
 
         if (btn && menu) {
             btn.addEventListener('click', () => {
-                const isHidden = menu.classList.toggle('hidden');
-                btn.setAttribute('aria-expanded', !isHidden);
+                menu.classList.toggle('hidden');
                 btn.classList.toggle('active');
+                btn.setAttribute('aria-expanded', !menu.classList.contains('hidden'));
             });
 
             const links = menu.querySelectorAll('a');
