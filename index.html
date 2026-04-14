@@ -377,14 +377,15 @@
 
             <div class="border-t border-slate-800 pt-8 flex justify-center items-center text-xs text-slate-500">
                 <p>© 2026 MinuteOneStory. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-</div>
-
-<script>
-    // Mobile Menu Toggle
-    document.addEventListener('DOMContentLoaded', () => {
+        <script>
+    // Hero animations - manually set delays
+    document.addEventListener('DOMContentLoaded', function() {
+        const heroElements = document.querySelectorAll('.hero-content.animate-fade-in-up');
+        heroElements.forEach((el, index) => {
+            el.style.animationDelay = (index * 0.2 + 0.1) + 's';
+        });
+        
+        // Mobile Menu Toggle
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('mobile-menu');
 
@@ -431,6 +432,10 @@
         });
     }, observerOptions);
 
+    document.querySelectorAll('.process-item').forEach(element => {
+        processObserver.observe(element);
+    });
+</script>
     document.querySelectorAll('.process-item').forEach(element => {
         processObserver.observe(element);
     });
