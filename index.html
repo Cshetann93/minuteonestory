@@ -13,10 +13,22 @@
     <meta name="description" content="MinuteOneStory - Professional screenplay writing services for short films, reels, and features.">
     <title>MinuteOneStory - Professional Script Writing</title>
     
+    <!-- Critical CSS inline for faster render -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0f172a; color: #cbd5e1; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .nav-header { position: sticky; top: 0; z-index: 50; background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%); border-bottom: 1px solid rgba(251, 191, 36, 0.1); }
+        .nav-header nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; max-width: 1280px; margin: 0 auto; width: 100%; }
+        img { max-width: 100%; height: auto; display: block; }
+    </style>
+
+    <!-- Preload fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Defer Tailwind to avoid render blocking -->
+    <script defer src="https://cdn.tailwindcss.com"></script>
     
     <style>
         body { 
@@ -29,7 +41,6 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* EXACT SAME AS OTHER PAGES */
         .logo-container img {
             animation: logoFloat 3s ease-in-out infinite;
             max-height: 64px;
