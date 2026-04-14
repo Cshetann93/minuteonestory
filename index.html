@@ -30,11 +30,11 @@
         }
 
         .nav-header {
-            animation: headerSlideDown 0.6s ease-out;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(251, 191, 36, 0.1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            animation: headerSlideDown 0.6s ease-out !important;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%) !important;
+            backdrop-filter: blur(10px) !important;
+            border-bottom: 1px solid rgba(251, 191, 36, 0.1) !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
             position: sticky;
             top: 0;
             z-index: 50;
@@ -43,19 +43,19 @@
         /* ===== LOGO ANIMATION ===== */
         @keyframes logoFloat {
             0%, 100% {
-                transform: translateY(0px);
+                transform: translateY(0px) !important;
             }
             50% {
-                transform: translateY(-5px);
+                transform: translateY(-8px) !important;
             }
         }
 
-        .logo-container {
-            animation: logoFloat 3s ease-in-out infinite;
+        .logo-container img {
+            animation: logoFloat 3s ease-in-out infinite !important;
         }
 
-        .logo-container:hover {
-            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4));
+        .logo-container:hover img {
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4)) !important;
         }
 
         /* ===== NAV LINKS ANIMATION ===== */
@@ -71,15 +71,15 @@
         }
 
         .nav-link {
-            animation: navLinkSlide 0.6s ease-out forwards;
+            animation: navLinkSlide 0.6s ease-out forwards !important;
             opacity: 0;
             position: relative;
         }
 
-        .nav-link:nth-child(1) { animation-delay: 0.1s; }
-        .nav-link:nth-child(2) { animation-delay: 0.2s; }
-        .nav-link:nth-child(3) { animation-delay: 0.3s; }
-        .nav-link:nth-child(4) { animation-delay: 0.4s; }
+        .nav-link:nth-child(1) { animation-delay: 0.1s !important; }
+        .nav-link:nth-child(2) { animation-delay: 0.2s !important; }
+        .nav-link:nth-child(3) { animation-delay: 0.3s !important; }
+        .nav-link:nth-child(4) { animation-delay: 0.4s !important; }
 
         .nav-link::after {
             content: '';
@@ -97,8 +97,8 @@
         }
 
         .nav-link:hover {
-            color: #fbbf24;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+            color: #fbbf24 !important;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5) !important;
         }
 
         /* ===== CONTACT BUTTON ANIMATION ===== */
@@ -114,7 +114,7 @@
         }
 
         .contact-button {
-            animation: contactButtonPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s backwards;
+            animation: contactButtonPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s backwards !important;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
@@ -137,10 +137,10 @@
         }
 
         .contact-button:hover {
-            background-color: #fbbf24;
-            color: #000;
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+            background-color: #fbbf24 !important;
+            color: #000 !important;
+            transform: scale(1.05) !important;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.5) !important;
         }
 
         /* ===== MENU BUTTON ANIMATION ===== */
@@ -156,23 +156,7 @@
         }
 
         #menu-btn {
-            animation: menuButtonSlide 0.6s ease-out 0.3s backwards;
-        }
-
-        /* ===== DROPDOWN MENU ANIMATION ===== */
-        @keyframes dropdownFade {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .group-hover\:opacity-100 {
-            animation: dropdownFade 0.3s ease-out;
+            animation: menuButtonSlide 0.6s ease-out 0.3s backwards !important;
         }
 
         /* ===== HERO ANIMATIONS ===== */
@@ -188,12 +172,11 @@
         }
         
         .animate-fade-in-up {
-            animation: fadeInSlideUp 0.8s ease-out forwards;
+            animation: fadeInSlideUp 0.8s ease-out forwards !important;
         }
         
-        /* Direct delay styling for hero content */
         .hero-content.animate-fade-in-up {
-            animation: fadeInSlideUp 0.8s ease-out forwards;
+            animation: fadeInSlideUp 0.8s ease-out forwards !important;
         }
 
         /* ===== SERVICE CARDS ANIMATIONS ===== */
@@ -251,13 +234,13 @@
         }
 
         .process-item {
-            opacity: 0;
-            animation: slideInUp 0.8s ease-out forwards;
+            opacity: 0 !important;
+            animation: slideInUp 0.8s ease-out forwards !important;
         }
 
-        .process-item:nth-child(1) { animation-delay: 0.1s; }
-        .process-item:nth-child(2) { animation-delay: 0.3s; }
-        .process-item:nth-child(3) { animation-delay: 0.5s; }
+        .process-item:nth-child(1) { animation-delay: 0.1s !important; }
+        .process-item:nth-child(2) { animation-delay: 0.3s !important; }
+        .process-item:nth-child(3) { animation-delay: 0.5s !important; }
 
         .process-item-box {
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -335,11 +318,10 @@
         }
 
         .text-glow:hover {
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.8) !important;
             color: #fbbf24;
         }
 
-        /* Reduce motion for accessibility */
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
