@@ -17,11 +17,9 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
-    <!-- Defer Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        /* Critical CSS - Inline for faster rendering */
         :root {
             --primary: #fbbf24;
             --dark: #0f172a;
@@ -44,13 +42,8 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* FIXED: Logo container with proper sizing */
+        /* Original logo container - FIXED SIZE */
         .logo-container {
-            width: 150px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
             flex-shrink: 0;
         }
 
@@ -59,8 +52,7 @@
             max-width: 100%;
             height: auto;
             width: auto;
-            max-height: 120px;
-            object-fit: contain;
+            display: block;
         }
 
         .nav-header {
@@ -128,14 +120,12 @@
         .process-item:nth-child(2) { animation-delay: 0.3s; }
         .process-item:nth-child(3) { animation-delay: 0.5s; }
 
-        /* Image optimization */
         img {
             max-width: 100%;
             height: auto;
             display: block;
         }
 
-        /* Reduce motion for better CLS */
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
@@ -204,7 +194,7 @@
 <div class="nav-header w-full border-b border-amber-400/30">
     <nav class="relative z-[100] p-6 max-w-6xl mx-auto w-full flex justify-between items-center">
         <a href="/" class="flex-shrink-0 logo-container">
-            <img src="logo.png" alt="MinuteOneStory Logo" loading="eager">
+            <img src="logo.png" alt="MinuteOneStory Logo" class="h-16 w-auto" loading="eager">
         </a>
 
         <button id="menu-btn" class="md:hidden text-slate-400 hover:text-amber-400 focus:outline-none relative z-[110] hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -387,7 +377,6 @@
 </div>
 
 <script>
-    // Defer non-critical JavaScript
     document.addEventListener('DOMContentLoaded', function() {
         // Hamburger menu
         const btn = document.getElementById('menu-btn');
