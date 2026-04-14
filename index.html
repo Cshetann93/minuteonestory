@@ -13,10 +13,31 @@
     <title>MinuteOneStory</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-    </style>
+   <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+    
+    /* Fade-in Slide-up Animation */
+    @keyframes fadeInSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .animate-fade-in-up {
+        animation: fadeInSlideUp 0.8s ease-out forwards;
+    }
+    
+    /* Stagger effect for multiple elements */
+    .animate-fade-in-up:nth-child(1) { animation-delay: 0.1s; }
+    .animate-fade-in-up:nth-child(2) { animation-delay: 0.3s; }
+    .animate-fade-in-up:nth-child(3) { animation-delay: 0.5s; }
+</style>
 </head>
 <body class="bg-[#0f172a] text-slate-200">
 
@@ -44,16 +65,17 @@
                     </svg>
                 </button>
                 <div class="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                    <div class="py-2 p-1">
-                        <a href="/terms.html" class="block px-4 py-3 text-sm text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition">Terms of service</a>
-                        <a href="/privacy.html" class="block px-4 py-3 text-sm text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition">Privacy policy</a>
-                    </div>
-                </div>
-            </div>
-            
-            <a href="/contact.html" class="bg-amber-400 hover:bg-amber-500 text-black px-6 py-2.5 rounded-full font-bold text-sm transition transform hover:scale-105 shadow-[0_0_20px_rgba(251,191,36,0.3)]">Work with us</a>
-        </div>
-
+                  <div class="text-center flex flex-col items-center mb-16">
+    <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 text-center animate-fade-in-up">
+        We turn ideas into <span class="text-amber-400">Cinematic Scripts.</span>
+    </h1>
+    <p class="text-lg text-slate-400 mb-10 max-w-2xl leading-relaxed text-center animate-fade-in-up">
+        From an idea to full length screenplays. A writing team dedicated to impactful storytelling.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up">
+        <a href="portfolio.html" class="bg-white text-black px-14 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-amber-400 transition transform hover:scale-105">View Portfolio</a>
+    </div>
+</div>
         <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-xl border-b border-amber-400/20 z-[105] flex flex-col items-center py-10 space-y-6 text-xl font-bold md:hidden shadow-2xl">
             <a href="/portfolio.html" class="text-white hover:text-amber-400 transition">Our work</a>
             <a href="/about.html" class="text-white hover:text-amber-400 transition">About us</a>
