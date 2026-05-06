@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Lab | MinuteOneStory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark: #121212;
+            --gray: #2a2a2a;
+        }
+        body {
+            background-color: var(--dark);
+            color: white;
+            font-family: 'Courier Prime', monospace;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        /* Sidebar for Controls */
+        #controls {
+            width: 350px;
+            background: var(--gray);
+            padding: 20px;
+            border-right: 2px solid var(--gold);
+            overflow-y: auto;
+        }
+        /* Main Script Area */
+        #paper {
+            flex-grow: 1;
+            background: white;
+            color: black;
+            padding: 50px 80px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        .btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: var(--gold);
+            color: black;
+        }
+        .definition {
+            font-size: 0.8rem;
+            color: #bbb;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        /* Script Formatting */
+        .slugline { font-weight: bold; text-transform: uppercase; margin-top: 25px; }
+        .action { margin-top: 15px; }
+        .character { text-align: center; width: 50%; margin: 20px auto 0 auto; text-transform: uppercase; }
+        .parenthetical { text-align: center; width: 40%; margin: 0 auto; font-size: 0.9rem; }
+        .dialogue { text-align: center; width: 70%; margin: 0 auto 15px auto; }
+    </style>
+</head>
+<body>
+
+<div id="controls">
+    <h2 style="color:var(--gold)">Script Lab</h2>
+    <p>Click an element to add it to your scene.</p>
+    <hr style="border: 0.5px solid var(--gold); margin-bottom: 20px;">
+
+    <button class="btn" onclick="addBlock('slugline')">+ Add Slugline</button>
+    <p class="definition">The "Scene Heading." Tells the reader if we are inside (INT.) or outside (EXT.), the location, and time of day.</p>
+
+    <button class="btn" onclick="addBlock('action')">+ Add Action</button>
+    <p class="definition">Describes the visual movement. "Show, don't tell." Written in present tense.</p>
+
+    <button class="btn" onclick="addBlock('character')">+ Add Character</button>
+    <p class="definition">Who is speaking? This appears in the center of the page.</p>
+
+    <button class="btn" onclick="addBlock('dialogue')">+ Add Dialogue</button>
+    <p class="definition">The actual words spoken. Keep it natural!</p>
+
+    <button class="btn" onclick="addBlock('parenthetical')">+ Add Parenthetical</button>
+    <p class="definition">Small cues in brackets showing HOW a character speaks. e.g., (whispering)</p>
+
+    <button style="margin-top:50px;" class="btn" onclick="window.print()">Download Script (PDF)</button>
+</div>
+
+<div id="paper" contenteditable="true">
+    <div class="slugline">INT. MINUTE ONE LAB - DAY</div>
+    <div class="action">The cursor blinks on a dark screen. You are about to write something legendary. Click the sidebar to begin.</div>
+</div>
+
+<script>
+    function addBlock(type) {
+        const paper = document.getElementById('paper');
+        const newBlock = document.createElement('div');
+        newBlock.className = type;
+        
+        if(type === 'slugline') newBlock.innerText = "INT. LOCATION - TIME";
+        if(type === 'action') newBlock.innerText = "The character enters the room and...";
+        if(type === 'character') newBlock.innerText = "CHARACTER NAME";
+        if(type === 'parenthetical') newBlock.innerText = "(how they say it)";
+        if(type === 'dialogue') newBlock.innerText = "Write the spoken words here.";
+
+        paper.appendChild(newBlock);
+        newBlock.focus();
+    }
+</script>
+
+</body>
+</html>
