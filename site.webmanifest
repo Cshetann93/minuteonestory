@@ -1,0 +1,16 @@
+{
+  "name": "MinuteOneStory",
+  "short_name": "MinuteOneStory",
+  "description": "Cinematic script writing for creators, brands, and filmmakers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
