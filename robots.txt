@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://minuteonestory.vercel.app/sitemap.xml
