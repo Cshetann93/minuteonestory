@@ -1,154 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Script Lab | MinuteOneStory</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: #d4af37;
-            --dark: #0f172a; /* Matched to your site's Tailwind slate-900 */
-            --gray: #1e293b; /* Matched to your site's Tailwind slate-800 */
-        }
-        body {
-            background-color: var(--dark);
-            color: white;
-            font-family: 'Courier Prime', monospace;
-            display: flex;
-            height: 100vh;
-            margin: 0;
-        }
-        /* Sidebar for Controls */
-        #controls {
-            width: 380px;
-            background: var(--gray);
-            padding: 20px;
-            border-right: 2px solid var(--gold);
-            overflow-y: auto;
-        }
-        /* Main Script Area */
-        #paper {
-            flex-grow: 1;
-            background: #e8f0fe; /* Soft light blue touch */
-            color: #0b1120; /* Darker text for readability on blue */
-            padding: 50px 80px;
-            overflow-y: auto;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.4);
-        }
-        .btn {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            text-align: left;
-            transition: 0.3s;
-            font-family: 'Courier Prime', monospace;
-        }
-        .btn:hover {
-            background: var(--gold);
-            color: black;
-            font-weight: bold;
-        }
-        .definition {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            margin-bottom: 20px;
-            margin-top: 0;
-            font-style: italic;
-            line-height: 1.4;
-        }
-        
-        /* --- Script Formatting Classes --- */
-        .slugline { font-weight: bold; text-transform: uppercase; margin-top: 25px; }
-        .action { margin-top: 15px; }
-        .character { text-align: center; width: 50%; margin: 20px auto 0 auto; text-transform: uppercase; }
-        .parenthetical { text-align: center; width: 40%; margin: 0 auto; font-size: 0.9rem; }
-        .dialogue { text-align: center; width: 70%; margin: 0 auto 15px auto; }
-        
-        /* New Elements */
-        .transition { text-align: right; text-transform: uppercase; margin-top: 15px; margin-bottom: 15px; font-weight: bold; }
-        .shot { text-transform: uppercase; margin-top: 15px; font-weight: bold; }
-        .note { font-style: italic; color: #334155; margin-top: 15px; background: rgba(0,0,0,0.05); padding: 5px; border-left: 3px solid var(--gold);}
-        
-        /* Hide sidebar when printing/downloading */
-        @media print {
-            #controls { display: none; }
-            #paper { box-shadow: none; background: white; color: black; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Write screenplay scenes directly in your browser with Script Lab by MinuteOneStory.">
+<title>Script Lab | MinuteOneStory</title>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#d4af37;--dark:#0f172a;--gray:#1e293b}
+body{background:var(--dark);color:white;font-family:'Courier Prime',monospace;display:flex;min-height:100vh;margin:0;flex-direction:row}
+#controls{width:340px;background:var(--gray);padding:20px;border-right:2px solid var(--gold);overflow-y:auto}
+#paper{flex-grow:1;background:#edf4ff;color:#0b1120;padding:40px;overflow-y:auto}
+.btn{background:transparent;border:1px solid var(--gold);color:var(--gold);width:100%;padding:12px;margin-bottom:10px;cursor:pointer;font-family:'Courier Prime',monospace;border-radius:10px}
+.btn:hover{background:var(--gold);color:black}
+.definition{font-size:.75rem;color:#94a3b8;margin:0 0 18px;font-style:italic;line-height:1.5}
+.slugline{font-weight:bold;text-transform:uppercase;margin-top:25px}.action{margin-top:15px}.character{text-align:center;width:50%;margin:20px auto 0;text-transform:uppercase}.parenthetical{text-align:center;width:40%;margin:0 auto;font-size:.9rem}.dialogue{text-align:center;width:70%;margin:0 auto 15px}.transition{text-align:right;text-transform:uppercase;margin-top:15px;font-weight:bold}.shot{text-transform:uppercase;margin-top:15px;font-weight:bold}.note{font-style:italic;color:#334155;margin-top:15px;background:rgba(0,0,0,.05);padding:8px;border-left:3px solid var(--gold)}
+@media(max-width:768px){body{flex-direction:column}#controls{width:100%;border-right:none;border-bottom:2px solid var(--gold)}#paper{padding:24px}.character,.dialogue,.parenthetical{width:100%}}
+@media print{#controls{display:none}#paper{background:white;color:black}}
+</style>
 </head>
 <body>
-
 <div id="controls">
-    <h2 style="color:var(--gold); margin-bottom: 5px;">Script Lab</h2>
-    <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 20px;">Click an element to add it to your scene. Edit text directly on the blue paper.</p>
-    <hr style="border: 0.5px solid var(--gold); margin-bottom: 20px; opacity: 0.5;">
-
-    <button class="btn" onclick="addBlock('slugline')">+ Add Slugline</button>
-    <p class="definition">The "Scene Heading." Tells us if we are inside (INT.) or outside (EXT.), the location, and time.</p>
-
-    <button class="btn" onclick="addBlock('action')">+ Add Action</button>
-    <p class="definition">Describes the visual movement. "Show, don't tell." Written in present tense.</p>
-
-    <button class="btn" onclick="addBlock('shot')">+ Add Shot</button>
-    <p class="definition">Specific camera angles or focus points (e.g., CLOSE UP ON, WIDE SHOT).</p>
-
-    <button class="btn" onclick="addBlock('character')">+ Add Character</button>
-    <p class="definition">Who is speaking? This appears in the center of the page.</p>
-
-    <button class="btn" onclick="addBlock('parenthetical')">+ Add Parenthetical</button>
-    <p class="definition">Small cues in brackets showing HOW a character speaks. (e.g., whispering)</p>
-
-    <button class="btn" onclick="addBlock('dialogue')">+ Add Dialogue</button>
-    <p class="definition">The actual words spoken. Keep it natural!</p>
-
-    <button class="btn" onclick="addBlock('transition')">+ Add Transition</button>
-    <p class="definition">How we move to the next scene (e.g., CUT TO:, FADE OUT.). Appears on the right.</p>
-
-    <button class="btn" onclick="addBlock('note')">+ Add Writer's Note</button>
-    <p class="definition">Hidden notes for the director or AI prompt details.</p>
-
-    <button style="margin-top:30px; border-width: 2px;" class="btn" onclick="window.print()">🖨️ Download Script (PDF)</button>
+<h2 style="color:var(--gold)">Script Lab</h2>
+<p style="color:#cbd5e1">Build screenplay scenes directly in your browser.</p>
+<hr style="border:.5px solid var(--gold);opacity:.5;margin:20px 0">
+<button class="btn" onclick="addBlock('slugline')">+ Add Slugline</button>
+<button class="btn" onclick="addBlock('action')">+ Add Action</button>
+<button class="btn" onclick="addBlock('shot')">+ Add Shot</button>
+<button class="btn" onclick="addBlock('character')">+ Add Character</button>
+<button class="btn" onclick="addBlock('parenthetical')">+ Add Parenthetical</button>
+<button class="btn" onclick="addBlock('dialogue')">+ Add Dialogue</button>
+<button class="btn" onclick="addBlock('transition')">+ Add Transition</button>
+<button class="btn" onclick="addBlock('note')">+ Add Writer Note</button>
+<button class="btn" onclick="saveDraft()">💾 Save Draft</button>
+<button class="btn" onclick="clearDraft()">🗑️ Clear Draft</button>
+<button class="btn" onclick="window.print()">🖨️ Export PDF</button>
+<a href="/contact.html" style="display:block;text-align:center;margin-top:20px;color:var(--gold)">Need a professional screenplay?</a>
 </div>
-
-<div id="paper" contenteditable="true">
-    <div class="slugline">INT. MINUTE ONE LAB - DAY</div>
-    <div class="action">The cursor blinks on a sleek, light blue screen. You are about to write something legendary.</div>
-    <div class="character">CREATOR</div>
-    <div class="parenthetical">(smiling)</div>
-    <div class="dialogue">This looks exactly like a real Hollywood script.</div>
-    <div class="transition">CUT TO:</div>
-</div>
-
+<div id="paper" contenteditable="true"></div>
 <script>
-    function addBlock(type) {
-        const paper = document.getElementById('paper');
-        const newBlock = document.createElement('div');
-        newBlock.className = type;
-        
-        // Define default text for the new elements
-        if(type === 'slugline') newBlock.innerText = "INT. LOCATION - TIME";
-        if(type === 'action') newBlock.innerText = "The character enters the room and...";
-        if(type === 'character') newBlock.innerText = "CHARACTER NAME";
-        if(type === 'parenthetical') newBlock.innerText = "(how they say it)";
-        if(type === 'dialogue') newBlock.innerText = "Write the spoken words here.";
-        if(type === 'transition') newBlock.innerText = "CUT TO:";
-        if(type === 'shot') newBlock.innerText = "ANGLE ON:";
-        if(type === 'note') newBlock.innerText = "[Note: Type specific details or AI prompts here]";
-
-        paper.appendChild(newBlock);
-        
-        // Auto-scroll to the bottom when a new element is added
-        paper.scrollTop = paper.scrollHeight;
-        
-        // Highlight the new block so the user can just start typing
-        newBlock.focus();
-    }
+const defaults=`<div class='slugline'>INT. MINUTE ONE LAB - DAY</div><div class='action'>The cursor blinks on a screenplay editor waiting for the next great story.</div><div class='character'>CREATOR</div><div class='dialogue'>Every great film starts with one scene.</div>`;
+const paper=document.getElementById('paper');
+paper.innerHTML=localStorage.getItem('scriptlabDraft')||defaults;
+function addBlock(type){const block=document.createElement('div');block.className=type;const text={slugline:'INT. LOCATION - TIME',action:'Describe the visual action here.',character:'CHARACTER NAME',parenthetical:'(emotion)',dialogue:'Dialogue goes here.',transition:'CUT TO:',shot:'CLOSE ON:',note:'[Writer note or AI prompt]'};block.innerText=text[type];paper.appendChild(block);}
+function saveDraft(){localStorage.setItem('scriptlabDraft',paper.innerHTML);alert('Draft saved locally on your device.');}
+function clearDraft(){if(confirm('Clear the current draft?')){localStorage.removeItem('scriptlabDraft');paper.innerHTML=defaults;}}
 </script>
-
 </body>
 </html>
