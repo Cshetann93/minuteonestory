@@ -3,72 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MinuteOneStory — Homepage Concept</title>
+<title>MinuteOneStory — Cinematic Writer Studio Concept</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-body{
-font-family:'Plus Jakarta Sans',sans-serif;
-background:#0b1120;
-color:#e2e8f0;
-overflow-x:hidden;
-}
-
-h1,h2,h3{
-font-family:'Playfair Display',serif;
-}
-
-.hero-glow{
-position:absolute;
-width:700px;
-height:700px;
-background:radial-gradient(circle, rgba(251,191,36,0.12), transparent 70%);
-filter:blur(60px);
-right:-200px;
-top:-100px;
-pointer-events:none;
-}
-
-.grain{
-position:fixed;
-inset:0;
-pointer-events:none;
-opacity:.04;
-background-image:url('https://grainy-gradients.vercel.app/noise.svg');
-}
-
-.fade-divider{
-height:1px;
-background:linear-gradient(90deg,transparent,rgba(251,191,36,.25),transparent);
-}
-
-.project-card{
-transition:all .45s ease;
-}
-
-.project-card:hover{
-transform:translateY(-8px);
-box-shadow:0 20px 60px rgba(0,0,0,.45);
-border-color:rgba(251,191,36,.35);
-}
-
-.quote-float{
-position:absolute;
-right:10%;
-top:20%;
-font-size:12rem;
-opacity:.03;
-font-family:'Playfair Display',serif;
-pointer-events:none;
-}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#0a0f1d;color:#e2e8f0;overflow-x:hidden;background-image:radial-gradient(circle at top right,rgba(251,191,36,.06),transparent 30%)}
+h1,h2,h3{font-family:'Playfair Display',serif}
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.05;background-image:url('https://grainy-gradients.vercel.app/noise.svg')}
+.hero-glow{position:absolute;width:900px;height:900px;background:radial-gradient(circle,rgba(251,191,36,.12),transparent 70%);right:-250px;top:-200px;filter:blur(70px)}
+.cursor-blink{display:inline-block;width:12px;height:60px;background:#fbbf24;animation:blink 1s infinite;margin-left:8px;vertical-align:middle}.project-card{transition:all .45s ease}.project-card:hover{transform:translateY(-10px);border-color:rgba(251,191,36,.4);box-shadow:0 25px 70px rgba(0,0,0,.45)}
+@keyframes blink{50%{opacity:0}}
+.fade-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(251,191,36,.25),transparent)}
+.notebook{background:linear-gradient(180deg,rgba(255,255,255,.015),transparent);border:1px solid rgba(255,255,255,.06);backdrop-filter:blur(10px)}
 </style>
 </head>
 <body>
 <div class="grain"></div>
-
-<!-- KEEPING HEADER STYLE -->
 <nav class="border-b border-amber-400/20 bg-slate-900/80 backdrop-blur-lg sticky top-0 z-50">
 <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
 <a href="/"><img src="logo.png" alt="MinuteOneStory Logo" class="h-14"></a>
@@ -80,159 +32,120 @@ pointer-events:none;
 </div>
 </div>
 </nav>
-
-<!-- HERO -->
 <section class="relative min-h-screen flex items-center overflow-hidden">
 <div class="hero-glow"></div>
-<div class="quote-float">"</div>
-
 <div class="max-w-6xl mx-auto px-6 relative z-10 py-32">
-<p class="uppercase tracking-[0.35em] text-amber-400 text-xs mb-8">Cinematic Storytelling Archive</p>
-
-<h1 class="text-6xl md:text-8xl font-black text-white leading-[0.95] max-w-5xl mb-10">
-Stories should leave a scar.
-</h1>
-
-<p class="text-xl text-slate-400 leading-9 max-w-3xl mb-14">
-I write emotionally charged thrillers, mystery-driven narratives, and cinematic stories built on atmosphere, tension, memory, and emotional uncertainty.
-</p>
-
-<div class="flex flex-wrap gap-5">
-<a href="#featured" class="px-8 py-4 rounded-full bg-amber-400 text-black font-bold hover:scale-105 transition">Explore Stories</a>
-<a href="#philosophy" class="px-8 py-4 rounded-full border border-slate-700 hover:border-amber-400/40 transition">Creative Philosophy</a>
+<p class="uppercase tracking-[0.35em] text-amber-400 text-xs mb-8">Cinematic Digital Writer's Room</p>
+<h1 class="text-6xl md:text-8xl font-black text-white leading-[0.9] max-w-5xl mb-10">Stories that stay after the screen goes black.<span class="cursor-blink"></span></h1>
+<p class="text-xl text-slate-400 leading-9 max-w-3xl mb-14">Emotionally heavy thrillers, mystery-driven narratives, and cinematic stories obsessed with atmosphere, silence, memory, and tension.</p>
+<div class="flex flex-wrap gap-5 mb-20">
+<a href="#projects" class="px-8 py-4 rounded-full bg-amber-400 text-black font-bold hover:scale-105 transition">Enter The Archive</a>
+<a href="#obsessions" class="px-8 py-4 rounded-full border border-slate-700 hover:border-amber-400/40 transition">Current Obsessions</a>
+</div>
+<div class="grid md:grid-cols-3 gap-6 max-w-5xl">
+<div class="notebook rounded-3xl p-6">
+<p class="text-amber-400 text-xs uppercase tracking-[0.25em] mb-4">Current Status</p>
+<p class="text-slate-300 leading-8">Currently developing a time-loop thriller involving memory corruption and meteor-triggered reality fractures.</p>
+</div>
+<div class="notebook rounded-3xl p-6">
+<p class="text-amber-400 text-xs uppercase tracking-[0.25em] mb-4">Micro Lore</p>
+<p class="text-slate-300 leading-8">Last draft exported at 2:13 AM.<br>Draft count this week: 17.</p>
+</div>
+<div class="notebook rounded-3xl p-6">
+<p class="text-amber-400 text-xs uppercase tracking-[0.25em] mb-4">Writing Philosophy</p>
+<p class="text-slate-300 leading-8">The audience should feel tension before they understand why they feel tense.</p>
+</div>
 </div>
 </div>
 </section>
-
 <div class="fade-divider max-w-6xl mx-auto"></div>
-
-<!-- FEATURED PROJECT -->
-<section id="featured" class="py-32 relative">
+<section id="projects" class="py-32">
 <div class="max-w-6xl mx-auto px-6">
 <div class="mb-16">
-<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-5">Currently Developing</p>
-<h2 class="text-5xl md:text-6xl font-black text-white mb-8 max-w-4xl">
-A meteor strike traps three strangers inside repeating reality.
-</h2>
-<p class="text-slate-400 text-lg leading-8 max-w-3xl">
-A time-loop thriller exploring memory decay, paranoia, and the psychological horror of reliving fragmented reality.
-</p>
+<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-5">Production Archive</p>
+<h2 class="text-5xl md:text-6xl font-black text-white mb-8">Projects Under Development</h2>
 </div>
-
-<div class="grid md:grid-cols-2 gap-10 items-center">
-<div class="project-card border border-slate-800 rounded-[2rem] p-10 bg-gradient-to-br from-slate-900 to-[#131c31]">
-<p class="text-xs uppercase tracking-[0.25em] text-amber-400 mb-6">Featured Project</p>
-<h3 class="text-4xl text-white font-bold mb-6">Time Loop Script</h3>
-<p class="text-slate-400 leading-8 mb-8">
-Every reset changes the characters psychologically. The loop is not just a plot device — it becomes emotional erosion.
-</p>
-
-<div class="flex flex-wrap gap-3 mb-8">
-<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-xs">Thriller</span>
-<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-xs">Mystery</span>
-<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-xs">Time Loop</span>
-<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-xs">Psychological</span>
+<div class="grid md:grid-cols-2 gap-10">
+<div class="project-card notebook rounded-[2rem] p-10">
+<p class="text-xs uppercase tracking-[0.25em] text-amber-400 mb-5">CASE FILE 03</p>
+<h3 class="text-4xl text-white font-bold mb-6">PROJECT // NIGHT LOOP</h3>
+<div class="space-y-4 mb-8 text-slate-400 leading-8">
+<p><strong class="text-white">Genre:</strong> Psychological Sci-Fi Thriller</p>
+<p><strong class="text-white">Format:</strong> Feature Film</p>
+<p><strong class="text-white">Status:</strong> In Development</p>
+<p><strong class="text-white">Runtime:</strong> Estimated 118 min</p>
 </div>
-
-<a href="#" class="text-amber-400 font-semibold">Read Development Notes →</a>
+<p class="text-slate-300 leading-8 mb-8">Three strangers become trapped inside a looping reality after a meteor event fractures memory itself.</p>
+<a href="#" class="text-amber-400 font-semibold">Access Development Notes →</a>
 </div>
-
 <div class="space-y-8">
 <div class="border-l border-amber-400/20 pl-8">
-<p class="text-amber-400 uppercase tracking-[0.2em] text-xs mb-4">Core Idea</p>
-<p class="text-slate-300 leading-8">
-The horror comes from characters remembering different versions of reality after every reset.
-</p>
+<p class="text-amber-400 uppercase tracking-[0.2em] text-xs mb-4">Scene Construction</p>
+<p class="text-slate-300 leading-8">Suspense built through delayed confirmation, emotional uncertainty, and environmental tension.</p>
 </div>
-
 <div class="border-l border-amber-400/20 pl-8">
-<p class="text-amber-400 uppercase tracking-[0.2em] text-xs mb-4">Atmosphere</p>
-<p class="text-slate-300 leading-8">
-Dark skies, unstable electricity, abandoned roads, radio static, and emotional claustrophobia.
-</p>
+<p class="text-amber-400 uppercase tracking-[0.2em] text-xs mb-4">Current Influences</p>
+<p class="text-slate-300 leading-8">Zodiac, Prisoners, Arrival, Memories of Murder, True Detective Season 1.</p>
 </div>
-
 <div class="border-l border-amber-400/20 pl-8">
-<p class="text-amber-400 uppercase tracking-[0.2em] text-xs mb-4">Theme</p>
-<p class="text-slate-300 leading-8">
-How memory changes identity when reality itself becomes unstable.
-</p>
+<p class="text-amber-400 uppercase tracking-[0.2em] text-xs mb-4">Creative Note</p>
+<p class="text-slate-300 leading-8">The loop itself should feel psychologically exhausting, not mechanically repetitive.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-
 <div class="fade-divider max-w-6xl mx-auto"></div>
-
-<!-- WRITER PHILOSOPHY -->
-<section id="philosophy" class="py-32 relative overflow-hidden">
+<section id="obsessions" class="py-32">
 <div class="max-w-5xl mx-auto px-6 text-center">
-<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-6">Creative Philosophy</p>
-
-<h2 class="text-5xl md:text-6xl font-black text-white leading-tight mb-12">
-Tension begins before the danger.
-</h2>
-
-<p class="text-slate-400 text-xl leading-10 max-w-4xl mx-auto mb-20">
-I’m obsessed with stories where atmosphere becomes emotional pressure. Where silence says more than dialogue. Where suspense is created through uncertainty rather than spectacle.
-</p>
-
-<div class="grid md:grid-cols-3 gap-8 text-left">
-<div class="border border-slate-800 rounded-3xl p-8 bg-slate-900/50">
-<h3 class="text-2xl text-white mb-5">Atmosphere</h3>
-<p class="text-slate-400 leading-8">The audience should feel something is wrong before the story explains why.</p>
-</div>
-
-<div class="border border-slate-800 rounded-3xl p-8 bg-slate-900/50">
-<h3 class="text-2xl text-white mb-5">Memory</h3>
-<p class="text-slate-400 leading-8">Characters become more interesting when their perception of reality begins breaking apart.</p>
-</div>
-
-<div class="border border-slate-800 rounded-3xl p-8 bg-slate-900/50">
-<h3 class="text-2xl text-white mb-5">Silence</h3>
-<p class="text-slate-400 leading-8">The most powerful scenes often happen in what characters refuse to say.</p>
-</div>
+<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-6">Currently Obsessed With</p>
+<h2 class="text-5xl md:text-6xl font-black text-white leading-tight mb-16">Quiet tension. Unstable memory. Emotional dread.</h2>
+<div class="grid md:grid-cols-5 gap-5 text-left">
+<div class="notebook rounded-3xl p-6"><p class="text-slate-300">nonlinear timelines</p></div>
+<div class="notebook rounded-3xl p-6"><p class="text-slate-300">unreliable narrators</p></div>
+<div class="notebook rounded-3xl p-6"><p class="text-slate-300">liminal spaces</p></div>
+<div class="notebook rounded-3xl p-6"><p class="text-slate-300">cosmic dread</p></div>
+<div class="notebook rounded-3xl p-6"><p class="text-slate-300">quiet suspense</p></div>
 </div>
 </div>
 </section>
-
 <div class="fade-divider max-w-6xl mx-auto"></div>
-
-<!-- WRITER'S ROOM PREVIEW -->
-<section class="py-28">
+<section class="py-32">
 <div class="max-w-6xl mx-auto px-6">
 <div class="flex justify-between items-end mb-14">
 <div>
-<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-4">Archive Preview</p>
+<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-4">Proof of Thought</p>
 <h2 class="text-5xl text-white font-black">Inside the Writer’s Room</h2>
 </div>
-<a href="#" class="text-slate-400 hover:text-amber-400 transition">View Archive →</a>
+<a href="#" class="text-slate-400 hover:text-amber-400 transition">Open Archive →</a>
 </div>
-
 <div class="grid md:grid-cols-3 gap-8">
-<div class="project-card border border-slate-800 rounded-3xl p-8 bg-slate-900/60">
-<p class="text-xs text-amber-400 uppercase tracking-[0.25em] mb-4">Scene Study</p>
-<h3 class="text-2xl text-white mb-5">Why Zodiac’s Basement Scene Works</h3>
-<p class="text-slate-400 leading-8">Suspense built entirely through uncertainty, pauses, and delayed information.</p>
+<div class="project-card notebook rounded-3xl p-8">
+<p class="text-xs text-amber-400 uppercase tracking-[0.25em] mb-4">Tension Design</p>
+<h3 class="text-2xl text-white mb-5">Why Suspense Works Before the Threat Appears</h3>
+<p class="text-slate-400 leading-8">Fear becomes stronger when audiences begin imagining danger before the story confirms it.</p>
 </div>
-
-<div class="project-card border border-slate-800 rounded-3xl p-8 bg-slate-900/60">
+<div class="project-card notebook rounded-3xl p-8">
 <p class="text-xs text-amber-400 uppercase tracking-[0.25em] mb-4">Story Mechanics</p>
-<h3 class="text-2xl text-white mb-5">The Anatomy of a Time-Loop Reveal</h3>
-<p class="text-slate-400 leading-8">Why repetition only works when escalation changes emotional meaning.</p>
+<h3 class="text-2xl text-white mb-5">The Anatomy of a Perfect Time-Loop Reveal</h3>
+<p class="text-slate-400 leading-8">Repetition only works when emotional meaning evolves with every reset.</p>
 </div>
-
-<div class="project-card border border-slate-800 rounded-3xl p-8 bg-slate-900/60">
+<div class="project-card notebook rounded-3xl p-8">
 <p class="text-xs text-amber-400 uppercase tracking-[0.25em] mb-4">Writer Notes</p>
-<h3 class="text-2xl text-white mb-5">Why Silence Beats Dialogue</h3>
-<p class="text-slate-400 leading-8">Some scenes become unforgettable because characters refuse to speak.</p>
+<h3 class="text-2xl text-white mb-5">Why Silence Often Beats Dialogue</h3>
+<p class="text-slate-400 leading-8">The strongest scenes frequently happen in what characters refuse to say.</p>
 </div>
 </div>
 </div>
 </section>
-
-<!-- KEEPING FOOTER STYLE -->
+<section class="py-24 text-center">
+<div class="max-w-4xl mx-auto px-6">
+<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-6">Story First</p>
+<h2 class="text-5xl md:text-6xl font-black text-white leading-tight mb-10">Tell us the scene.</h2>
+<p class="text-xl text-slate-400 leading-9 mb-12">Every unforgettable film starts with an idea someone couldn’t stop thinking about.</p>
+<a href="#" class="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-amber-400 text-black font-bold hover:scale-105 transition">Bring Us The Idea →</a>
+</div>
+</section>
 <div class="w-full border-t border-amber-400/30">
 <footer class="bg-[#0b1120] pt-16 pb-8">
 <div class="max-w-6xl mx-auto px-6 text-center">
@@ -248,6 +161,5 @@ I’m obsessed with stories where atmosphere becomes emotional pressure. Where s
 </div>
 </footer>
 </div>
-
 </body>
 </html>
