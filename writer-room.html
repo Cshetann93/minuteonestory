@@ -9,16 +9,103 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<style>body{font-family:'Plus Jakarta Sans',sans-serif;background:#0f172a;color:#cbd5e1}h1,h2,h3{font-family:'Playfair Display',serif}.case-card{transition:all .35s ease}.case-card:hover{transform:translateY(-4px);border-color:rgba(251,191,36,.4)}</style>
+<style>
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#0f172a;color:#cbd5e1;overflow-x:hidden}
+h1,h2,h3{font-family:'Playfair Display',serif}
+.case-card{transition:all .4s ease;position:relative;overflow:hidden}
+.case-card:hover{transform:translateY(-6px);border-color:rgba(251,191,36,.4);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.case-card:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(251,191,36,.03));opacity:0;transition:opacity .4s ease}
+.case-card:hover:before{opacity:1}
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.05;background-image:url('https://grainy-gradients.vercel.app/noise.svg')}
+</style>
 </head>
 <body class="bg-[#0f172a] text-slate-200 min-h-screen">
-<nav class="border-b border-amber-400/20 bg-slate-900/80 backdrop-blur-lg sticky top-0 z-50"><div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center"><a href="/"><img src="logo.png" alt="MinuteOneStory Logo" class="h-14"></a><div class="flex items-center gap-8 text-sm font-semibold"><a href="/portfolio.html" class="hover:text-amber-400 transition">Portfolio</a><a href="/script-lab.html" class="hover:text-amber-400 transition">Script Lab</a><a href="/contact.html" class="hover:text-amber-400 transition">Contact</a></div></div></nav>
-<header class="max-w-6xl mx-auto px-6 pt-28 pb-20"><p class="uppercase tracking-[0.3em] text-amber-400 text-xs mb-6">Private Archive</p><h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight max-w-4xl mb-8">Writer's Room</h1><p class="text-slate-400 text-lg leading-relaxed max-w-3xl">Notes on storytelling, tension, cinema, character, structure, and the invisible mechanics behind unforgettable scenes.</p></header>
-<section class="max-w-6xl mx-auto px-6 pb-24"><div class="grid md:grid-cols-2 gap-8">
-<a href="zodiac-basement-scene.html" class="case-card block bg-slate-900/70 border border-slate-800 rounded-3xl p-8 backdrop-blur-lg"><p class="text-amber-400 text-xs tracking-[0.25em] mb-4">CASE FILE 01</p><h2 class="text-3xl font-bold text-white mb-4">Why Zodiac's Basement Scene Creates Unbearable Tension</h2><p class="text-slate-400 leading-relaxed mb-6">A breakdown of information delay, silence, framing, and psychological uncertainty in one of thriller cinema's most uncomfortable sequences.</p><span class="text-sm text-slate-500">ARCHIVED · Scene Dissection</span></a>
-<a href="time-loop-reveal.html" class="case-card block bg-slate-900/70 border border-slate-800 rounded-3xl p-8 backdrop-blur-lg"><p class="text-amber-400 text-xs tracking-[0.25em] mb-4">CASE FILE 02</p><h2 class="text-3xl font-bold text-white mb-4">The Anatomy of a Perfect Time-Loop Reveal</h2><p class="text-slate-400 leading-relaxed mb-6">How repetition, memory, and controlled exposition create satisfying loop-based storytelling without confusing the audience.</p><span class="text-sm text-slate-500">ARCHIVED · Trope File</span></a>
-<a href="silence-vs-dialogue.html" class="case-card block bg-slate-900/70 border border-slate-800 rounded-3xl p-8 backdrop-blur-lg"><p class="text-amber-400 text-xs tracking-[0.25em] mb-4">CASE FILE 03</p><h2 class="text-3xl font-bold text-white mb-4">Why Silence Often Works Better Than Dialogue</h2><p class="text-slate-400 leading-relaxed mb-6">The emotional power of withheld information, restrained performances, and quiet cinematic tension.</p><span class="text-sm text-slate-500">ARCHIVED · Writer Notes</span></a>
-<a href="influences.html" class="case-card block bg-slate-900/70 border border-slate-800 rounded-3xl p-8 backdrop-blur-lg"><p class="text-amber-400 text-xs tracking-[0.25em] mb-4">INFLUENCES</p><h2 class="text-3xl font-bold text-white mb-4">Books, Films & Creative References</h2><p class="text-slate-400 leading-relaxed mb-6">Curated recommendations exploring structure, suspense, emotional storytelling, screenplay craft, and cinematic atmosphere.</p><span class="text-sm text-slate-500">ARCHIVED · Recommendations</span></a>
-</div></section>
-<div class="w-full border-t border-amber-400/30"><footer class="bg-[#0b1120] pt-16 pb-8"><div class="max-w-6xl mx-auto px-6 text-center"><p class="text-slate-400 mb-6">Translating your vision into screen ready stories.</p><div class="flex justify-center gap-8 text-sm text-slate-400 mb-8"><a href="/">Home</a><a href="/portfolio.html">Our Work</a><a href="/writer-room.html">Writer's Room</a><a href="/script-lab.html">Script Lab</a><a href="/contact.html">Contact</a></div><p class="text-xs text-slate-500">© 2026 MinuteOneStory. All rights reserved.</p></div></footer></div>
-</body></html>
+<div class="grain"></div>
+<nav class="border-b border-amber-400/20 bg-slate-900/80 backdrop-blur-lg sticky top-0 z-50">
+<div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+<a href="/"><img src="logo.png" alt="MinuteOneStory Logo" class="h-14"></a>
+<div class="flex items-center gap-8 text-sm font-semibold">
+<a href="/portfolio.html" class="hover:text-amber-400 transition">Portfolio</a>
+<a href="/script-lab.html" class="hover:text-amber-400 transition">Script Lab</a>
+<a href="/contact.html" class="hover:text-amber-400 transition">Contact</a>
+</div>
+</div>
+</nav>
+<header class="max-w-6xl mx-auto px-6 pt-28 pb-14">
+<p class="uppercase tracking-[0.3em] text-amber-400 text-xs mb-6">Private Archive</p>
+<h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight max-w-4xl mb-8">Writer's Room</h1>
+<p class="text-slate-400 text-lg leading-relaxed max-w-3xl">Notes on storytelling, tension, cinema, character, structure, and the invisible mechanics behind unforgettable scenes.</p>
+</header>
+<section class="max-w-6xl mx-auto px-6 mb-20">
+<div class="bg-gradient-to-br from-slate-900 to-[#111827] border border-amber-400/20 rounded-[2rem] p-10 md:p-14 relative overflow-hidden">
+<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-5">Featured Case File</p>
+<h2 class="text-4xl md:text-5xl font-black text-white leading-tight max-w-3xl mb-6">Why Great Thriller Scenes Feel Dangerous Before Anything Happens</h2>
+<p class="text-slate-400 leading-8 max-w-3xl mb-8">The best suspense sequences weaponize uncertainty instead of action. Atmosphere, pauses, withheld information, and visual tension often create more fear than violence itself.</p>
+<div class="flex flex-wrap gap-3 mb-8">
+<span class="px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-xs uppercase tracking-[0.2em]">Tension</span>
+<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs uppercase tracking-[0.2em]">Thrillers</span>
+<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs uppercase tracking-[0.2em]">Scene Design</span>
+</div>
+<a href="zodiac-basement-scene.html" class="inline-flex items-center gap-3 text-white hover:text-amber-400 transition">Enter Case File →</a>
+</div>
+</section>
+<section class="max-w-6xl mx-auto px-6 pb-24">
+<div class="flex items-center justify-between mb-10">
+<h2 class="text-3xl font-bold text-white">Archived Notes</h2>
+<p class="text-sm text-slate-500 uppercase tracking-[0.2em]">4 Files</p>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<a href="zodiac-basement-scene.html" class="case-card block bg-slate-900/70 border border-slate-800 rounded-3xl p-8 backdrop-blur-lg">
+<div class="flex items-center justify-between mb-5"><p class="text-amber-400 text-xs tracking-[0.25em]">CASE FILE 01</p><span class="text-xs text-slate-500">6 min read</span></div>
+<h2 class="text-3xl font-bold text-white mb-4">Why Zodiac's Basement Scene Creates Unbearable Tension</h2>
+<p class="text-slate-400 leading-relaxed mb-6">A breakdown of information delay, silence, framing, and psychological uncertainty in one of thriller cinema's most uncomfortable sequences.</p>
+<div class="flex gap-2 flex-wrap mb-5"><span class="text-xs px-3 py-1 rounded-full bg-slate-800 border border-slate-700">Suspense</span><span class="text-xs px-3 py-1 rounded-full bg-slate-800 border border-slate-700">Scene Study</span></div>
+<span class="text-sm text-slate-500">ARCHIVED · Scene Dissection</span>
+</a>
+<a href="time-loop-reveal.html" class="case-card block bg-slate-900/70 border border-slate-800 rounded-3xl p-8 backdrop-blur-lg">
+<div class="flex items-center justify-between mb-5"><p class="text-amber-400 text-xs tracking-[0.25em]">CASE FILE 02</p><span class="text-xs text-slate-500">5 min read</span></div>
+<h2 class="text-3xl font-bold text-white mb-4">The Anatomy of a Perfect Time-Loop Reveal</h2>
+<p class="text-slate-400 leading-relaxed mb-6">How repetition, memory, and controlled exposition create satisfying loop-based storytelling without confusing the audience.</p>
+<div class="flex gap-2 flex-wrap mb-5"><span class="text-xs px-3 py-1 rounded-full bg-slate-800 border border-slate-700">Time Loops</span><span class="text-xs px-3 py-1 rounded-full bg-slate-800 border border-slate-700">Structure</span></div>
+<span class="text-sm text-slate-500">ARCHIVED · Trope File</span>
+</a>
+<a href="silence-vs-dialogue.html" class="case-card block bg-slate-900/70 border border-slate-800 rounded-3xl p-8 backdrop-blur-lg">
+<div class="flex items-center justify-between mb-5"><p class="text-amber-400 text-xs tracking-[0.25em]">CASE FILE 03</p><span class="text-xs text-slate-500">4 min read</span></div>
+<h2 class="text-3xl font-bold text-white mb-4">Why Silence Often Works Better Than Dialogue</h2>
+<p class="text-slate-400 leading-relaxed mb-6">The emotional power of withheld information, restrained performances, and quiet cinematic tension.</p>
+<div class="flex gap-2 flex-wrap mb-5"><span class="text-xs px-3 py-1 rounded-full bg-slate-800 border border-slate-700">Dialogue</span><span class="text-xs px-3 py-1 rounded-full bg-slate-800 border border-slate-700">Atmosphere</span></div>
+<span class="text-sm text-slate-500">ARCHIVED · Writer Notes</span>
+</a>
+<a href="influences.html" class="case-card block bg-slate-900/70 border border-slate-800 rounded-3xl p-8 backdrop-blur-lg">
+<div class="flex items-center justify-between mb-5"><p class="text-amber-400 text-xs tracking-[0.25em]">INFLUENCES</p><span class="text-xs text-slate-500">Archive</span></div>
+<h2 class="text-3xl font-bold text-white mb-4">Books, Films & Creative References</h2>
+<p class="text-slate-400 leading-relaxed mb-6">Curated recommendations exploring structure, suspense, emotional storytelling, screenplay craft, and cinematic atmosphere.</p>
+<div class="flex gap-2 flex-wrap mb-5"><span class="text-xs px-3 py-1 rounded-full bg-slate-800 border border-slate-700">Cinema</span><span class="text-xs px-3 py-1 rounded-full bg-slate-800 border border-slate-700">Books</span></div>
+<span class="text-sm text-slate-500">ARCHIVED · Recommendations</span>
+</a>
+</div>
+</section>
+<section class="max-w-5xl mx-auto px-6 pb-28">
+<div class="border-l border-amber-400/30 pl-8">
+<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-5">Writer Note</p>
+<blockquote class="text-2xl md:text-3xl text-white leading-relaxed font-light">“The audience should feel tension before they understand why they feel tense.”</blockquote>
+<p class="text-slate-500 mt-6 text-sm">— MinuteOneStory Archive Notes</p>
+</div>
+</section>
+<div class="w-full border-t border-amber-400/30">
+<footer class="bg-[#0b1120] pt-16 pb-8">
+<div class="max-w-6xl mx-auto px-6 text-center">
+<p class="text-slate-400 mb-6">Translating your vision into screen ready stories.</p>
+<div class="flex justify-center gap-8 text-sm text-slate-400 mb-8 flex-wrap">
+<a href="/">Home</a>
+<a href="/portfolio.html">Our Work</a>
+<a href="/writer-room.html">Writer's Room</a>
+<a href="/script-lab.html">Script Lab</a>
+<a href="/contact.html">Contact</a>
+</div>
+<p class="text-xs text-slate-500">© 2026 MinuteOneStory. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</body>
+</html>
