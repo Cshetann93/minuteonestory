@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MinuteOneStory — Writer Laboratory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#070b15;color:#e2e8f0;overflow-x:hidden;background-image:radial-gradient(circle at top right,rgba(251,191,36,.08),transparent 30%)}
+h1,h2,h3{font-family:'Playfair Display',serif}
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.05;background-image:url('https://grainy-gradients.vercel.app/noise.svg')}
+.hero-glow{position:absolute;width:1000px;height:1000px;background:radial-gradient(circle,rgba(251,191,36,.14),transparent 70%);right:-250px;top:-250px;filter:blur(90px)}
+.cursor{display:inline-block;width:10px;height:60px;background:#fbbf24;animation:blink 1s infinite;margin-left:8px}
+.widget{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);transition:all .45s ease}
+.widget:hover{transform:translateY(-8px);border-color:rgba(251,191,36,.35);box-shadow:0 25px 80px rgba(0,0,0,.45)}
+.scanline{position:absolute;left:0;top:-20%;width:100%;height:140px;background:linear-gradient(to bottom,transparent,rgba(251,191,36,.08),transparent);animation:scan 7s linear infinite}
+.fade-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(251,191,36,.25),transparent)}
+.orb{position:absolute;border-radius:999px;background:rgba(251,191,36,.12);filter:blur(40px);animation:float 8s ease-in-out infinite}
+.pulse{width:10px;height:10px;border-radius:999px;background:#fbbf24;box-shadow:0 0 20px rgba(251,191,36,.8);animation:pulse 2s infinite}
+.bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;position:relative}.fill{position:absolute;left:0;top:0;height:100%;background:#fbbf24;border-radius:999px;animation:signal 5s ease-in-out infinite}
+.typewriter{overflow:hidden;border-right:2px solid #fbbf24;white-space:nowrap;animation:typing 5s steps(40,end) infinite alternate}
+@keyframes blink{50%{opacity:0}}@keyframes pulse{50%{transform:scale(1.5);opacity:.4}}@keyframes scan{0%{transform:translateY(-140%)}100%{transform:translateY(900%)}}@keyframes float{50%{transform:translateY(-30px)}}@keyframes signal{0%{width:20%}50%{width:95%}100%{width:40%}}@keyframes typing{from{width:0}to{width:100%}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="orb w-[300px] h-[300px] left-[-100px] top-[500px]"></div>
+<div class="orb w-[240px] h-[240px] right-[10%] top-[900px]" style="animation-delay:2s"></div>
+<nav class="border-b border-amber-400/20 bg-slate-900/80 backdrop-blur-lg sticky top-0 z-50">
+<div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+<a href="/"><img src="logo.png" alt="MinuteOneStory Logo" class="h-14"></a>
+<div class="flex items-center gap-8 text-sm font-semibold">
+<a href="#" class="hover:text-amber-400 transition">Portfolio</a>
+<a href="#" class="hover:text-amber-400 transition">Writer's Room</a>
+<a href="#" class="hover:text-amber-400 transition">Script Lab</a>
+<a href="#" class="hover:text-amber-400 transition">Contact</a>
+</div>
+</div>
+</nav>
+<section class="relative min-h-screen flex items-center overflow-hidden">
+<div class="hero-glow"></div>
+<div class="max-w-6xl mx-auto px-6 py-32 relative z-10">
+<p class="uppercase tracking-[0.35em] text-amber-400 text-xs mb-8">Experimental Narrative Interface</p>
+<h1 class="text-6xl md:text-8xl font-black text-white leading-[0.9] max-w-5xl mb-10">The Writer Laboratory<span class="cursor"></span></h1>
+<p class="text-xl text-slate-400 leading-9 max-w-3xl mb-20">A cinematic system designed to analyze tension, emotional pressure, atmosphere, silence, and psychological instability across stories currently under development.</p>
+<div class="grid md:grid-cols-2 gap-10">
+<div class="widget rounded-[2rem] p-10">
+<div class="scanline"></div>
+<div class="flex items-center justify-between mb-10">
+<div>
+<p class="text-amber-400 uppercase tracking-[0.25em] text-xs mb-3">Live Diagnostics</p>
+<h2 class="text-4xl text-white font-bold">PROJECT // NIGHT LOOP</h2>
+</div>
+<div class="pulse"></div>
+</div>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between text-sm mb-3"><span class="text-slate-400">Atmospheric Tension</span><span class="text-amber-400">92%</span></div>
+<div class="bar"><div class="fill" style="width:92%"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-3"><span class="text-slate-400">Psychological Weight</span><span class="text-amber-400">88%</span></div>
+<div class="bar"><div class="fill" style="width:88%;animation-delay:1s"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-3"><span class="text-slate-400">Audience Anxiety Projection</span><span class="text-amber-400">81%</span></div>
+<div class="bar"><div class="fill" style="width:81%;animation-delay:2s"></div></div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-3"><span class="text-slate-400">Memory Corruption</span><span class="text-amber-400">96%</span></div>
+<div class="bar"><div class="fill" style="width:96%;animation-delay:3s"></div></div>
+</div>
+</div>
+</div>
+<div class="space-y-8">
+<div class="widget rounded-[2rem] p-8">
+<p class="text-amber-400 uppercase tracking-[0.25em] text-xs mb-5">Current Writer Thoughts</p>
+<p class="text-2xl text-white leading-relaxed">“Suspense begins when the audience notices silence.”</p>
+<p class="text-slate-500 text-sm mt-6">Archived at 2:13 AM</p>
+</div>
+<div class="widget rounded-[2rem] p-8">
+<p class="text-amber-400 uppercase tracking-[0.25em] text-xs mb-5">Narrative Signal</p>
+<p class="typewriter text-slate-300 text-lg">The audience should fear the room before the monster appears.</p>
+</div>
+<div class="widget rounded-[2rem] p-8">
+<p class="text-amber-400 uppercase tracking-[0.25em] text-xs mb-5">Current Obsessions</p>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-sm">Cosmic Dread</span>
+<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-sm">Loop Psychology</span>
+<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-sm">Silence</span>
+<span class="px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-sm">Liminal Space</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="fade-divider max-w-6xl mx-auto"></div>
+<section class="py-32">
+<div class="max-w-6xl mx-auto px-6">
+<div class="mb-16">
+<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-5">Production Archive</p>
+<h2 class="text-5xl md:text-6xl font-black text-white max-w-4xl">A cinematic writing studio disguised as a website.</h2>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="widget rounded-3xl p-8">
+<p class="text-amber-400 text-xs uppercase tracking-[0.25em] mb-4">CASE FILE 01</p>
+<h3 class="text-3xl text-white mb-5">The Anatomy of Tension</h3>
+<p class="text-slate-400 leading-8">Analyzing why audiences become uncomfortable before the story reveals danger.</p>
+</div>
+<div class="widget rounded-3xl p-8">
+<p class="text-amber-400 text-xs uppercase tracking-[0.25em] mb-4">CASE FILE 02</p>
+<h3 class="text-3xl text-white mb-5">Silence vs Dialogue</h3>
+<p class="text-slate-400 leading-8">How withholding speech often creates stronger emotional pressure than exposition.</p>
+</div>
+<div class="widget rounded-3xl p-8">
+<p class="text-amber-400 text-xs uppercase tracking-[0.25em] mb-4">CASE FILE 03</p>
+<h3 class="text-3xl text-white mb-5">Time-Loop Psychology</h3>
+<p class="text-slate-400 leading-8">Why repetition only works when memory and emotion begin mutating across resets.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 text-center">
+<div class="max-w-4xl mx-auto px-6">
+<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-6">Story First</p>
+<h2 class="text-5xl md:text-6xl font-black text-white leading-tight mb-10">Tell us the scene.</h2>
+<p class="text-xl text-slate-400 leading-9 mb-12">Every unforgettable film starts with an idea someone could not stop thinking about.</p>
+<a href="#" class="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-amber-400 text-black font-bold hover:scale-105 transition">Enter The Writer's Room →</a>
+</div>
+</section>
+<div class="w-full border-t border-amber-400/30">
+<footer class="bg-[#0b1120] pt-16 pb-8">
+<div class="max-w-6xl mx-auto px-6 text-center">
+<p class="text-slate-400 mb-6">Translating your vision into screen ready stories.</p>
+<div class="flex justify-center gap-8 text-sm text-slate-400 mb-8 flex-wrap">
+<a href="#">Home</a>
+<a href="#">Our Work</a>
+<a href="#">Writer's Room</a>
+<a href="#">Script Lab</a>
+<a href="#">Contact</a>
+</div>
+<p class="text-xs text-slate-500">© 2026 MinuteOneStory. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</body>
+</html>
