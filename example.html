@@ -29,7 +29,7 @@
     width: 100vw;
     height: 100vh;
     max-width: calc(100vh * (9 / 16));
-    background: #080808;
+    background: #111111;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -48,7 +48,7 @@
   .progress-segment {
     flex: 1;
     height: 2px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 1px;
     overflow: hidden;
   }
@@ -57,7 +57,6 @@
     width: 0%;
     height: 100%;
     background: #ffffff;
-    opacity: 0.9;
     transition: width 0.08s linear;
   }
 
@@ -77,7 +76,10 @@
     padding: 0 32px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.6s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 0.5s ease-in-out;
   }
 
   .slide.active {
@@ -85,55 +87,19 @@
     pointer-events: auto;
   }
 
-  /* Charcoal Sketch SVG Layer */
-  .sketch-art {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    opacity: 0.55;
-    filter: contrast(1.3) drop-shadow(0 0 10px rgba(0,0,0,0.8));
-    transform: scale(1.02);
-    transition: transform 4s cubic-bezier(0.1, 1, 0.1, 1);
-  }
-
-  .slide.active .sketch-art {
-    transform: scale(1.07);
-  }
-
-  /* Fog and Atmospheric Texture */
-  .fog-layer {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(15, 15, 15, 0.4) 0%, rgba(5, 5, 5, 0.85) 75%, #000000 100%);
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  /* Centered Captions */
-  .content {
+  .caption {
     position: relative;
     z-index: 10;
-    max-width: 100%;
-  }
-
-  .caption {
     font-size: 26px;
     line-height: 1.45;
     font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #ffffff;
-    text-shadow: 0 4px 18px rgba(0, 0, 0, 1), 0 0 8px rgba(0, 0, 0, 1);
-    transform: translateY(10px);
-    opacity: 0;
-    transition: transform 0.5s ease-out 0.15s, opacity 0.5s ease-out 0.15s;
-  }
-
-  .slide.active .caption {
-    transform: translateY(0);
-    opacity: 1;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 16px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.9);
   }
 
   .controls {
@@ -142,26 +108,87 @@
     display: flex;
     gap: 10px;
     z-index: 100;
-    background: rgba(15, 15, 15, 0.9);
+    background: rgba(20, 20, 20, 0.9);
     padding: 8px 14px;
     border-radius: 8px;
-    border: 1px solid #282828;
+    border: 1px solid #333333;
   }
 
   button {
-    background: #1c1c1c;
-    color: #e5e5e5;
-    border: 1px solid #383838;
+    background: #222222;
+    color: #ffffff;
+    border: 1px solid #444444;
     padding: 7px 14px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.5px;
     border-radius: 5px;
     cursor: pointer;
   }
 
   button:hover {
-    background: #2c2c2c;
+    background: #333333;
+  }
+
+  /* 15 Dedicated Inline Vector Backgrounds */
+  .bg-1 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><path d="M40 500 Q 120 440 180 340" stroke="%23888888" stroke-width="8" fill="none"/><circle cx="180" cy="270" r="95" stroke="%23cccccc" stroke-width="6" fill="%231a1d24"/><circle cx="145" cy="270" r="14" fill="%23ffffff"/><circle cx="215" cy="270" r="14" fill="%23ffffff"/></svg>');
+  }
+
+  .bg-2 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><line x1="20" y1="120" x2="110" y2="640" stroke="%23444444" stroke-width="4"/><line x1="340" y1="120" x2="250" y2="640" stroke="%23444444" stroke-width="4"/><path d="M100 370 L 130 310 L 230 310 L 260 370 Z" stroke="%23cccccc" stroke-width="5" fill="%23222630"/><rect x="85" y="370" width="190" height="55" stroke="%23cccccc" stroke-width="5" fill="%23222630"/><circle cx="125" cy="395" r="14" fill="%23ffffff"/><circle cx="235" cy="395" r="14" fill="%23ffffff"/></svg>');
+  }
+
+  .bg-3 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><path d="M120 80 L 120 380 Q 120 440 40 470" stroke="%23bbbbbb" stroke-width="8" fill="none"/><path d="M240 80 L 240 300 Q 240 370 340 420" stroke="%23bbbbbb" stroke-width="8" fill="none"/><path d="M180 520 Q 150 460 140 410" stroke="%23ffffff" stroke-width="5" stroke-dasharray="10 10" fill="none"/></svg>');
+  }
+
+  .bg-4 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><rect x="70" y="240" width="130" height="230" rx="6" stroke="%23cccccc" stroke-width="6" fill="%231e2129"/><rect x="85" y="260" width="100" height="60" stroke="%23888888" stroke-width="4" fill="%23111317"/><path d="M200 320 C 235 320, 240 400, 225 430" stroke="%23888888" stroke-width="6" fill="none"/><circle cx="285" cy="370" r="16" fill="%23ffffff"/></svg>');
+  }
+
+  .bg-5 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><path d="M80 380 L 125 240 L 235 240 L 280 380 L 80 380 Z" stroke="%23cccccc" stroke-width="6" fill="%231e222b"/><rect x="100" y="380" width="160" height="70" stroke="%23cccccc" stroke-width="6" fill="%231e222b"/><circle cx="180" cy="390" r="16" fill="%23ffffff"/><circle cx="130" cy="470" r="18" stroke="%23888888" stroke-width="6" fill="none"/><circle cx="230" cy="470" r="18" stroke="%23888888" stroke-width="6" fill="none"/></svg>');
+  }
+
+  .bg-6 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><line x1="40" y1="160" x2="40" y2="600" stroke="%23666666" stroke-width="6"/><line x1="150" y1="160" x2="150" y2="460" stroke="%23666666" stroke-width="6"/><path d="M290 580 Q 210 520 100 380" stroke="%23ffffff" stroke-width="7" fill="none"/></svg>');
+  }
+
+  .bg-7 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><line x1="145" y1="560" x2="165" y2="280" stroke="%23666666" stroke-width="5" stroke-dasharray="10 10"/><line x1="215" y1="560" x2="195" y2="280" stroke="%23666666" stroke-width="5" stroke-dasharray="10 10"/><rect x="155" y="270" width="50" height="35" rx="4" stroke="%23cccccc" stroke-width="4" fill="%23222630"/><circle cx="165" cy="300" r="5" fill="%23ffffff"/><circle cx="195" cy="300" r="5" fill="%23ffffff"/></svg>');
+  }
+
+  .bg-8 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><line x1="180" y1="80" x2="70" y2="540" stroke="%23444444" stroke-width="3"/><line x1="180" y1="80" x2="290" y2="540" stroke="%23444444" stroke-width="3"/><circle cx="180" cy="80" r="12" fill="%23ffffff"/><rect x="110" y="380" width="140" height="60" rx="6" stroke="%23cccccc" stroke-width="6" fill="%231f232d"/></svg>');
+  }
+
+  .bg-9 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><path d="M30 480 Q 180 430 330 480" stroke="%23cccccc" stroke-width="8" fill="none"/><line x1="30" y1="480" x2="15" y2="540" stroke="%23888888" stroke-width="8"/><line x1="330" y1="480" x2="345" y2="540" stroke="%23888888" stroke-width="8"/><circle cx="180" cy="435" r="28" stroke="%23ffffff" stroke-width="6" fill="%23222630"/></svg>');
+  }
+
+  .bg-10 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><circle cx="110" cy="330" r="22" fill="%23ffffff"/><circle cx="250" cy="330" r="22" fill="%23ffffff"/><line x1="110" y1="280" x2="110" y2="380" stroke="%23888888" stroke-width="4"/><line x1="60" y1="330" x2="160" y2="330" stroke="%23888888" stroke-width="4"/><line x1="250" y1="280" x2="250" y2="380" stroke="%23888888" stroke-width="4"/><line x1="200" y1="330" x2="300" y2="330" stroke="%23888888" stroke-width="4"/></svg>');
+  }
+
+  .bg-11 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><line x1="90" y1="320" x2="40" y2="410" stroke="%23888888" stroke-width="6"/><circle cx="205" cy="220" r="26" stroke="%23cccccc" stroke-width="6" fill="%23222630"/><line x1="205" y1="245" x2="205" y2="410" stroke="%23ffffff" stroke-width="8"/><line x1="205" y1="410" x2="175" y2="560" stroke="%23cccccc" stroke-width="6"/><line x1="205" y1="410" x2="235" y2="560" stroke="%23cccccc" stroke-width="6"/></svg>');
+  }
+
+  .bg-12 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><rect x="80" y="240" width="200" height="150" rx="8" stroke="%23ffffff" stroke-width="6" fill="%23222630"/><line x1="180" y1="240" x2="180" y2="390" stroke="%23888888" stroke-width="5" stroke-dasharray="8 6"/></svg>');
+  }
+
+  .bg-13 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><rect x="90" y="230" width="180" height="160" rx="6" stroke="%23888888" stroke-width="6" fill="%231c2029"/><rect x="110" y="260" width="90" height="60" rx="4" stroke="%23ffffff" stroke-width="5" fill="%23333a4a"/><line x1="235" y1="350" x2="205" y2="310" stroke="%23ffffff" stroke-width="7"/></svg>');
+  }
+
+  .bg-14 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><line x1="180" y1="120" x2="180" y2="540" stroke="%23666666" stroke-width="5"/><line x1="165" y1="280" x2="165" y2="420" stroke="%23ffffff" stroke-width="8"/><circle cx="165" cy="285" r="7" fill="%23ffffff"/></svg>');
+  }
+
+  .bg-15 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640"><rect width="360" height="640" fill="%23111317"/><ellipse cx="180" cy="320" rx="45" ry="105" stroke="%23ffffff" stroke-width="7" fill="%23050505"/><line x1="180" y1="215" x2="180" y2="425" stroke="%23888888" stroke-width="4" stroke-dasharray="8 6"/><line x1="155" y1="210" x2="205" y2="210" stroke="%23888888" stroke-width="6"/><line x1="155" y1="430" x2="205" y2="430" stroke="%23888888" stroke-width="6"/></svg>');
   }
 </style>
 </head>
@@ -171,211 +198,21 @@
   <div class="progress-bar-container" id="progressBar"></div>
 
   <div class="stage">
-
-    <!-- Frame 1 -->
-    <div class="slide active" data-duration="3800">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <path d="M40 500 Q 120 440 180 340" stroke-width="5" stroke="#999" opacity="0.7"/>
-        <ellipse cx="180" cy="270" rx="95" ry="95" stroke-width="4" stroke="#e0e0e0" opacity="0.9"/>
-        <ellipse cx="180" cy="270" rx="85" ry="85" stroke-dasharray="8 6" opacity="0.4"/>
-        <path d="M125 255 C 135 245, 160 245, 165 255" stroke-width="2.5" opacity="0.7"/>
-        <path d="M195 255 C 200 245, 225 245, 235 255" stroke-width="2.5" opacity="0.7"/>
-        <circle cx="145" cy="270" r="10" fill="#ffffff" stroke="none" opacity="0.95"/>
-        <circle cx="215" cy="270" r="10" fill="#ffffff" stroke="none" opacity="0.95"/>
-        <path d="M135 285 L 225 285" stroke-width="2" opacity="0.5"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">VIKRAM CHECKED HIS BIKE MIRROR FOR THE FOURTH TIME.</div></div>
-    </div>
-
-    <!-- Frame 2 -->
-    <div class="slide" data-duration="3800">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <path d="M20 120 L 110 640" stroke-width="3" opacity="0.6"/>
-        <path d="M340 120 L 250 640" stroke-width="3" opacity="0.6"/>
-        <path d="M100 370 L 130 310 L 230 310 L 260 370 Z" stroke-width="3" stroke="#e5e5e5" opacity="0.8"/>
-        <path d="M85 370 L 275 370 L 270 425 L 90 425 Z" stroke-width="3.5" stroke="#e5e5e5" opacity="0.8"/>
-        <ellipse cx="125" cy="395" rx="14" ry="10" fill="#ffffff" stroke="none" opacity="0.95"/>
-        <ellipse cx="235" cy="395" rx="14" ry="10" fill="#ffffff" stroke="none" opacity="0.95"/>
-        <path d="M125 405 L 80 520" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.4"/>
-        <path d="M235 405 L 280 520" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.4"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">A WHITE SWIFT WAS TAILING HIM THROUGH THE DARK SERVICE LANES.</div></div>
-    </div>
-
-    <!-- Frame 3 -->
-    <div class="slide" data-duration="3400">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <path d="M120 80 L 120 380 Q 120 440 40 470" stroke-width="4" stroke="#ffffff" opacity="0.8"/>
-        <path d="M240 80 L 240 300 Q 240 370 340 420" stroke-width="4" stroke="#ffffff" opacity="0.8"/>
-        <path d="M80 180 L 120 220" opacity="0.3"/>
-        <path d="M60 250 L 120 310" opacity="0.3"/>
-        <path d="M40 320 L 120 400" opacity="0.3"/>
-        <path d="M180 520 Q 150 460 140 410" stroke-dasharray="7 7" stroke-width="3" opacity="0.7"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">EVERY TURN HE MADE, THE CAR MADE TOO.</div></div>
-    </div>
-
-    <!-- Frame 4 -->
-    <div class="slide" data-duration="3700">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <rect x="70" y="240" width="130" height="230" rx="6" stroke-width="3.5" opacity="0.8"/>
-        <rect x="85" y="260" width="100" height="60" stroke-width="2" opacity="0.5"/>
-        <path d="M200 320 C 235 320, 240 400, 225 430" stroke-width="3.5" opacity="0.7"/>
-        <circle cx="285" cy="370" r="14" fill="#ffffff" stroke="none" opacity="0.95"/>
-        <path d="M285 345 L 285 395" stroke-width="2" opacity="0.7"/>
-        <path d="M260 370 L 310 370" stroke-width="2" opacity="0.7"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">NEAR A CLOSED PETROL PUMP, VIKRAM FLICKED HIS RIGHT INDICATOR.</div></div>
-    </div>
-
-    <!-- Frame 5 -->
-    <div class="slide" data-duration="3400">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <path d="M80 380 L 125 240 L 235 240 L 280 380 L 80 380 Z" stroke-width="3.5" opacity="0.8"/>
-        <path d="M100 380 L 100 450 L 260 450 L 260 380" stroke-width="3.5" opacity="0.8"/>
-        <circle cx="180" cy="390" r="15" fill="#ffffff" stroke="none" opacity="0.95"/>
-        <circle cx="130" cy="470" r="18" stroke-width="3.5" opacity="0.7"/>
-        <circle cx="230" cy="470" r="18" stroke-width="3.5" opacity="0.7"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">HE WAITED FOR AN ONCOMING AUTO TO PASS.</div></div>
-    </div>
-
-    <!-- Frame 6 -->
-    <div class="slide" data-duration="3700">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <path d="M40 160 L 40 600" stroke-width="4" opacity="0.8"/>
-        <path d="M150 160 L 150 460" stroke-width="4" opacity="0.8"/>
-        <path d="M290 580 Q 210 520 100 380" stroke-width="4" stroke="#ffffff" opacity="0.9"/>
-        <path d="M305 595 Q 225 535 115 395" stroke-width="2" stroke-dasharray="6 6" opacity="0.5"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">THEN HE CUT HARD INTO THE NARROW LEFT ALLEY INSTEAD.</div></div>
-    </div>
-
-    <!-- Frame 7 -->
-    <div class="slide" data-duration="3400">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <line x1="145" y1="560" x2="165" y2="280" stroke-width="3" stroke-dasharray="8 8" opacity="0.6"/>
-        <line x1="215" y1="560" x2="195" y2="280" stroke-width="3" stroke-dasharray="8 8" opacity="0.6"/>
-        <rect x="155" y="270" width="50" height="35" rx="4" stroke-width="2.5" opacity="0.8"/>
-        <circle cx="165" cy="300" r="4" fill="#fff" stroke="none"/>
-        <circle cx="195" cy="300" r="4" fill="#fff" stroke="none"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">THE SWIFT DIDN'T TURN.</div></div>
-    </div>
-
-    <!-- Frame 8 -->
-    <div class="slide" data-duration="3700">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <path d="M180 80 L 70 540" stroke-width="1.5" opacity="0.25"/>
-        <path d="M180 80 L 290 540" stroke-width="1.5" opacity="0.25"/>
-        <circle cx="180" cy="80" r="8" fill="#ffffff" stroke="none" opacity="0.9"/>
-        <rect x="110" y="380" width="140" height="60" rx="6" stroke-width="3.5" opacity="0.8"/>
-        <circle cx="135" cy="445" r="12" stroke-width="3" opacity="0.8"/>
-        <circle cx="225" cy="445" r="12" stroke-width="3" opacity="0.8"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">IT ROLLED INTO THE EMPTY CROSSROADS AND STOPPED DEAD.</div></div>
-    </div>
-
-    <!-- Frame 9 -->
-    <div class="slide" data-duration="3700">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <path d="M30 480 Q 180 430 330 480" stroke-width="5" stroke="#ffffff" opacity="0.8"/>
-        <path d="M30 480 L 15 540" stroke-width="6" stroke="#999" opacity="0.8"/>
-        <path d="M330 480 L 345 540" stroke-width="6" stroke="#999" opacity="0.8"/>
-        <circle cx="180" cy="435" r="28" stroke-width="3.5" opacity="0.85"/>
-        <line x1="180" y1="435" x2="195" y2="425" stroke-width="3" stroke="#fff"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">VIKRAM PULLED OVER THIRTY METERS AHEAD, HEART RACING.</div></div>
-    </div>
-
-    <!-- Frame 10 -->
-    <div class="slide" data-duration="3600">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <circle cx="110" cy="330" r="18" fill="#ffffff" stroke="none" opacity="0.95"/>
-        <circle cx="250" cy="330" r="18" fill="#ffffff" stroke="none" opacity="0.95"/>
-        <line x1="110" y1="290" x2="110" y2="370" stroke-width="2" opacity="0.6"/>
-        <line x1="70" y1="330" x2="150" y2="330" stroke-width="2" opacity="0.6"/>
-        <line x1="250" y1="290" x2="250" y2="370" stroke-width="2" opacity="0.6"/>
-        <line x1="210" y1="330" x2="290" y2="330" stroke-width="2" opacity="0.6"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">THE CAR’S HAZARD LIGHTS STARTED BLINKING IN THE DARK.</div></div>
-    </div>
-
-    <!-- Frame 11 -->
-    <div class="slide" data-duration="3800">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <path d="M90 320 L 40 410" stroke-width="3.5" opacity="0.6"/>
-        <circle cx="205" cy="220" r="22" stroke-width="3.5" opacity="0.85"/>
-        <path d="M205 245 L 205 410" stroke-width="5" stroke="#ffffff" opacity="0.85"/>
-        <path d="M205 410 L 175 560" stroke-width="4" opacity="0.75"/>
-        <path d="M205 410 L 235 560" stroke-width="4" opacity="0.75"/>
-        <path d="M205 290 L 165 370" stroke-width="3.5" opacity="0.75"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">THE DRIVER STEPPED OUT INTO THE GLOW OF VIKRAM'S HEADLIGHT.</div></div>
-    </div>
-
-    <!-- Frame 12 -->
-    <div class="slide" data-duration="3600">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <rect x="80" y="240" width="200" height="150" rx="8" stroke-width="4" stroke="#ffffff" opacity="0.85"/>
-        <line x1="180" y1="240" x2="180" y2="390" stroke-width="3" stroke-dasharray="6 4" opacity="0.6"/>
-        <path d="M100 280 L 160 280" opacity="0.4"/>
-        <path d="M100 310 L 160 310" opacity="0.4"/>
-        <path d="M100 340 L 160 340" opacity="0.4"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">IN HIS HAND WAS A WORN BROWN LEATHER WALLET.</div></div>
-    </div>
-
-    <!-- Frame 13 -->
-    <div class="slide" data-duration="3800">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <rect x="90" y="230" width="180" height="160" rx="6" stroke-width="4" opacity="0.85"/>
-        <rect x="110" y="260" width="90" height="60" rx="4" stroke-width="2.5" stroke="#ffffff" opacity="0.95"/>
-        <circle cx="135" cy="285" r="10" opacity="0.7"/>
-        <path d="M155 275 L 190 275" opacity="0.6"/>
-        <path d="M155 295 L 190 295" opacity="0.6"/>
-        <path d="M230 350 L 205 310" stroke-width="4" stroke="#ffffff" opacity="0.9"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">HE HELD IT UP, TAPPING THE DRIVING LICENSE INSIDE.</div></div>
-    </div>
-
-    <!-- Frame 14 -->
-    <div class="slide" data-duration="3600">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <path d="M180 120 L 180 540" stroke-width="3.5" opacity="0.5"/>
-        <path d="M165 280 L 165 420" stroke-width="5" stroke="#ffffff" opacity="0.9"/>
-        <circle cx="165" cy="285" r="5" fill="#ffffff" stroke="none"/>
-        <path d="M120 320 Q 150 340 160 380" stroke-width="4" opacity="0.75"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">VIKRAM FELT HIS KURTA POCKET.</div></div>
-    </div>
-
-    <!-- Frame 15 -->
-    <div class="slide" data-duration="4400">
-      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
-        <ellipse cx="180" cy="320" rx="45" ry="105" stroke-width="4.5" stroke="#ffffff" opacity="0.95"/>
-        <path d="M180 215 L 180 425" stroke-width="2" stroke-dasharray="6 6" opacity="0.4"/>
-        <line x1="160" y1="210" x2="200" y2="210" stroke-width="4" opacity="0.7"/>
-        <line x1="160" y1="430" x2="200" y2="430" stroke-width="4" opacity="0.7"/>
-      </svg>
-      <div class="fog-layer"></div>
-      <div class="content"><div class="caption">THE ZIP WAS UNDONE. IT WAS COMPLETELY EMPTY.</div></div>
-    </div>
-
+    <div class="slide bg-1 active" data-duration="3800"><div class="caption">VIKRAM CHECKED HIS BIKE MIRROR FOR THE FOURTH TIME.</div></div>
+    <div class="slide bg-2" data-duration="3800"><div class="caption">A WHITE SWIFT WAS TAILING HIM THROUGH THE DARK SERVICE LANES.</div></div>
+    <div class="slide bg-3" data-duration="3400"><div class="caption">EVERY TURN HE MADE, THE CAR MADE TOO.</div></div>
+    <div class="slide bg-4" data-duration="3700"><div class="caption">NEAR A CLOSED PETROL PUMP, VIKRAM FLICKED HIS RIGHT INDICATOR.</div></div>
+    <div class="slide bg-5" data-duration="3400"><div class="caption">HE WAITED FOR AN ONCOMING AUTO TO PASS.</div></div>
+    <div class="slide bg-6" data-duration="3700"><div class="caption">THEN HE CUT HARD INTO THE NARROW LEFT ALLEY INSTEAD.</div></div>
+    <div class="slide bg-7" data-duration="3400"><div class="caption">THE SWIFT DIDN'T TURN.</div></div>
+    <div class="slide bg-8" data-duration="3700"><div class="caption">IT ROLLED INTO THE EMPTY CROSSROADS AND STOPPED DEAD.</div></div>
+    <div class="slide bg-9" data-duration="3700"><div class="caption">VIKRAM PULLED OVER THIRTY METERS AHEAD, HEART RACING.</div></div>
+    <div class="slide bg-10" data-duration="3600"><div class="caption">THE CAR’S HAZARD LIGHTS STARTED BLINKING IN THE DARK.</div></div>
+    <div class="slide bg-11" data-duration="3800"><div class="caption">THE DRIVER STEPPED OUT INTO THE GLOW OF VIKRAM'S HEADLIGHT.</div></div>
+    <div class="slide bg-12" data-duration="3600"><div class="caption">IN HIS HAND WAS A WORN BROWN LEATHER WALLET.</div></div>
+    <div class="slide bg-13" data-duration="3800"><div class="caption">HE HELD IT UP, TAPPING THE DRIVING LICENSE INSIDE.</div></div>
+    <div class="slide bg-14" data-duration="3600"><div class="caption">VIKRAM FELT HIS KURTA POCKET.</div></div>
+    <div class="slide bg-15" data-duration="4400"><div class="caption">THE ZIP WAS UNDONE. IT WAS COMPLETELY EMPTY.</div></div>
   </div>
 </div>
 
