@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reel Frames: Everyday Suspense Scene</title>
+  <title>DraftsRush | Reel Storyboard: Suspense Breakdown</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,10 +12,10 @@
     }
 
     body {
-      background-color: #0d0f12;
-      color: #e6edf3;
+      background-color: #000000;
+      color: #FFFFFF;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      padding: 40px 20px;
+      padding: 48px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -23,70 +23,85 @@
 
     header {
       text-align: center;
-      margin-bottom: 36px;
-      max-width: 600px;
+      margin-bottom: 40px;
+      max-width: 680px;
+    }
+
+    .brand-pill {
+      display: inline-block;
+      background-color: #FFE600;
+      color: #000000;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 12px;
     }
 
     header h1 {
-      font-size: 24px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 8px;
+      font-size: 26px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
     }
 
     header p {
       font-size: 14px;
-      color: #8b949e;
+      color: #888888;
     }
 
     .frames-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 28px;
+      gap: 32px;
       justify-content: center;
-      max-width: 1300px;
+      max-width: 1360px;
       width: 100%;
     }
 
     .frame-card {
-      background-color: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 16px;
-      padding: 16px;
+      background-color: #0B0B0B;
+      border: 1px solid #222222;
+      border-radius: 12px;
+      padding: 18px;
       width: 320px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
 
     .frame-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #21262d;
-      padding-bottom: 8px;
+      border-bottom: 1px solid #1A1A1A;
+      padding-bottom: 10px;
     }
 
     .frame-tag {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #f2cc60;
+      letter-spacing: 0.8px;
+      color: #FFE600;
     }
 
     .frame-duration {
       font-size: 12px;
-      color: #8b949e;
+      color: #777777;
+      font-weight: 600;
       font-family: monospace;
     }
 
     .screen-preview {
       aspect-ratio: 9 / 16;
       width: 100%;
-      background: radial-gradient(circle at center, #1b222c 0%, #0d1117 100%);
-      border-radius: 12px;
-      border: 1px solid #30363d;
+      background-color: #050505;
+      border-radius: 8px;
+      border: 1px solid #222222;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -95,82 +110,92 @@
       padding: 24px 18px;
     }
 
-    .screen-badge {
+    .screen-top-indicator {
       align-self: flex-start;
-      background-color: rgba(242, 204, 96, 0.15);
-      border: 1px solid rgba(242, 204, 96, 0.4);
-      color: #f2cc60;
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #000000;
+      background-color: #FFE600;
       padding: 3px 8px;
-      border-radius: 4px;
+      border-radius: 3px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .screen-center-text {
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 800;
       line-height: 1.35;
       text-align: center;
-      color: #ffffff;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+      color: #FFFFFF;
+      letter-spacing: -0.4px;
     }
 
-    .screen-center-text span {
-      color: #f85149;
+    .screen-center-text .highlight {
+      color: #FFE600;
     }
 
-    .screen-footer {
+    .screen-center-text .subtext {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #888888;
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+
+    .screen-footer-badge {
       font-size: 11px;
       text-align: center;
-      color: #8b949e;
-      background-color: rgba(13, 17, 23, 0.7);
-      border-radius: 6px;
-      padding: 6px;
-      border: 1px solid #21262d;
+      color: #777777;
+      border-top: 1px solid #1A1A1A;
+      padding-top: 8px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     .details-section {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
       font-size: 13px;
     }
 
     .detail-item {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
     }
 
     .detail-label {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 10px;
+      font-weight: 800;
       text-transform: uppercase;
-      color: #58a6ff;
+      letter-spacing: 0.8px;
+      color: #888888;
     }
 
     .detail-text {
-      color: #c9d1d9;
+      color: #D4D4D4;
       line-height: 1.45;
     }
 
-    .dialogue-box {
-      background-color: #0d1117;
-      border-left: 3px solid #f2cc60;
-      padding: 8px 10px;
-      border-radius: 0 6px 6px 0;
-      color: #f0f6fc;
-      font-style: italic;
+    .script-box {
+      background-color: #121212;
+      border-left: 2px solid #FFE600;
+      padding: 10px 12px;
+      border-radius: 0 4px 4px 0;
+      color: #F0F0F0;
+      line-height: 1.45;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Reel Storyboard: Turning Mundane Moments into Suspense</h1>
-    <p>Target Length: 55 Seconds | Format: 9:16 Vertical Reel</p>
+    <div class="brand-pill">DRAFTS RUSH</div>
+    <h1>Explaining Suspense: From Life to Screen</h1>
+    <p>55-Second Educational Reel Breakdown | Visual Reference Frame</p>
   </header>
 
   <div class="frames-container">
@@ -178,27 +203,27 @@
     <!-- Frame 1 -->
     <div class="frame-card">
       <div class="frame-meta">
-        <span class="frame-tag">Frame 1: The Scroll-Stopper</span>
+        <span class="frame-tag">Frame 1: The Hook</span>
         <span class="frame-duration">0:00 - 0:08</span>
       </div>
       <div class="screen-preview">
-        <div class="screen-badge">Visual: Direct Eye Contact</div>
+        <div class="screen-top-indicator">DraftsRush Reel</div>
         <div class="screen-center-text">
-          BEFORE YOU SKIP.<br>
-          <span>WRITE A SUSPENSE SCENE</span><br>
-          FROM REAL LIFE.
+          BEFORE YOU SKIP.<br><br>
+          <span class="highlight">LET'S WRITE A SUSPENSE SCENE</span><br>
+          FROM AN EVERYDAY SITUATION.
         </div>
-        <div class="screen-footer">Cut from medium close-up directly into red highlight text.</div>
+        <div class="screen-footer-badge">A-Roll: Direct Eye Contact</div>
       </div>
       <div class="details-section">
         <div class="detail-item">
-          <span class="detail-label">Action / Visual</span>
-          <span class="detail-text">Close-up straight to camera, handheld. You raise one finger before the viewer swipes. Rapid zoom cut on the final sentence.</span>
+          <span class="detail-label">Visual Execution</span>
+          <span class="detail-text">Close-up talking directly to the viewer. Clean framing. The text overlay pops up centered with the signature yellow emphasis on key words.</span>
         </div>
         <div class="detail-item">
-          <span class="detail-label">Spoken Audio</span>
-          <div class="dialogue-box">
-            "Before you skip, let's write a quick suspense scene from an everyday life situation. Every scary movie starts with an everyday mistake you made yesterday."
+          <span class="detail-label">Talking Points</span>
+          <div class="script-box">
+            "Before you skip, let's write a quick suspense scene from an everyday life situation. Every good thriller starts with an ordinary moment you probably dealt with yesterday."
           </div>
         </div>
       </div>
@@ -207,27 +232,26 @@
     <!-- Frame 2 -->
     <div class="frame-card">
       <div class="frame-meta">
-        <span class="frame-tag">Frame 2: The Setup</span>
-        <span class="frame-duration">0:08 - 0:19</span>
+        <span class="frame-tag">Frame 2: The Principle</span>
+        <span class="frame-duration">0:08 - 0:20</span>
       </div>
       <div class="screen-preview">
-        <div class="screen-badge">Visual: Phone Battery Overlay</div>
+        <div class="screen-top-indicator">Craft Note</div>
         <div class="screen-center-text">
-          12:40 AM.<br>
-          DESERTED ROAD.<br>
-          <span>BATTERY: 2%</span>
+          SUSPENSE IS NOT DANGER.<br><br>
+          <span class="highlight">SUSPENSE IS DELAYED ANSWERS.</span>
         </div>
-        <div class="screen-footer">Show black lock screen with 2% red indicator.</div>
+        <div class="screen-footer-badge">A-Roll + Clean Typography</div>
       </div>
       <div class="details-section">
         <div class="detail-item">
-          <span class="detail-label">Action / Visual</span>
-          <span class="detail-text">Switch to low-angle, darker lighting. Hold your phone up toward camera showing a red 2% battery indicator while standing near a dim doorway or street.</span>
+          <span class="detail-label">Visual Execution</span>
+          <span class="detail-text">You explain the technical difference between immediate action and narrative withholding. Bold yellow text highlights the core takeaway.</span>
         </div>
         <div class="detail-item">
-          <span class="detail-label">Spoken Audio</span>
-          <div class="dialogue-box">
-            "Take a boring situation: It is 12:40 AM, you are on an empty street, and you booked a cab. You look down at your screen, and your battery is at 2 percent."
+          <span class="detail-label">Talking Points</span>
+          <div class="script-box">
+            "Here is the rule: Suspense is not about throwing danger at the audience right away. It is about taking a simple piece of information they need, and deliberately delaying it."
           </div>
         </div>
       </div>
@@ -236,28 +260,27 @@
     <!-- Frame 3 -->
     <div class="frame-card">
       <div class="frame-meta">
-        <span class="frame-tag">Frame 3: The Mistake</span>
-        <span class="frame-duration">0:19 - 0:31</span>
+        <span class="frame-tag">Frame 3: The Example</span>
+        <span class="frame-duration">0:20 - 0:34</span>
       </div>
       <div class="screen-preview">
-        <div class="screen-badge">Visual: Crossed Out Text</div>
+        <div class="screen-top-indicator">Case Study</div>
         <div class="screen-center-text">
-          AMATEUR:<br>
-          <span>GIVES THE MONSTER AWAY</span><br><br>
-          PRO:<br>
-          DELAYS THE ANSWER
+          ORDINARY SITUATION:<br>
+          <span class="highlight">CAB ARRIVES. BATTERY 2%.</span>
+          <span class="subtext">The tension comes from what is missing.</span>
         </div>
-        <div class="screen-footer">A-roll side profile talking with quick jump cut.</div>
+        <div class="screen-footer-badge">Split / Graphic Overlay</div>
       </div>
       <div class="details-section">
         <div class="detail-item">
-          <span class="detail-label">Action / Visual</span>
-          <span class="detail-text">Jump cut back to a well-lit shot. Clean graphic overlay comparing early revelation versus withholding information.</span>
+          <span class="detail-label">Visual Execution</span>
+          <span class="detail-text">Quick breakdown framing. You introduce the scenario plainly to anchor the lesson without dramatic acting.</span>
         </div>
         <div class="detail-item">
-          <span class="detail-label">Spoken Audio</span>
-          <div class="dialogue-box">
-            "Amateurs make a monster show up immediately. Screenwriters do the opposite. Suspense is built by delaying one critical piece of information."
+          <span class="detail-label">Talking Points</span>
+          <div class="script-box">
+            "Look at an everyday situation: It is midnight, you are waiting for a cab on a quiet street, and your phone hits two percent. A car pulls up. You need one simple thing: the license plate."
           </div>
         </div>
       </div>
@@ -266,26 +289,26 @@
     <!-- Frame 4 -->
     <div class="frame-card">
       <div class="frame-meta">
-        <span class="frame-tag">Frame 4: The Escalation</span>
-        <span class="frame-duration">0:31 - 0:46</span>
+        <span class="frame-tag">Frame 4: The Turn</span>
+        <span class="frame-duration">0:34 - 0:46</span>
       </div>
       <div class="screen-preview">
-        <div class="screen-badge">Visual: Sound Effect Visualizer</div>
+        <div class="screen-top-indicator">The Mechanics</div>
         <div class="screen-center-text">
-          HEADLIGHTS SLOW DOWN.<br>
-          <span>SCREEN TURNS BLACK.</span>
+          WITHHOLD THE PLATE.<br><br>
+          <span class="highlight">NOW THE ROUTINE TURNS SUSPENSEFUL.</span>
         </div>
-        <div class="screen-footer">Abrupt cut to completely black screen for 1 full second.</div>
+        <div class="screen-footer-badge">A-Roll Breakdown</div>
       </div>
       <div class="details-section">
         <div class="detail-item">
-          <span class="detail-label">Action / Visual</span>
-          <span class="detail-text">Fast atmospheric cuts: quiet breathing, headlights slowing down in the distance, you look down at the phone to check the license plate, and the screen dies.</span>
+          <span class="detail-label">Visual Execution</span>
+          <span class="detail-text">You explain how withholding the answer creates the scene tension. Snappy hand movements to emphasize the mechanical shift in writing.</span>
         </div>
         <div class="detail-item">
-          <span class="detail-label">Spoken Audio</span>
-          <div class="dialogue-box">
-            "Watch: Headlights turn the corner. A white sedan slows down right in front of you. You look down to verify the plate number, and your phone goes black. Is that your driver, or someone else?"
+          <span class="detail-label">Talking Points</span>
+          <div class="script-box">
+            "If your phone stays on and you read the plate, the scene is over. But if the screen dies two seconds before you verify it, you don't know who is in that car. That delay creates the suspense."
           </div>
         </div>
       </div>
@@ -294,26 +317,27 @@
     <!-- Frame 5 -->
     <div class="frame-card">
       <div class="frame-meta">
-        <span class="frame-tag">Frame 5: The Takeaway</span>
+        <span class="frame-tag">Frame 5: The Wrap</span>
         <span class="frame-duration">0:46 - 0:55</span>
       </div>
       <div class="screen-preview">
-        <div class="screen-badge">Visual: Final Punchline</div>
+        <div class="screen-top-indicator">DraftsRush</div>
         <div class="screen-center-text">
-          SUSPENSE IS NOT DANGER.<br>
-          <span>IT IS UNCERTAINTY.</span>
+          FIND THE EVERYDAY MOMENT.<br>
+          <span class="highlight">DELAY THE ANSWER.</span>
+          <span class="subtext">Follow DraftsRush for practical screenwriting breakdowns.</span>
         </div>
-        <div class="screen-footer">Follow button animation with handle overlay.</div>
+        <div class="screen-footer-badge">Profile Handle Clean Card</div>
       </div>
       <div class="details-section">
         <div class="detail-item">
-          <span class="detail-label">Action / Visual</span>
-          <span class="detail-text">Direct camera address. Clean text banner at the base of the frame. Confident and prompt close.</span>
+          <span class="detail-label">Visual Execution</span>
+          <span class="detail-text">Direct wrap-up to the lens. The final rule appears clean and legible on screen with the handle prompt.</span>
         </div>
         <div class="detail-item">
-          <span class="detail-label">Spoken Audio</span>
-          <div class="dialogue-box">
-            "Suspense is not danger. It is uncertainty. Save your battery, and follow if you want to turn everyday life into scenes."
+          <span class="detail-label">Talking Points</span>
+          <div class="script-box">
+            "You do not need explosions or monsters. Take an everyday moment and delay the answer. Follow DraftsRush for simple writing breakdowns you can use in your scripts."
           </div>
         </div>
       </div>
