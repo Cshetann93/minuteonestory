@@ -13,7 +13,7 @@
   }
 
   body {
-    background-color: #050505;
+    background-color: #000000;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,24 +24,24 @@
     overflow: hidden;
   }
 
+  /* Full Screen 9:16 Canvas */
   .viewport-wrapper {
     position: relative;
-    width: 360px;
-    height: 640px;
+    width: 100vw;
+    height: 100vh;
+    max-width: calc(100vh * (9 / 16));
     background: #000000;
-    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
     display: flex;
     flex-direction: column;
   }
 
-  /* Thin Progress Line */
+  /* Progress Line */
   .progress-bar-container {
     position: absolute;
-    top: 14px;
-    left: 16px;
-    right: 16px;
+    top: 18px;
+    left: 20px;
+    right: 20px;
     display: flex;
     gap: 4px;
     z-index: 50;
@@ -50,7 +50,7 @@
   .progress-segment {
     flex: 1;
     height: 2px;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 1px;
     overflow: hidden;
   }
@@ -59,16 +59,15 @@
     width: 0%;
     height: 100%;
     background: #ffffff;
-    opacity: 0.85;
+    opacity: 0.9;
     transition: width 0.08s linear;
   }
 
-  /* Stage and Slide */
+  /* Slide Stage */
   .stage {
     position: relative;
     width: 100%;
     height: 100%;
-    background: #030303;
   }
 
   .slide {
@@ -78,10 +77,10 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 32px;
+    padding: 0 40px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.8s ease-in-out;
+    transition: opacity 0.7s ease-in-out;
   }
 
   .slide.active {
@@ -89,15 +88,17 @@
     pointer-events: auto;
   }
 
-  /* Dark, bleak, low-exposure background images */
+  /* Full background image, B&W, low exposure, low opacity */
   .bg-image {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
-    filter: grayscale(100%) brightness(0.14) contrast(1.3);
+    background-repeat: no-repeat;
+    filter: grayscale(100%) brightness(0.22) contrast(1.2);
+    opacity: 0.28;
     transform: scale(1.02);
-    transition: transform 4.2s cubic-bezier(0.1, 1, 0.1, 1);
+    transition: transform 4s cubic-bezier(0.1, 1, 0.1, 1);
     z-index: 1;
   }
 
@@ -105,15 +106,15 @@
     transform: scale(1.08);
   }
 
-  /* Heavy dark vignette overlay */
+  /* Dark Vignette */
   .vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0.94) 85%);
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 15%, rgba(0, 0, 0, 0.85) 80%, rgba(0, 0, 0, 0.98) 100%);
     z-index: 2;
   }
 
-  /* Text Content Centering */
+  /* Centered Text */
   .content {
     position: relative;
     z-index: 10;
@@ -121,15 +122,15 @@
   }
 
   .caption {
-    font-size: 23px;
+    font-size: 28px;
     line-height: 1.45;
     font-weight: 500;
     letter-spacing: -0.2px;
-    color: #f0f0f0;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
-    transform: translateY(8px);
+    color: #f3f3f3;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 1);
+    transform: translateY(10px);
     opacity: 0;
-    transition: transform 0.6s ease-out 0.2s, opacity 0.6s ease-out 0.2s;
+    transition: transform 0.5s ease-out 0.15s, opacity 0.5s ease-out 0.15s;
   }
 
   .slide.active .caption {
@@ -137,23 +138,30 @@
     opacity: 1;
   }
 
-  /* Minimalist Controls */
+  /* Floating controls overlay */
   .controls {
-    margin-top: 18px;
+    position: fixed;
+    bottom: 20px;
     display: flex;
     gap: 12px;
+    z-index: 100;
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+  }
+
+  .controls:hover {
+    opacity: 1;
   }
 
   button {
-    background: #141414;
-    color: #a3a3a3;
-    border: 1px solid #262626;
-    padding: 8px 16px;
-    font-size: 13px;
+    background: #111111;
+    color: #cccccc;
+    border: 1px solid #333333;
+    padding: 7px 14px;
+    font-size: 12px;
     font-weight: 500;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
   }
 
   button:hover {
@@ -171,7 +179,7 @@
 
     <!-- Frame 1 -->
     <div class="slide active" data-duration="3800">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">Vikram checked his bike mirror for the fourth time.</div>
@@ -180,7 +188,7 @@
 
     <!-- Frame 2 -->
     <div class="slide" data-duration="3800">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">A white Swift was tailing him through the dark service lanes.</div>
@@ -189,7 +197,7 @@
 
     <!-- Frame 3 -->
     <div class="slide" data-duration="3400">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">Every turn he made, the car made too.</div>
@@ -198,7 +206,7 @@
 
     <!-- Frame 4 -->
     <div class="slide" data-duration="3700">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1545459720-aac8509eb02c?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">Near a closed petrol pump, Vikram flicked his right indicator.</div>
@@ -207,7 +215,7 @@
 
     <!-- Frame 5 -->
     <div class="slide" data-duration="3400">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1508873696983-2df5293cb32f?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">He waited for an oncoming auto to pass.</div>
@@ -216,7 +224,7 @@
 
     <!-- Frame 6 -->
     <div class="slide" data-duration="3700">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1517649763962-0c623266ddc0?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">Then he cut hard into the narrow left alley instead.</div>
@@ -225,7 +233,7 @@
 
     <!-- Frame 7 -->
     <div class="slide" data-duration="3400">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">The Swift didn't turn.</div>
@@ -234,7 +242,7 @@
 
     <!-- Frame 8 -->
     <div class="slide" data-duration="3700">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">It rolled into the empty crossroads and stopped dead.</div>
@@ -243,7 +251,7 @@
 
     <!-- Frame 9 -->
     <div class="slide" data-duration="3700">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1508873696983-2df5293cb32f?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">Vikram pulled over thirty meters ahead, heart racing.</div>
@@ -252,7 +260,7 @@
 
     <!-- Frame 10 -->
     <div class="slide" data-duration="3600">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">The car’s hazard lights started blinking in the dark.</div>
@@ -261,7 +269,7 @@
 
     <!-- Frame 11 -->
     <div class="slide" data-duration="3800">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">The driver stepped out into the glow of Vikram's headlight.</div>
@@ -270,7 +278,7 @@
 
     <!-- Frame 12 -->
     <div class="slide" data-duration="3600">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">In his hand was a worn brown leather wallet.</div>
@@ -279,7 +287,7 @@
 
     <!-- Frame 13 -->
     <div class="slide" data-duration="3800">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">He held it up, tapping the driving license inside.</div>
@@ -288,7 +296,7 @@
 
     <!-- Frame 14 -->
     <div class="slide" data-duration="3600">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">Vikram felt his kurta pocket.</div>
@@ -297,7 +305,7 @@
 
     <!-- Frame 15 -->
     <div class="slide" data-duration="4400">
-      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1080&q=80');"></div>
       <div class="vignette"></div>
       <div class="content">
         <div class="caption">The zip was undone. It was completely empty.</div>
