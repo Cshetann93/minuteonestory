@@ -24,17 +24,19 @@
     overflow: hidden;
   }
 
+  /* 9:16 Vertical Screen Container */
   .viewport-wrapper {
     position: relative;
     width: 100vw;
     height: 100vh;
     max-width: calc(100vh * (9 / 16));
-    background: #000000;
+    background: #020202;
     overflow: hidden;
     display: flex;
     flex-direction: column;
   }
 
+  /* Segmented Story Progress Line */
   .progress-bar-container {
     position: absolute;
     top: 18px;
@@ -48,7 +50,7 @@
   .progress-segment {
     flex: 1;
     height: 2px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 1px;
     overflow: hidden;
   }
@@ -57,245 +59,157 @@
     width: 0%;
     height: 100%;
     background: #ffffff;
-    opacity: 0.9;
+    opacity: 0.85;
     transition: width 0.08s linear;
   }
 
-  .stage {
-    position: relative;
+  /* Charcoal Sketch Canvas */
+  #sketchCanvas {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
+    filter: brightness(0.24) contrast(1.45) blur(0.4px);
+    opacity: 0.32;
+    transform: scale(1.02);
+    transition: transform 3.8s cubic-bezier(0.1, 1, 0.1, 1);
   }
 
-  .slide {
+  .viewport-wrapper.animating #sketchCanvas {
+    transform: scale(1.06);
+  }
+
+  /* Atmospheric Smog and Deep Edge Vignette */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.18) 10%, rgba(0, 0, 0, 0.86) 72%, #000000 98%);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Centered Captions */
+  .content-layer {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 40px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.7s ease-in-out;
-  }
-
-  .slide.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Full screen, dark, black-and-white, low opacity */
-  .bg-image {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: grayscale(100%) brightness(0.2) contrast(1.25);
-    opacity: 0.25;
-    transform: scale(1.02);
-    transition: transform 4s cubic-bezier(0.1, 1, 0.1, 1);
-    z-index: 1;
-  }
-
-  .slide.active .bg-image {
-    transform: scale(1.08);
-  }
-
-  .vignette {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.15) 15%, rgba(0, 0, 0, 0.85) 80%, rgba(0, 0, 0, 0.98) 100%);
-    z-index: 2;
-  }
-
-  .content {
-    position: relative;
+    padding: 0 36px;
     z-index: 10;
-    max-width: 100%;
+    pointer-events: none;
   }
 
   .caption {
-    font-size: 28px;
-    line-height: 1.45;
-    font-weight: 500;
-    letter-spacing: -0.2px;
-    color: #f3f3f3;
-    text-shadow: 0 2px 14px rgba(0, 0, 0, 1);
+    font-size: 27px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #f5f5f5;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 1), 0 0 4px rgba(0, 0, 0, 0.9);
     transform: translateY(10px);
     opacity: 0;
     transition: transform 0.5s ease-out 0.15s, opacity 0.5s ease-out 0.15s;
   }
 
-  .slide.active .caption {
+  .caption.active {
     transform: translateY(0);
     opacity: 1;
   }
 
-  /* Bottom Controls Toolbar */
+  /* Minimalist Controls */
   .controls {
     position: fixed;
     bottom: 16px;
     display: flex;
-    align-items: center;
     gap: 10px;
     z-index: 100;
-    background: rgba(15, 15, 15, 0.85);
+    background: rgba(12, 12, 12, 0.85);
     padding: 8px 14px;
     border-radius: 8px;
-    border: 1px solid #262626;
+    border: 1px solid #222222;
   }
 
-  button, label.upload-btn {
-    background: #1e1e1e;
-    color: #e5e5e5;
-    border: 1px solid #383838;
+  button {
+    background: #181818;
+    color: #d4d4d4;
+    border: 1px solid #333333;
     padding: 7px 14px;
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     border-radius: 5px;
     cursor: pointer;
   }
 
-  button:hover, label.upload-btn:hover {
-    background: #2b2b2b;
-  }
-
-  #fileInput {
-    display: none;
-  }
-
-  #statusText {
-    font-size: 12px;
-    color: #888;
+  button:hover {
+    background: #262626;
+    color: #ffffff;
   }
 </style>
 </head>
 <body>
 
-<div class="viewport-wrapper">
+<div class="viewport-wrapper" id="viewport">
   <div class="progress-bar-container" id="progressBar"></div>
-
-  <div class="stage">
-
-    <div class="slide active" data-duration="3800">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">Vikram checked his bike mirror for the fourth time.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3800">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">A white Swift was tailing him through the dark service lanes.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3400">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">Every turn he made, the car made too.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3700">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">Near a closed petrol pump, Vikram flicked his right indicator.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3400">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">He waited for an oncoming auto to pass.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3700">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">Then he cut hard into the narrow left alley instead.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3400">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">The Swift didn't turn.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3700">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">It rolled into the empty crossroads and stopped dead.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3700">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">Vikram pulled over thirty meters ahead, heart racing.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3600">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">The car’s hazard lights started blinking in the dark.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3800">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">The driver stepped out into the glow of Vikram's headlight.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3600">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">In his hand was a worn brown leather wallet.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3800">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">He held it up, tapping the driving license inside.</div></div>
-    </div>
-
-    <div class="slide" data-duration="3600">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">Vikram felt his kurta pocket.</div></div>
-    </div>
-
-    <div class="slide" data-duration="4400">
-      <div class="bg-image"></div>
-      <div class="vignette"></div>
-      <div class="content"><div class="caption">The zip was undone. It was completely empty.</div></div>
-    </div>
-
+  <canvas id="sketchCanvas"></canvas>
+  <div class="vignette"></div>
+  <div class="content-layer">
+    <div class="caption active" id="captionText"></div>
   </div>
 </div>
 
 <div class="controls">
-  <label class="upload-btn" for="fileInput">Choose 15 Images</label>
-  <input type="file" id="fileInput" accept="image/*" multiple>
-  <span id="statusText">No files chosen</span>
-  <button id="restartBtn">Restart</button>
-  <button id="toggleBtn">Pause</button>
+  <button id="restartBtn">RESTART</button>
+  <button id="toggleBtn">PAUSE</button>
 </div>
 
 <script>
-  const slides = Array.from(document.querySelectorAll('.slide'));
+  const story = [
+    { text: "VIKRAM CHECKED HIS BIKE MIRROR FOR THE FOURTH TIME.", duration: 3800, draw: drawSlide1 },
+    { text: "A WHITE SWIFT WAS TAILING HIM THROUGH THE DARK SERVICE LANES.", duration: 3800, draw: drawSlide2 },
+    { text: "EVERY TURN HE MADE, THE CAR MADE TOO.", duration: 3400, draw: drawSlide3 },
+    { text: "NEAR A CLOSED PETROL PUMP, VIKRAM FLICKED HIS RIGHT INDICATOR.", duration: 3700, draw: drawSlide4 },
+    { text: "HE WAITED FOR AN ONCOMING AUTO TO PASS.", duration: 3400, draw: drawSlide5 },
+    { text: "THEN HE CUT HARD INTO THE NARROW LEFT ALLEY INSTEAD.", duration: 3700, draw: drawSlide6 },
+    { text: "THE SWIFT DIDN'T TURN.", duration: 3400, draw: drawSlide7 },
+    { text: "IT ROLLED INTO THE EMPTY CROSSROADS AND STOPPED DEAD.", duration: 3700, draw: drawSlide8 },
+    { text: "VIKRAM PULLED OVER THIRTY METERS AHEAD, HEART RACING.", duration: 3700, draw: drawSlide9 },
+    { text: "THE CAR’S HAZARD LIGHTS STARTED BLINKING IN THE DARK.", duration: 3600, draw: drawSlide10 },
+    { text: "THE DRIVER STEPPED OUT INTO THE GLOW OF VIKRAM'S HEADLIGHT.", duration: 3800, draw: drawSlide11 },
+    { text: "IN HIS HAND WAS A WORN BROWN LEATHER WALLET.", duration: 3600, draw: drawSlide12 },
+    { text: "HE HELD IT UP, TAPPING THE DRIVING LICENSE INSIDE.", duration: 3800, draw: drawSlide13 },
+    { text: "VIKRAM FELT HIS KURTA POCKET.", duration: 3600, draw: drawSlide14 },
+    { text: "THE ZIP WAS UNDONE. IT WAS COMPLETELY EMPTY.", duration: 4400, draw: drawSlide15 }
+  ];
+
+  const canvas = document.getElementById('sketchCanvas');
+  const ctx = canvas.getContext('2d');
+  const viewport = document.getElementById('viewport');
+  const captionEl = document.getElementById('captionText');
   const progressContainer = document.getElementById('progressBar');
   const restartBtn = document.getElementById('restartBtn');
   const toggleBtn = document.getElementById('toggleBtn');
-  const fileInput = document.getElementById('fileInput');
-  const statusText = document.getElementById('statusText');
 
   let currentIndex = 0;
-  let progressTimer = null;
   let isPaused = false;
-  let currentSlideDuration = 3800;
   let elapsed = 0;
+  let progressTimer = null;
+  let cw = 0;
+  let ch = 0;
 
-  // Set up progress bars
-  slides.forEach(() => {
+  function resizeCanvas() {
+    cw = canvas.width = viewport.clientWidth;
+    ch = canvas.height = viewport.clientHeight;
+    renderCurrentFrame();
+  }
+  window.addEventListener('resize', resizeCanvas);
+
+  // Setup Progress Indicator
+  story.forEach(() => {
     const seg = document.createElement('div');
     seg.className = 'progress-segment';
     const fill = document.createElement('div');
@@ -303,35 +217,237 @@
     seg.appendChild(fill);
     progressContainer.appendChild(seg);
   });
-
   const fills = Array.from(document.querySelectorAll('.progress-fill'));
 
-  // Load custom user files directly in order
-  fileInput.addEventListener('change', (e) => {
-    const files = Array.from(e.target.files);
-    if (!files.length) return;
+  // Charcoal & Smudged Graphite Helpers
+  function charcoalLine(x1, y1, x2, y2, opacity = 0.25, width = 1.2) {
+    ctx.save();
+    ctx.strokeStyle = `rgba(240, 240, 240, ${opacity})`;
+    ctx.lineWidth = width;
+    ctx.beginPath();
+    const mx = (x1 + x2) / 2 + (Math.random() - 0.5) * 4;
+    const my = (y1 + y2) / 2 + (Math.random() - 0.5) * 4;
+    ctx.moveTo(x1, y1);
+    ctx.quadraticCurveTo(mx, my, x2, y2);
+    ctx.stroke();
+    ctx.restore();
+  }
 
-    // Sort alphabetically so 01.jpg, 02.jpg... match correctly
-    files.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
+  function charcoalHatch(x, y, w, h, count = 20, opacity = 0.15) {
+    for (let i = 0; i < count; i++) {
+      const sx = x + Math.random() * w;
+      const sy = y + Math.random() * h;
+      charcoalLine(sx, sy, sx + (Math.random() * 26 - 13), sy + (Math.random() * 26 - 13), opacity, 0.8);
+    }
+  }
 
-    files.forEach((file, index) => {
-      if (index < slides.length) {
-        const url = URL.createObjectURL(file);
-        const bg = slides[index].querySelector('.bg-image');
-        bg.style.backgroundImage = `url('${url}')`;
-      }
-    });
+  function applyFogAndTexture() {
+    ctx.fillStyle = '#040404';
+    ctx.fillRect(0, 0, cw, ch);
 
-    statusText.textContent = `${Math.min(files.length, 15)} loaded`;
-    showSlide(0);
-  });
+    // Fog patches
+    for (let i = 0; i < 5; i++) {
+      const fx = Math.random() * cw;
+      const fy = Math.random() * ch;
+      const fr = 120 + Math.random() * 160;
+      const grad = ctx.createRadialGradient(fx, fy, 10, fx, fy, fr);
+      grad.addColorStop(0, 'rgba(160, 160, 160, 0.08)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, cw, ch);
+    }
+
+    // Rough graphite paper speckles
+    for (let i = 0; i < 1100; i++) {
+      ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.035})`;
+      ctx.fillRect(Math.random() * cw, Math.random() * ch, 1.2, 1.2);
+    }
+  }
+
+  // Slide 1: Close-up round handlebar mirror with glowing car eyes in reflection
+  function drawSlide1() {
+    charcoalLine(cw * 0.05, ch * 0.75, cw * 0.42, ch * 0.52, 0.45, 3.5);
+    ctx.strokeStyle = 'rgba(230, 230, 230, 0.45)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(cw * 0.5, ch * 0.45, 120, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Blurred Swift front inside mirror glass
+    ctx.strokeStyle = 'rgba(200, 200, 200, 0.25)';
+    ctx.strokeRect(cw * 0.38, ch * 0.42, cw * 0.24, 30);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+    ctx.beginPath();
+    ctx.arc(cw * 0.42, ch * 0.45, 8, 0, Math.PI * 2);
+    ctx.arc(cw * 0.58, ch * 0.45, 8, 0, Math.PI * 2);
+    ctx.fill();
+    charcoalHatch(cw * 0.32, ch * 0.28, 140, 140, 45, 0.16);
+  }
+
+  // Slide 2: White Swift tailing motorcycle through narrow service lane
+  function drawSlide2() {
+    // Looming alley walls
+    charcoalLine(0, ch * 0.15, cw * 0.26, ch * 0.95, 0.35, 2.5);
+    charcoalLine(cw, ch * 0.15, cw * 0.74, ch * 0.95, 0.35, 2.5);
+    // Car grille and roof outline
+    ctx.strokeStyle = 'rgba(230, 230, 230, 0.35)';
+    ctx.strokeRect(cw * 0.32, ch * 0.42, cw * 0.36, 52);
+    // Beaming headlights cutting smog
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+    ctx.beginPath();
+    ctx.arc(cw * 0.37, ch * 0.49, 10, 0, Math.PI * 2);
+    ctx.arc(cw * 0.63, ch * 0.49, 10, 0, Math.PI * 2);
+    ctx.fill();
+    charcoalHatch(cw * 0.22, ch * 0.48, cw * 0.56, 120, 55, 0.14);
+  }
+
+  // Slide 3: Sharp blind turn with tire tracks
+  function drawSlide3() {
+    charcoalLine(cw * 0.35, 0, cw * 0.35, ch * 0.65, 0.45, 2.5);
+    charcoalLine(cw * 0.35, ch * 0.65, 0, ch * 0.9, 0.45, 2.5);
+    charcoalLine(cw * 0.75, 0, cw * 0.75, ch * 0.48, 0.35, 2.5);
+    charcoalLine(cw * 0.75, ch * 0.48, cw, ch * 0.78, 0.35, 2.5);
+    charcoalHatch(0, 0, cw * 0.35, ch * 0.75, 75, 0.18);
+  }
+
+  // Slide 4: Shuttered petrol pump unit & flicked right indicator
+  function drawSlide4() {
+    ctx.strokeStyle = 'rgba(220, 220, 220, 0.35)';
+    ctx.strokeRect(cw * 0.2, ch * 0.32, cw * 0.35, 150);
+    ctx.strokeRect(cw * 0.24, ch * 0.36, cw * 0.27, 42);
+    charcoalLine(cw * 0.55, ch * 0.44, cw * 0.64, ch * 0.62, 0.45, 2.5); // Fuel hose
+    // Right indicator burst
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.beginPath();
+    ctx.arc(cw * 0.78, ch * 0.62, 8, 0, Math.PI * 2);
+    ctx.fill();
+    charcoalHatch(cw * 0.2, ch * 0.32, cw * 0.35, 150, 60, 0.16);
+  }
+
+  // Slide 5: Oncoming auto rickshaw passing in smog
+  function drawSlide5() {
+    ctx.beginPath();
+    ctx.moveTo(cw * 0.24, ch * 0.58);
+    ctx.lineTo(cw * 0.38, ch * 0.38);
+    ctx.lineTo(cw * 0.72, ch * 0.38);
+    ctx.lineTo(cw * 0.78, ch * 0.64);
+    ctx.lineTo(cw * 0.24, ch * 0.64);
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(230, 230, 230, 0.4)';
+    ctx.stroke();
+    // Auto center headlight
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.beginPath();
+    ctx.arc(cw * 0.51, ch * 0.56, 12, 0, Math.PI * 2);
+    ctx.fill();
+    charcoalHatch(cw * 0.28, ch * 0.4, cw * 0.46, 70, 50, 0.16);
+  }
+
+  // Slide 6: Bike swerving sharply into narrow left gap
+  function drawSlide6() {
+    charcoalLine(cw * 0.55, ch * 0.85, cw * 0.2, ch * 0.52, 0.55, 3.5);
+    charcoalLine(cw * 0.58, ch * 0.87, cw * 0.22, ch * 0.54, 0.4, 2);
+    charcoalLine(cw * 0.12, ch * 0.15, cw * 0.12, ch * 0.95, 0.35, 2.5);
+    charcoalLine(cw * 0.35, ch * 0.15, cw * 0.35, ch * 0.72, 0.35, 2.5);
+  }
+
+  // Slide 7: Car continuing dead straight past the turn
+  function drawSlide7() {
+    charcoalLine(cw * 0.42, ch * 0.75, cw * 0.46, ch * 0.38, 0.35, 2);
+    charcoalLine(cw * 0.58, ch * 0.75, cw * 0.54, ch * 0.38, 0.35, 2);
+    ctx.strokeStyle = 'rgba(230, 230, 230, 0.35)';
+    ctx.strokeRect(cw * 0.44, ch * 0.4, 44, 24);
+  }
+
+  // Slide 8: Swift stopped dead under lone dim streetlight in the chowk
+  function drawSlide8() {
+    charcoalLine(cw * 0.5, ch * 0.12, cw * 0.15, ch * 0.75, 0.18, 1);
+    charcoalLine(cw * 0.5, ch * 0.12, cw * 0.85, ch * 0.75, 0.18, 1);
+    ctx.strokeStyle = 'rgba(230, 230, 230, 0.35)';
+    ctx.strokeRect(cw * 0.33, ch * 0.52, cw * 0.34, 42);
+    charcoalHatch(cw * 0.3, ch * 0.5, cw * 0.4, 50, 45, 0.18);
+  }
+
+  // Slide 9: Handlebars of idling bike pulled over in the shadows
+  function drawSlide9() {
+    charcoalLine(cw * 0.08, ch * 0.78, cw * 0.92, ch * 0.78, 0.5, 3.5);
+    charcoalLine(cw * 0.08, ch * 0.78, cw * 0.03, ch * 0.85, 0.55, 4.5);
+    charcoalLine(cw * 0.92, ch * 0.78, cw * 0.97, ch * 0.85, 0.55, 4.5);
+    ctx.strokeRect(cw * 0.43, ch * 0.71, 46, 30);
+  }
+
+  // Slide 10: Twin flashing hazard indicators in distance
+  function drawSlide10() {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+    ctx.beginPath();
+    ctx.arc(cw * 0.3, ch * 0.5, 14, 0, Math.PI * 2);
+    ctx.arc(cw * 0.7, ch * 0.5, 14, 0, Math.PI * 2);
+    ctx.fill();
+    charcoalLine(cw * 0.3, ch * 0.4, cw * 0.3, ch * 0.6, 0.35, 2);
+    charcoalLine(cw * 0.7, ch * 0.4, cw * 0.7, ch * 0.6, 0.35, 2);
+  }
+
+  // Slide 11: Driver silhouette stepping out into the headlight beam
+  function drawSlide11() {
+    charcoalLine(cw * 0.28, ch * 0.46, cw * 0.12, ch * 0.62, 0.5, 2.5); // Open car door
+    ctx.strokeStyle = 'rgba(240, 240, 240, 0.4)';
+    ctx.beginPath();
+    ctx.arc(cw * 0.56, ch * 0.36, 16, 0, Math.PI * 2); // Head
+    ctx.stroke();
+    charcoalLine(cw * 0.56, ch * 0.4, cw * 0.56, ch * 0.66, 0.55, 3.5); // Body
+    charcoalLine(cw * 0.56, ch * 0.66, cw * 0.5, ch * 0.85, 0.45, 3); // Leg
+    charcoalLine(cw * 0.56, ch * 0.66, cw * 0.62, ch * 0.85, 0.45, 3); // Leg
+  }
+
+  // Slide 12: Worn bifold wallet held forward
+  function drawSlide12() {
+    ctx.strokeStyle = 'rgba(230, 230, 230, 0.4)';
+    ctx.strokeRect(cw * 0.28, ch * 0.35, cw * 0.44, 120);
+    charcoalLine(cw * 0.5, ch * 0.35, cw * 0.5, ch * 0.35 + 120, 0.45, 2.5);
+    charcoalHatch(cw * 0.28, ch * 0.35, cw * 0.44, 120, 60, 0.18);
+  }
+
+  // Slide 13: Finger tapping laminated license in plastic sleeve
+  function drawSlide13() {
+    ctx.strokeStyle = 'rgba(230, 230, 230, 0.4)';
+    ctx.strokeRect(cw * 0.3, ch * 0.36, cw * 0.4, 100);
+    ctx.strokeRect(cw * 0.34, ch * 0.4, 55, 34); // License card
+    charcoalLine(cw * 0.58, ch * 0.44, cw * 0.7, ch * 0.44, 0.45, 2);
+    charcoalLine(cw * 0.58, ch * 0.52, cw * 0.7, ch * 0.52, 0.45, 2);
+  }
+
+  // Slide 14: Hand reaching down to feel kurta fabric
+  function drawSlide14() {
+    charcoalLine(cw * 0.5, ch * 0.18, cw * 0.5, ch * 0.88, 0.45, 3);
+    charcoalLine(cw * 0.47, ch * 0.44, cw * 0.47, ch * 0.68, 0.65, 3.5); // Zipper seam
+    ctx.strokeStyle = 'rgba(230, 230, 230, 0.35)';
+    ctx.strokeRect(cw * 0.34, ch * 0.48, 60, 38);
+  }
+
+  // Slide 15: Gap of an unzipped, empty pocket in total darkness
+  function drawSlide15() {
+    ctx.beginPath();
+    ctx.ellipse(cw * 0.5, ch * 0.5, 34, 78, 0, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(240, 240, 240, 0.5)';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.fillStyle = '#010101';
+    ctx.fill();
+    charcoalHatch(cw * 0.42, ch * 0.42, 55, 65, 40, 0.22);
+  }
+
+  function renderCurrentFrame() {
+    applyFogAndTexture();
+    story[currentIndex].draw();
+    captionEl.textContent = story[currentIndex].text;
+  }
 
   function updateProgressFills() {
     fills.forEach((fill, idx) => {
       if (idx < currentIndex) {
         fill.style.width = '100%';
       } else if (idx === currentIndex) {
-        const pct = Math.min(100, (elapsed / currentSlideDuration) * 100);
+        const pct = Math.min(100, (elapsed / story[currentIndex].duration) * 100);
         fill.style.width = pct + '%';
       } else {
         fill.style.width = '0%';
@@ -340,13 +456,18 @@
   }
 
   function showSlide(index) {
-    slides.forEach((s, idx) => {
-      s.classList.toggle('active', idx === index);
-    });
-
     currentIndex = index;
-    currentSlideDuration = parseInt(slides[index].getAttribute('data-duration'), 10) || 3800;
     elapsed = 0;
+
+    captionEl.classList.remove('active');
+    viewport.classList.remove('animating');
+
+    setTimeout(() => {
+      renderCurrentFrame();
+      captionEl.classList.add('active');
+      viewport.classList.add('animating');
+    }, 120);
+
     updateProgressFills();
   }
 
@@ -356,12 +477,12 @@
     elapsed += 50;
     updateProgressFills();
 
-    if (elapsed >= currentSlideDuration) {
-      if (currentIndex < slides.length - 1) {
+    if (elapsed >= story[currentIndex].duration) {
+      if (currentIndex < story.length - 1) {
         showSlide(currentIndex + 1);
       } else {
         clearInterval(progressTimer);
-        toggleBtn.textContent = 'Play';
+        toggleBtn.textContent = 'PLAY';
         isPaused = true;
       }
     }
@@ -374,24 +495,25 @@
 
   restartBtn.addEventListener('click', () => {
     isPaused = false;
-    toggleBtn.textContent = 'Pause';
+    toggleBtn.textContent = 'PAUSE';
     showSlide(0);
     startPlayback();
   });
 
   toggleBtn.addEventListener('click', () => {
-    if (currentIndex >= slides.length - 1 && elapsed >= currentSlideDuration) {
+    if (currentIndex >= story.length - 1 && elapsed >= story[currentIndex].duration) {
       showSlide(0);
       isPaused = false;
-      toggleBtn.textContent = 'Pause';
+      toggleBtn.textContent = 'PAUSE';
       startPlayback();
       return;
     }
-
     isPaused = !isPaused;
-    toggleBtn.textContent = isPaused ? 'Play' : 'Pause';
+    toggleBtn.textContent = isPaused ? 'PLAY' : 'PAUSE';
   });
 
+  // Start sequence
+  resizeCanvas();
   showSlide(0);
   startPlayback();
 </script>
