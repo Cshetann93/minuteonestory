@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Minute Story Reel</title>
+<title>One Minute Story</title>
 <style>
   * {
     box-sizing: border-box;
@@ -13,36 +13,35 @@
   }
 
   body {
-    background-color: #0b0c10;
+    background-color: #050505;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #e5e5e5;
     overflow: hidden;
   }
 
-  /* 9:16 Reel Viewport Container */
   .viewport-wrapper {
     position: relative;
     width: 360px;
     height: 640px;
-    background: #000;
-    border-radius: 16px;
+    background: #000000;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
     display: flex;
     flex-direction: column;
   }
 
-  /* Top Progress Bar */
+  /* Thin Progress Line */
   .progress-bar-container {
     position: absolute;
-    top: 12px;
-    left: 12px;
-    right: 12px;
+    top: 14px;
+    left: 16px;
+    right: 16px;
     display: flex;
     gap: 4px;
     z-index: 50;
@@ -50,41 +49,39 @@
 
   .progress-segment {
     flex: 1;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 1px;
     overflow: hidden;
   }
 
   .progress-fill {
     width: 0%;
     height: 100%;
-    background: #f1c40f;
-    transition: width 0.1s linear;
+    background: #ffffff;
+    opacity: 0.85;
+    transition: width 0.08s linear;
   }
 
-  /* Main Slide Stage */
+  /* Stage and Slide */
   .stage {
     position: relative;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(circle at center, #1b1f24 0%, #08090a 100%);
+    background: #030303;
   }
 
-  /* Slide Items */
   .slide {
     position: absolute;
     inset: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 40px 24px 70px 24px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 32px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: opacity 0.8s ease-in-out;
   }
 
   .slide.active {
@@ -92,65 +89,47 @@
     pointer-events: auto;
   }
 
-  /* Slide Background Art / Graphic Simulation */
-  .graphic-container {
+  /* Dark, bleak, low-exposure background images */
+  .bg-image {
     position: absolute;
     inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    overflow: hidden;
-  }
-
-  .graphic-bg {
-    position: absolute;
-    inset: -20px;
     background-size: cover;
     background-position: center;
-    filter: brightness(0.4) contrast(1.1);
-    transform: scale(1);
-    transition: transform 3.8s ease-out;
+    filter: grayscale(100%) brightness(0.14) contrast(1.3);
+    transform: scale(1.02);
+    transition: transform 4.2s cubic-bezier(0.1, 1, 0.1, 1);
+    z-index: 1;
   }
 
-  .slide.active .graphic-bg {
+  .slide.active .bg-image {
     transform: scale(1.08);
   }
 
+  /* Heavy dark vignette overlay */
   .vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.85) 90%),
-                linear-gradient(to top, rgba(0,0,0,0.95) 15%, transparent 60%);
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.5) 20%, rgba(0, 0, 0, 0.94) 85%);
     z-index: 2;
   }
 
-  /* Text Styling */
+  /* Text Content Centering */
   .content {
     position: relative;
     z-index: 10;
-  }
-
-  .tag {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #f1c40f;
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: block;
-    opacity: 0.9;
+    max-width: 100%;
   }
 
   .caption {
-    font-size: 22px;
-    line-height: 1.35;
-    font-weight: 700;
-    color: #ffffff;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
-    transform: translateY(12px);
+    font-size: 23px;
+    line-height: 1.45;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+    color: #f0f0f0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+    transform: translateY(8px);
     opacity: 0;
-    transition: transform 0.5s ease 0.15s, opacity 0.5s ease 0.15s;
+    transition: transform 0.6s ease-out 0.2s, opacity 0.6s ease-out 0.2s;
   }
 
   .slide.active .caption {
@@ -158,282 +137,170 @@
     opacity: 1;
   }
 
-  /* Atmospheric SVG Visual Details */
-  .visual-symbol {
-    position: absolute;
-    z-index: 3;
-    opacity: 0.2;
-  }
-
   /* Minimalist Controls */
   .controls {
-    margin-top: 20px;
+    margin-top: 18px;
     display: flex;
     gap: 12px;
   }
 
   button {
-    background: #1f242d;
-    color: #e2e8f0;
-    border: 1px solid #334155;
-    padding: 8px 18px;
+    background: #141414;
+    color: #a3a3a3;
+    border: 1px solid #262626;
+    padding: 8px 16px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
     border-radius: 6px;
     cursor: pointer;
+    transition: background 0.2s, color 0.2s;
   }
 
   button:hover {
-    background: #334155;
+    background: #222222;
+    color: #ffffff;
   }
 </style>
 </head>
 <body>
 
 <div class="viewport-wrapper">
-  <!-- Dynamic Progress Bar -->
   <div class="progress-bar-container" id="progressBar"></div>
 
-  <!-- Stage -->
-  <div class="stage" id="stage">
-    
-    <!-- Slide 1 -->
+  <div class="stage">
+
+    <!-- Frame 1 -->
     <div class="slide active" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 40% 30%, #303742 0%, #0f1115 70%);"></div>
-        <svg class="visual-symbol" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.8">
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M12 3a9 9 0 0 1 9 9"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 01</span>
-        <div class="caption">Vikram checked his motorcycle mirror for the fourth time.</div>
+        <div class="caption">Vikram checked his bike mirror for the fourth time.</div>
       </div>
     </div>
 
-    <!-- Slide 2 -->
+    <!-- Frame 2 -->
     <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #202731 0%, #08090a 70%);"></div>
-        <svg class="visual-symbol" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="#f1c40f" stroke-width="0.8">
-          <path d="M5 18l7-7 7 7"/>
-          <path d="M5 10l7-7 7 7"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 02</span>
         <div class="caption">A white Swift was tailing him through the dark service lanes.</div>
       </div>
     </div>
 
-    <!-- Slide 3 -->
-    <div class="slide" data-duration="3500">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 60% 40%, #2a2020 0%, #0b0707 70%);"></div>
-        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="0.8">
-          <polyline points="23 4 23 10 17 10"/>
-          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
-      <div class="content">
-        <span class="tag">Scene 03</span>
-        <div class="caption">Every turn he took, the car took too.</div>
-      </div>
-    </div>
-
-    <!-- Slide 4 -->
-    <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 30% 60%, #302613 0%, #0d0a04 70%);"></div>
-        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#f39c12" stroke-width="0.8">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
-      <div class="content">
-        <span class="tag">Scene 04</span>
-        <div class="caption">Near the closed petrol pump, Vikram flicked his right indicator.</div>
-      </div>
-    </div>
-
-    <!-- Slide 5 -->
+    <!-- Frame 3 -->
     <div class="slide" data-duration="3400">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #202b28 0%, #080c0b 70%);"></div>
-        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="0.8">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12 6 12 12 16 14"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 05</span>
+        <div class="caption">Every turn he made, the car made too.</div>
+      </div>
+    </div>
+
+    <!-- Frame 4 -->
+    <div class="slide" data-duration="3700">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
+      <div class="content">
+        <div class="caption">Near a closed petrol pump, Vikram flicked his right indicator.</div>
+      </div>
+    </div>
+
+    <!-- Frame 5 -->
+    <div class="slide" data-duration="3400">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1508873696983-2df5293cb32f?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
+      <div class="content">
         <div class="caption">He waited for an oncoming auto to pass.</div>
       </div>
     </div>
 
-    <!-- Slide 6 -->
-    <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 70% 30%, #3a2212 0%, #0c0704 70%);"></div>
-        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="0.8">
-          <path d="M17 11l-5-5-5 5"/>
-          <path d="M12 18V6"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+    <!-- Frame 6 -->
+    <div class="slide" data-duration="3700">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1517649763962-0c623266ddc0?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 06</span>
-        <div class="caption">Then he swerved hard into the narrow left alley instead.</div>
+        <div class="caption">Then he cut hard into the narrow left alley instead.</div>
       </div>
     </div>
 
-    <!-- Slide 7 -->
-    <div class="slide" data-duration="3500">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #1e2430 0%, #090a0d 70%);"></div>
-        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="0.8">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+    <!-- Frame 7 -->
+    <div class="slide" data-duration="3400">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 07</span>
-        <div class="caption">The Swift did not chase him.</div>
+        <div class="caption">The Swift didn't turn.</div>
       </div>
     </div>
 
-    <!-- Slide 8 -->
-    <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 70%, #2c2d30 0%, #0a0a0a 70%);"></div>
-        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#bdc3c7" stroke-width="0.8">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <line x1="9" y1="9" x2="15" y2="15"/>
-          <line x1="15" y1="9" x2="9" y2="15"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+    <!-- Frame 8 -->
+    <div class="slide" data-duration="3700">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 08</span>
-        <div class="caption">It rolled straight into the chowk and stopped dead.</div>
+        <div class="caption">It rolled into the empty crossroads and stopped dead.</div>
       </div>
     </div>
 
-    <!-- Slide 9 -->
-    <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 40% 40%, #301f25 0%, #0d0608 70%);"></div>
-        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="0.8">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+    <!-- Frame 9 -->
+    <div class="slide" data-duration="3700">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 09</span>
-        <div class="caption">Vikram killed his throttle thirty meters ahead, heart racing.</div>
+        <div class="caption">Vikram pulled over thirty meters ahead, heart racing.</div>
       </div>
     </div>
 
-    <!-- Slide 10 -->
-    <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #3a3210 0%, #0d0b03 70%);"></div>
-        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#f1c40f" stroke-width="0.8">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+    <!-- Frame 10 -->
+    <div class="slide" data-duration="3600">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 10</span>
-        <div class="caption">The Swift’s hazard lights started blinking in the dark.</div>
+        <div class="caption">The car’s hazard lights started blinking in the dark.</div>
       </div>
     </div>
 
-    <!-- Slide 11 -->
+    <!-- Frame 11 -->
     <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 30%, #303742 0%, #0a0c0f 70%);"></div>
-        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.8">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 11</span>
-        <div class="caption">The driver stepped out into the beam of Vikram’s headlamp.</div>
+        <div class="caption">The driver stepped out into the glow of Vikram's headlight.</div>
       </div>
     </div>
 
-    <!-- Slide 12 -->
-    <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 60% 60%, #36291e 0%, #0e0906 70%);"></div>
-        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#d35400" stroke-width="0.8">
-          <rect x="2" y="5" width="20" height="14" rx="2"/>
-          <line x1="2" y1="10" x2="22" y2="10"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+    <!-- Frame 12 -->
+    <div class="slide" data-duration="3600">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 12</span>
         <div class="caption">In his hand was a worn brown leather wallet.</div>
       </div>
     </div>
 
-    <!-- Slide 13 -->
+    <!-- Frame 13 -->
     <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 40% 50%, #3d2338 0%, #11070e 70%);"></div>
-        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#e056fd" stroke-width="0.8">
-          <rect x="3" y="4" width="18" height="16" rx="2"/>
-          <line x1="7" y1="8" x2="17" y2="8"/>
-          <line x1="7" y1="12" x2="13" y2="12"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 13</span>
-        <div class="caption">He held it up and tapped the laminated driving license inside.</div>
+        <div class="caption">He held it up, tapping the driving license inside.</div>
       </div>
     </div>
 
-    <!-- Slide 14 -->
-    <div class="slide" data-duration="3800">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #2d2638 0%, #0b090f 70%);"></div>
-        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#9b59b6" stroke-width="0.8">
-          <path d="M18 11V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v5"/>
-          <path d="M4 11h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8z"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+    <!-- Frame 14 -->
+    <div class="slide" data-duration="3600">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">Scene 14</span>
-        <div class="caption">Vikram slipped his hand into his kurta pocket.</div>
+        <div class="caption">Vikram felt his kurta pocket.</div>
       </div>
     </div>
 
-    <!-- Slide 15 -->
-    <div class="slide" data-duration="4500">
-      <div class="graphic-container">
-        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #401515 0%, #0a0202 70%);"></div>
-        <svg class="visual-symbol" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="#ff3838" stroke-width="0.8">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="12"/>
-          <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-        <div class="vignette"></div>
-      </div>
+    <!-- Frame 15 -->
+    <div class="slide" data-duration="4400">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop');"></div>
+      <div class="vignette"></div>
       <div class="content">
-        <span class="tag">End</span>
-        <div class="caption">The chain was wide open, and the pocket was empty.</div>
+        <div class="caption">The zip was undone. It was completely empty.</div>
       </div>
     </div>
 
@@ -452,14 +319,12 @@
   const toggleBtn = document.getElementById('toggleBtn');
 
   let currentIndex = 0;
-  let timer = null;
   let progressTimer = null;
   let isPaused = false;
   let currentSlideDuration = 3800;
   let elapsed = 0;
 
-  // Build progress bar segments
-  slides.forEach((_, idx) => {
+  slides.forEach(() => {
     const seg = document.createElement('div');
     seg.className = 'progress-segment';
     const fill = document.createElement('div');
@@ -504,7 +369,6 @@
       if (currentIndex < slides.length - 1) {
         showSlide(currentIndex + 1);
       } else {
-        // Complete
         clearInterval(progressTimer);
         toggleBtn.textContent = 'Play';
         isPaused = true;
@@ -537,7 +401,6 @@
     toggleBtn.textContent = isPaused ? 'Play' : 'Pause';
   });
 
-  // Start immediately
   showSlide(0);
   startPlayback();
 </script>
