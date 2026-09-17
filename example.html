@@ -3,163 +3,544 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MinuteOneStory — Cinematic Writer Studio Concept</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
+<title>One Minute Story Reel</title>
 <style>
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#0a0f1d;color:#e2e8f0;overflow-x:hidden;background-image:radial-gradient(circle at top right,rgba(251,191,36,.06),transparent 30%)}
-h1,h2,h3{font-family:'Playfair Display',serif}
-.grain{position:fixed;inset:0;pointer-events:none;opacity:.05;background-image:url('https://grainy-gradients.vercel.app/noise.svg')}
-.hero-glow{position:absolute;width:900px;height:900px;background:radial-gradient(circle,rgba(251,191,36,.12),transparent 70%);right:-250px;top:-200px;filter:blur(70px)}
-.cursor-blink{display:inline-block;width:12px;height:60px;background:#fbbf24;animation:blink 1s infinite;margin-left:8px;vertical-align:middle}.project-card{transition:all .45s ease}.project-card:hover{transform:translateY(-10px);border-color:rgba(251,191,36,.4);box-shadow:0 25px 70px rgba(0,0,0,.45)}
-@keyframes blink{50%{opacity:0}}
-.fade-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(251,191,36,.25),transparent)}
-.notebook{background:linear-gradient(180deg,rgba(255,255,255,.015),transparent);border:1px solid rgba(255,255,255,.06);backdrop-filter:blur(10px)}
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+  }
+
+  body {
+    background-color: #0b0c10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  /* 9:16 Reel Viewport Container */
+  .viewport-wrapper {
+    position: relative;
+    width: 360px;
+    height: 640px;
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top Progress Bar */
+  .progress-bar-container {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    gap: 4px;
+    z-index: 50;
+  }
+
+  .progress-segment {
+    flex: 1;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 0%;
+    height: 100%;
+    background: #f1c40f;
+    transition: width 0.1s linear;
+  }
+
+  /* Main Slide Stage */
+  .stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #1b1f24 0%, #08090a 100%);
+  }
+
+  /* Slide Items */
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px 24px 70px 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Slide Background Art / Graphic Simulation */
+  .graphic-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .graphic-bg {
+    position: absolute;
+    inset: -20px;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.4) contrast(1.1);
+    transform: scale(1);
+    transition: transform 3.8s ease-out;
+  }
+
+  .slide.active .graphic-bg {
+    transform: scale(1.08);
+  }
+
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.85) 90%),
+                linear-gradient(to top, rgba(0,0,0,0.95) 15%, transparent 60%);
+    z-index: 2;
+  }
+
+  /* Text Styling */
+  .content {
+    position: relative;
+    z-index: 10;
+  }
+
+  .tag {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f1c40f;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: block;
+    opacity: 0.9;
+  }
+
+  .caption {
+    font-size: 22px;
+    line-height: 1.35;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+    transform: translateY(12px);
+    opacity: 0;
+    transition: transform 0.5s ease 0.15s, opacity 0.5s ease 0.15s;
+  }
+
+  .slide.active .caption {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Atmospheric SVG Visual Details */
+  .visual-symbol {
+    position: absolute;
+    z-index: 3;
+    opacity: 0.2;
+  }
+
+  /* Minimalist Controls */
+  .controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+  }
+
+  button {
+    background: #1f242d;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #334155;
+  }
 </style>
 </head>
 <body>
-<div class="grain"></div>
-<nav class="border-b border-amber-400/20 bg-slate-900/80 backdrop-blur-lg sticky top-0 z-50">
-<div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-<a href="/"><img src="logo.png" alt="MinuteOneStory Logo" class="h-14"></a>
-<div class="flex items-center gap-8 text-sm font-semibold">
-<a href="#" class="hover:text-amber-400 transition">Portfolio</a>
-<a href="#" class="hover:text-amber-400 transition">Writer's Room</a>
-<a href="#" class="hover:text-amber-400 transition">Script Lab</a>
-<a href="#" class="hover:text-amber-400 transition">Contact</a>
+
+<div class="viewport-wrapper">
+  <!-- Dynamic Progress Bar -->
+  <div class="progress-bar-container" id="progressBar"></div>
+
+  <!-- Stage -->
+  <div class="stage" id="stage">
+    
+    <!-- Slide 1 -->
+    <div class="slide active" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 40% 30%, #303742 0%, #0f1115 70%);"></div>
+        <svg class="visual-symbol" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.8">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 3a9 9 0 0 1 9 9"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 01</span>
+        <div class="caption">Vikram checked his motorcycle mirror for the fourth time.</div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #202731 0%, #08090a 70%);"></div>
+        <svg class="visual-symbol" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="#f1c40f" stroke-width="0.8">
+          <path d="M5 18l7-7 7 7"/>
+          <path d="M5 10l7-7 7 7"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 02</span>
+        <div class="caption">A white Swift was tailing him through the dark service lanes.</div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide" data-duration="3500">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 60% 40%, #2a2020 0%, #0b0707 70%);"></div>
+        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="0.8">
+          <polyline points="23 4 23 10 17 10"/>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 03</span>
+        <div class="caption">Every turn he took, the car took too.</div>
+      </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 30% 60%, #302613 0%, #0d0a04 70%);"></div>
+        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#f39c12" stroke-width="0.8">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 04</span>
+        <div class="caption">Near the closed petrol pump, Vikram flicked his right indicator.</div>
+      </div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide" data-duration="3400">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #202b28 0%, #080c0b 70%);"></div>
+        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="0.8">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 05</span>
+        <div class="caption">He waited for an oncoming auto to pass.</div>
+      </div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 70% 30%, #3a2212 0%, #0c0704 70%);"></div>
+        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="0.8">
+          <path d="M17 11l-5-5-5 5"/>
+          <path d="M12 18V6"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 06</span>
+        <div class="caption">Then he swerved hard into the narrow left alley instead.</div>
+      </div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide" data-duration="3500">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #1e2430 0%, #090a0d 70%);"></div>
+        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="0.8">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 07</span>
+        <div class="caption">The Swift did not chase him.</div>
+      </div>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 70%, #2c2d30 0%, #0a0a0a 70%);"></div>
+        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#bdc3c7" stroke-width="0.8">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <line x1="9" y1="9" x2="15" y2="15"/>
+          <line x1="15" y1="9" x2="9" y2="15"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 08</span>
+        <div class="caption">It rolled straight into the chowk and stopped dead.</div>
+      </div>
+    </div>
+
+    <!-- Slide 9 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 40% 40%, #301f25 0%, #0d0608 70%);"></div>
+        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="0.8">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 09</span>
+        <div class="caption">Vikram killed his throttle thirty meters ahead, heart racing.</div>
+      </div>
+    </div>
+
+    <!-- Slide 10 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #3a3210 0%, #0d0b03 70%);"></div>
+        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#f1c40f" stroke-width="0.8">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 10</span>
+        <div class="caption">The Swift’s hazard lights started blinking in the dark.</div>
+      </div>
+    </div>
+
+    <!-- Slide 11 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 30%, #303742 0%, #0a0c0f 70%);"></div>
+        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="0.8">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 11</span>
+        <div class="caption">The driver stepped out into the beam of Vikram’s headlamp.</div>
+      </div>
+    </div>
+
+    <!-- Slide 12 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 60% 60%, #36291e 0%, #0e0906 70%);"></div>
+        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#d35400" stroke-width="0.8">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <line x1="2" y1="10" x2="22" y2="10"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 12</span>
+        <div class="caption">In his hand was a worn brown leather wallet.</div>
+      </div>
+    </div>
+
+    <!-- Slide 13 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 40% 50%, #3d2338 0%, #11070e 70%);"></div>
+        <svg class="visual-symbol" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#e056fd" stroke-width="0.8">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <line x1="7" y1="8" x2="17" y2="8"/>
+          <line x1="7" y1="12" x2="13" y2="12"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 13</span>
+        <div class="caption">He held it up and tapped the laminated driving license inside.</div>
+      </div>
+    </div>
+
+    <!-- Slide 14 -->
+    <div class="slide" data-duration="3800">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #2d2638 0%, #0b090f 70%);"></div>
+        <svg class="visual-symbol" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#9b59b6" stroke-width="0.8">
+          <path d="M18 11V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v5"/>
+          <path d="M4 11h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8z"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">Scene 14</span>
+        <div class="caption">Vikram slipped his hand into his kurta pocket.</div>
+      </div>
+    </div>
+
+    <!-- Slide 15 -->
+    <div class="slide" data-duration="4500">
+      <div class="graphic-container">
+        <div class="graphic-bg" style="background: radial-gradient(circle at 50% 50%, #401515 0%, #0a0202 70%);"></div>
+        <svg class="visual-symbol" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="#ff3838" stroke-width="0.8">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div class="vignette"></div>
+      </div>
+      <div class="content">
+        <span class="tag">End</span>
+        <div class="caption">The chain was wide open, and the pocket was empty.</div>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<div class="controls">
+  <button id="restartBtn">Restart</button>
+  <button id="toggleBtn">Pause</button>
 </div>
-</nav>
-<section class="relative min-h-screen flex items-center overflow-hidden">
-<div class="hero-glow"></div>
-<div class="max-w-6xl mx-auto px-6 relative z-10 py-32">
-<p class="uppercase tracking-[0.35em] text-amber-400 text-xs mb-8">Cinematic Digital Writer's Room</p>
-<h1 class="text-6xl md:text-8xl font-black text-white leading-[0.9] max-w-5xl mb-10">Stories that stay after the screen goes black.<span class="cursor-blink"></span></h1>
-<p class="text-xl text-slate-400 leading-9 max-w-3xl mb-14">Emotionally heavy thrillers, mystery-driven narratives, and cinematic stories obsessed with atmosphere, silence, memory, and tension.</p>
-<div class="flex flex-wrap gap-5 mb-20">
-<a href="#projects" class="px-8 py-4 rounded-full bg-amber-400 text-black font-bold hover:scale-105 transition">Enter The Archive</a>
-<a href="#obsessions" class="px-8 py-4 rounded-full border border-slate-700 hover:border-amber-400/40 transition">Current Obsessions</a>
-</div>
-<div class="grid md:grid-cols-3 gap-6 max-w-5xl">
-<div class="notebook rounded-3xl p-6">
-<p class="text-amber-400 text-xs uppercase tracking-[0.25em] mb-4">Current Status</p>
-<p class="text-slate-300 leading-8">Currently developing a time-loop thriller involving memory corruption and meteor-triggered reality fractures.</p>
-</div>
-<div class="notebook rounded-3xl p-6">
-<p class="text-amber-400 text-xs uppercase tracking-[0.25em] mb-4">Micro Lore</p>
-<p class="text-slate-300 leading-8">Last draft exported at 2:13 AM.<br>Draft count this week: 17.</p>
-</div>
-<div class="notebook rounded-3xl p-6">
-<p class="text-amber-400 text-xs uppercase tracking-[0.25em] mb-4">Writing Philosophy</p>
-<p class="text-slate-300 leading-8">The audience should feel tension before they understand why they feel tense.</p>
-</div>
-</div>
-</div>
-</section>
-<div class="fade-divider max-w-6xl mx-auto"></div>
-<section id="projects" class="py-32">
-<div class="max-w-6xl mx-auto px-6">
-<div class="mb-16">
-<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-5">Production Archive</p>
-<h2 class="text-5xl md:text-6xl font-black text-white mb-8">Projects Under Development</h2>
-</div>
-<div class="grid md:grid-cols-2 gap-10">
-<div class="project-card notebook rounded-[2rem] p-10">
-<p class="text-xs uppercase tracking-[0.25em] text-amber-400 mb-5">CASE FILE 03</p>
-<h3 class="text-4xl text-white font-bold mb-6">PROJECT // NIGHT LOOP</h3>
-<div class="space-y-4 mb-8 text-slate-400 leading-8">
-<p><strong class="text-white">Genre:</strong> Psychological Sci-Fi Thriller</p>
-<p><strong class="text-white">Format:</strong> Feature Film</p>
-<p><strong class="text-white">Status:</strong> In Development</p>
-<p><strong class="text-white">Runtime:</strong> Estimated 118 min</p>
-</div>
-<p class="text-slate-300 leading-8 mb-8">Three strangers become trapped inside a looping reality after a meteor event fractures memory itself.</p>
-<a href="#" class="text-amber-400 font-semibold">Access Development Notes →</a>
-</div>
-<div class="space-y-8">
-<div class="border-l border-amber-400/20 pl-8">
-<p class="text-amber-400 uppercase tracking-[0.2em] text-xs mb-4">Scene Construction</p>
-<p class="text-slate-300 leading-8">Suspense built through delayed confirmation, emotional uncertainty, and environmental tension.</p>
-</div>
-<div class="border-l border-amber-400/20 pl-8">
-<p class="text-amber-400 uppercase tracking-[0.2em] text-xs mb-4">Current Influences</p>
-<p class="text-slate-300 leading-8">Zodiac, Prisoners, Arrival, Memories of Murder, True Detective Season 1.</p>
-</div>
-<div class="border-l border-amber-400/20 pl-8">
-<p class="text-amber-400 uppercase tracking-[0.2em] text-xs mb-4">Creative Note</p>
-<p class="text-slate-300 leading-8">The loop itself should feel psychologically exhausting, not mechanically repetitive.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<div class="fade-divider max-w-6xl mx-auto"></div>
-<section id="obsessions" class="py-32">
-<div class="max-w-5xl mx-auto px-6 text-center">
-<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-6">Currently Obsessed With</p>
-<h2 class="text-5xl md:text-6xl font-black text-white leading-tight mb-16">Quiet tension. Unstable memory. Emotional dread.</h2>
-<div class="grid md:grid-cols-5 gap-5 text-left">
-<div class="notebook rounded-3xl p-6"><p class="text-slate-300">nonlinear timelines</p></div>
-<div class="notebook rounded-3xl p-6"><p class="text-slate-300">unreliable narrators</p></div>
-<div class="notebook rounded-3xl p-6"><p class="text-slate-300">liminal spaces</p></div>
-<div class="notebook rounded-3xl p-6"><p class="text-slate-300">cosmic dread</p></div>
-<div class="notebook rounded-3xl p-6"><p class="text-slate-300">quiet suspense</p></div>
-</div>
-</div>
-</section>
-<div class="fade-divider max-w-6xl mx-auto"></div>
-<section class="py-32">
-<div class="max-w-6xl mx-auto px-6">
-<div class="flex justify-between items-end mb-14">
-<div>
-<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-4">Proof of Thought</p>
-<h2 class="text-5xl text-white font-black">Inside the Writer’s Room</h2>
-</div>
-<a href="#" class="text-slate-400 hover:text-amber-400 transition">Open Archive →</a>
-</div>
-<div class="grid md:grid-cols-3 gap-8">
-<div class="project-card notebook rounded-3xl p-8">
-<p class="text-xs text-amber-400 uppercase tracking-[0.25em] mb-4">Tension Design</p>
-<h3 class="text-2xl text-white mb-5">Why Suspense Works Before the Threat Appears</h3>
-<p class="text-slate-400 leading-8">Fear becomes stronger when audiences begin imagining danger before the story confirms it.</p>
-</div>
-<div class="project-card notebook rounded-3xl p-8">
-<p class="text-xs text-amber-400 uppercase tracking-[0.25em] mb-4">Story Mechanics</p>
-<h3 class="text-2xl text-white mb-5">The Anatomy of a Perfect Time-Loop Reveal</h3>
-<p class="text-slate-400 leading-8">Repetition only works when emotional meaning evolves with every reset.</p>
-</div>
-<div class="project-card notebook rounded-3xl p-8">
-<p class="text-xs text-amber-400 uppercase tracking-[0.25em] mb-4">Writer Notes</p>
-<h3 class="text-2xl text-white mb-5">Why Silence Often Beats Dialogue</h3>
-<p class="text-slate-400 leading-8">The strongest scenes frequently happen in what characters refuse to say.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="py-24 text-center">
-<div class="max-w-4xl mx-auto px-6">
-<p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-6">Story First</p>
-<h2 class="text-5xl md:text-6xl font-black text-white leading-tight mb-10">Tell us the scene.</h2>
-<p class="text-xl text-slate-400 leading-9 mb-12">Every unforgettable film starts with an idea someone couldn’t stop thinking about.</p>
-<a href="#" class="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-amber-400 text-black font-bold hover:scale-105 transition">Bring Us The Idea →</a>
-</div>
-</section>
-<div class="w-full border-t border-amber-400/30">
-<footer class="bg-[#0b1120] pt-16 pb-8">
-<div class="max-w-6xl mx-auto px-6 text-center">
-<p class="text-slate-400 mb-6">Translating your vision into screen ready stories.</p>
-<div class="flex justify-center gap-8 text-sm text-slate-400 mb-8 flex-wrap">
-<a href="#">Home</a>
-<a href="#">Our Work</a>
-<a href="#">Writer's Room</a>
-<a href="#">Script Lab</a>
-<a href="#">Contact</a>
-</div>
-<p class="text-xs text-slate-500">© 2026 MinuteOneStory. All rights reserved.</p>
-</div>
-</footer>
-</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const progressContainer = document.getElementById('progressBar');
+  const restartBtn = document.getElementById('restartBtn');
+  const toggleBtn = document.getElementById('toggleBtn');
+
+  let currentIndex = 0;
+  let timer = null;
+  let progressTimer = null;
+  let isPaused = false;
+  let currentSlideDuration = 3800;
+  let elapsed = 0;
+
+  // Build progress bar segments
+  slides.forEach((_, idx) => {
+    const seg = document.createElement('div');
+    seg.className = 'progress-segment';
+    const fill = document.createElement('div');
+    fill.className = 'progress-fill';
+    seg.appendChild(fill);
+    progressContainer.appendChild(seg);
+  });
+
+  const fills = Array.from(document.querySelectorAll('.progress-fill'));
+
+  function updateProgressFills() {
+    fills.forEach((fill, idx) => {
+      if (idx < currentIndex) {
+        fill.style.width = '100%';
+      } else if (idx === currentIndex) {
+        const pct = Math.min(100, (elapsed / currentSlideDuration) * 100);
+        fill.style.width = pct + '%';
+      } else {
+        fill.style.width = '0%';
+      }
+    });
+  }
+
+  function showSlide(index) {
+    slides.forEach((s, idx) => {
+      s.classList.toggle('active', idx === index);
+    });
+
+    currentIndex = index;
+    currentSlideDuration = parseInt(slides[index].getAttribute('data-duration'), 10) || 3800;
+    elapsed = 0;
+    updateProgressFills();
+  }
+
+  function tick() {
+    if (isPaused) return;
+
+    elapsed += 50;
+    updateProgressFills();
+
+    if (elapsed >= currentSlideDuration) {
+      if (currentIndex < slides.length - 1) {
+        showSlide(currentIndex + 1);
+      } else {
+        // Complete
+        clearInterval(progressTimer);
+        toggleBtn.textContent = 'Play';
+        isPaused = true;
+      }
+    }
+  }
+
+  function startPlayback() {
+    clearInterval(progressTimer);
+    progressTimer = setInterval(tick, 50);
+  }
+
+  restartBtn.addEventListener('click', () => {
+    isPaused = false;
+    toggleBtn.textContent = 'Pause';
+    showSlide(0);
+    startPlayback();
+  });
+
+  toggleBtn.addEventListener('click', () => {
+    if (currentIndex >= slides.length - 1 && elapsed >= currentSlideDuration) {
+      showSlide(0);
+      isPaused = false;
+      toggleBtn.textContent = 'Pause';
+      startPlayback();
+      return;
+    }
+
+    isPaused = !isPaused;
+    toggleBtn.textContent = isPaused ? 'Play' : 'Pause';
+  });
+
+  // Start immediately
+  showSlide(0);
+  startPlayback();
+</script>
+
 </body>
 </html>
