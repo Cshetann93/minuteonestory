@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DraftsRush - Building Suspense From Everyday Life</title>
+  <title>DraftsRush - 2 Reel Frames</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;900&family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=Inter:wght@600;700;800&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
 
@@ -27,7 +27,7 @@
     .brand-font { font-family: 'Space Grotesk', sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace, Courier; }
 
-    /* Exact 9:16 display (405x720) -> Renders cleanly to 1080x1920 */
+    /* Exact 9:16 display (405x720) -> Renders to 1080x1920 */
     .reel-frame {
       width: 405px;
       height: 720px;
@@ -35,19 +35,28 @@
       flex-shrink: 0;
       border: 4px solid #111317;
       box-shadow: 10px 10px 0px #000000;
-      background-color: #DDE1E8;
+      background-color: #FFE600;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      padding: 24px 22px 22px 22px;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
       overflow: hidden;
     }
 
     .b-card {
       border: 3.5px solid #111317;
-      box-shadow: 5px 5px 0px #111317;
+      box-shadow: 6px 6px 0px #111317;
       background-color: #FFFFFF;
-      padding: 16px;
+      padding: 24px;
+      width: 100%;
+    }
+    .b-card-dark {
+      border: 3.5px solid #111317;
+      box-shadow: 6px 6px 0px #111317;
+      background-color: #111317;
+      padding: 32px 24px;
+      width: 100%;
     }
     .b-card-sm {
       border: 2.5px solid #111317;
@@ -56,444 +65,80 @@
 
     .badge-pill {
       display: inline-block;
+      background-color: #FFE600;
+      color: #111317;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 11px;
+      padding: 4px 10px;
+      line-height: 14px;
+      margin-bottom: 16px;
+      border: 2px solid #111317;
+    }
+
+    .badge-pill-dark {
+      display: inline-block;
       background-color: #111317;
       color: #FFFFFF;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 800;
       text-transform: uppercase;
-      font-size: 10px;
-      padding: 4px 8px;
-      line-height: 14px;
-      margin-bottom: 8px;
-      border: 1.5px solid #111317;
-    }
-
-    .badge-header {
-      display: inline-block;
-      background-color: #111317;
-      color: #FFE600;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 900;
-      text-transform: uppercase;
       font-size: 11px;
-      padding: 6px 12px;
+      padding: 4px 10px;
       line-height: 14px;
-      border: 2px solid #111317;
-    }
-
-    .counter-header {
-      display: inline-block;
-      background-color: #FFFFFF;
-      color: #111317;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 800;
-      font-size: 12px;
-      padding: 6px 10px;
-      line-height: 14px;
-      border: 2px solid #111317;
-    }
-
-    .info-item {
-      display: inline-block;
-      padding: 6px 8px;
-      line-height: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-      font-size: 10px;
+      margin-bottom: 16px;
       border: 2px solid #111317;
     }
 
     .flex { display: flex; }
     .flex-col { flex-direction: column; }
-    .flex-wrap { flex-wrap: wrap; }
     .items-center { align-items: center; }
-    .justify-between { justify-content: space-between; }
-    .justify-around { justify-content: space-around; }
     .justify-center { justify-content: center; }
     .text-center { text-align: center; }
     .w-full { width: 100%; }
-    .grid { display: grid; }
-    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .gap-1\.5 { gap: 6px; }
-    .gap-2 { gap: 8px; }
-    .gap-8 { gap: 32px; }
-    .p-2 { padding: 8px; }
-    .p-3 { padding: 12px; }
-    .p-5 { padding: 20px; }
-    .pt-3 { padding-top: 12px; }
-    .mb-1 { margin-bottom: 4px; }
-    .mb-2 { margin-bottom: 8px; }
-    .mb-8 { margin-bottom: 32px; }
-    .border-2 { border-width: 2px; }
-    .border-4 { border-width: 4px; }
-    .border-t-2 { border-top-width: 2px; }
-    .border-black { border-color: #111317; }
-    .text-black { color: #111317; }
-    .text-white { color: #FFFFFF; }
-    .bg-black { background-color: #111317; }
-    .bg-white { background-color: #FFFFFF; }
-    .bg-yellow { background-color: #FFE600; }
-    .line-through { text-decoration: line-through; }
-    .font-black { font-weight: 900; }
-    .font-extrabold { font-weight: 800; }
-    .font-bold { font-weight: 700; }
     .uppercase { text-transform: uppercase; }
-    .tracking-tight { letter-spacing: -0.025em; }
-    .tracking-wider { letter-spacing: 0.05em; }
-    .leading-tight { line-height: 1.15; }
-    .text-2xl { font-size: 22px; }
-    .text-xs { font-size: 11px; }
   </style>
 </head>
 <body class="flex flex-col items-center justify-center">
 
-  <!-- Download & Header Bar -->
-  <div class="w-full max-w-6xl mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-4 border-black p-5 b-card" style="background-color: #FFE600;">
+  <!-- Download & Action Bar -->
+  <div class="w-full max-w-4xl mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-4 border-black p-5 b-card" style="background-color: #FFE600; margin-bottom: 32px;">
     <div>
-      <h1 class="brand-font font-black text-2xl uppercase tracking-tight">How to Build Suspense From Everyday Life</h1>
-      <p class="text-xs font-bold text-black uppercase tracking-wider" style="margin-top: 4px;">Screenplay Structure Masterclass (10 Frames Total)</p>
+      <h1 class="brand-font" style="font-weight: 900; font-size: 20px; text-transform: uppercase; letter-spacing: -0.025em;">2 Standalone Reel Frames</h1>
+      <p class="font-mono" style="font-size: 11px; font-weight: 700; margin-top: 4px; color: #111317;">Yellow Anchor Canvas (1080x1920 Ready)</p>
     </div>
-    <button id="download-btn" onclick="downloadAllFrames()" class="bg-black text-white font-black brand-font text-xs uppercase border-2 border-black b-card" style="padding: 14px 24px; cursor: pointer;">
-      Download All 10 Frames (1080x1920 PNG)
+    <button id="download-btn" onclick="downloadAllFrames()" class="brand-font" style="background-color: #111317; color: #FFFFFF; font-weight: 900; font-size: 11px; text-transform: uppercase; border: 2px solid #111317; padding: 14px 24px; cursor: pointer; box-shadow: 4px 4px 0px #000000;">
+      Download 2 Frames (PNG)
     </button>
   </div>
 
-  <!-- Frames Grid -->
-  <div class="flex flex-wrap gap-8 justify-center items-start" style="max-width: 1400px; margin: 0 auto;">
+  <!-- Frames Container -->
+  <div class="flex flex-wrap gap-8 justify-center items-center">
 
-    <!-- FRAME 01: The Lure Hook -->
+    <!-- FRAME 1: Yellow background, centered black box, refined copy -->
     <div id="frame-01" class="reel-frame">
-      <div class="flex items-center justify-between">
-        <div class="badge-header">SCREENPLAY LAB</div>
-        <div class="counter-header">01/10</div>
-      </div>
-      <div class="b-card" style="background-color: #FFE600;">
-        <div class="badge-pill">BEFORE YOU SKIP</div>
-        <h2 class="text-2xl font-black brand-font leading-tight text-black">
-          Let's write a quick suspense scene from an everyday situation.
+      <div class="b-card-dark text-center">
+        <div class="badge-pill">BEFORE YOU SCROLL</div>
+        <h2 class="brand-font" style="font-weight: 900; font-size: 27px; line-height: 1.2; color: #FFFFFF; text-transform: uppercase; letter-spacing: -0.03em;">
+          Let's turn your latest mistake into pure suspense.
         </h2>
-      </div>
-      <div class="b-card">
-        <p style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;">
-          Great thrillers do not begin with serial killers or massive explosions.
-        </p>
-        <p style="font-size: 12px; font-weight: 600; color: #4B5563; line-height: 1.45;">
-          They start with ordinary choices gone sideways. When you understand how tension functions on a mechanical level, any daily routine turns into a high-stakes scene.
-        </p>
-      </div>
-      <div class="b-card" style="background-color: #FFF6CF;">
-        <div class="badge-pill">THE SCENE EXPERIMENT: SETUP</div>
-        <div class="border-2 border-black p-2 flex flex-col gap-1 font-mono" style="background-color: #FFFFFF; font-size: 10px; font-weight: 700;">
-          <div class="flex items-center justify-between">
-            <span>SETTING: QUIET SUBURB</span>
-            <span class="info-item" style="background-color: #FFE600; color: #000; padding: 2px 6px;">12:40 AM</span>
-          </div>
-          <div style="color: #4B5563; font-size: 11px; margin-top: 4px;">
-            A passenger stands alone on a sidewalk waiting for a ride home.
-          </div>
-        </div>
-      </div>
-      <div class="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-bold tracking-wider">
-        <span>DRAFTSRUSH STUDIO</span>
-        <span>draftsrush.com</span>
       </div>
     </div>
 
-    <!-- FRAME 02: Core Definition -->
+    <!-- FRAME 2: Yellow background, CTA card -->
     <div id="frame-02" class="reel-frame">
-      <div class="flex items-center justify-between">
-        <div class="badge-header">RULE 01: DEFINITION</div>
-        <div class="counter-header">02/10</div>
-      </div>
-      <div class="b-card">
-        <div class="badge-pill">CORE PRINCIPLE</div>
-        <h3 class="text-2xl font-black brand-font leading-tight">Suspense is Not Danger</h3>
-      </div>
-      <div class="b-card" style="background-color: #FFF6CF;">
-        <div class="badge-pill">THE PSYCHOLOGY</div>
-        <p style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;">
-          Danger is when someone points a gun. Suspense is the anticipation.
-        </p>
-        <p style="font-size: 12px; font-weight: 600; color: #4B5563; line-height: 1.45;">
-          If an attacker attacks on page one, viewers feel shock, not suspense. Suspense requires a gap in knowledge: a character needs clarity, but cannot verify reality.
-        </p>
-      </div>
-      <div class="b-card bg-white">
-        <div class="badge-pill">TENSION ANATOMY</div>
-        <div class="grid grid-cols-2 gap-2 font-mono text-center" style="font-size: 9px; font-weight: 700;">
-          <div class="info-item line-through" style="background-color: #FEE2E2; color: #DC2626;">VISIBLE DANGER</div>
-          <div class="info-item" style="background-color: #2ECC71; color: #000;">INFORMATION GAP</div>
-        </div>
-      </div>
-      <div class="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-bold tracking-wider">
-        <span>DRAFTSRUSH STUDIO</span>
-        <span>draftsrush.com</span>
-      </div>
-    </div>
-
-    <!-- FRAME 03: The Inciting Complication -->
-    <div id="frame-03" class="reel-frame">
-      <div class="flex items-center justify-between">
-        <div class="badge-header">RULE 02: RESTRICTION</div>
-        <div class="counter-header">03/10</div>
-      </div>
-      <div class="b-card">
-        <div class="badge-pill">COMPLICATION</div>
-        <h3 class="text-2xl font-black brand-font leading-tight">Trap the Character with Reality</h3>
-      </div>
-      <div class="b-card" style="background-color: #D6E4EE;">
-        <div class="badge-pill">GROUNDED LIMITATION</div>
-        <p style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;">
-          Do not force supernatural coincidences or cartoonish bad luck.
-        </p>
-        <p style="font-size: 12px; font-weight: 600; color: #4B5563; line-height: 1.45;">
-          Introduce a routine flaw everyone experiences. A dead battery, a broken latch, or bad reception. Relatable limits make audiences imagine themselves in the exact position.
-        </p>
-      </div>
-      <div class="b-card bg-white">
-        <div class="badge-pill">THE SCENE EXPERIMENT: ESCALATION 1</div>
-        <div class="flex items-center justify-between font-mono" style="font-size: 10px; font-weight: 700;">
-          <div class="info-item bg-white">CAB CONFIRMED</div>
-          <span style="font-size: 14px; font-weight: 900;">➔</span>
-          <div class="info-item" style="background-color: #FF6B6B; color: #000;">BATTERY DROPS TO 2%</div>
-        </div>
-      </div>
-      <div class="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-bold tracking-wider">
-        <span>DRAFTSRUSH STUDIO</span>
-        <span>draftsrush.com</span>
-      </div>
-    </div>
-
-    <!-- FRAME 04: The Ticking Clock -->
-    <div id="frame-04" class="reel-frame">
-      <div class="flex items-center justify-between">
-        <div class="badge-header">RULE 03: PACING</div>
-        <div class="counter-header">04/10</div>
-      </div>
-      <div class="b-card">
-        <div class="badge-pill">URGENCY TRIGGER</div>
-        <h3 class="text-2xl font-black brand-font leading-tight">Start the Unforgiving Clock</h3>
-      </div>
-      <div class="b-card" style="background-color: #FFE600;">
-        <div class="badge-pill">RESOURCE DRAIN</div>
-        <p style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;">
-          Tension peaks when safety drains away in plain sight.
-        </p>
-        <p style="font-size: 12px; font-weight: 600; color: #111317; line-height: 1.45;">
-          The audience must see the finish line closing. Give them one vital asset with a visible countdown. Every passing second of screen time must cost the character something irreversible.
-        </p>
-      </div>
-      <div class="b-card bg-white">
-        <div class="badge-pill">THE SCENE EXPERIMENT: ESCALATION 2</div>
-        <div class="border-2 border-black p-2 flex items-center justify-between font-mono" style="background-color: #E2E4E9; font-size: 10px; font-weight: 700;">
-          <span class="info-item bg-white">MAP OPEN</span>
-          <span style="font-size: 12px; font-weight: 900;">DRIVER: 1 MIN AWAY</span>
-          <span class="info-item" style="background-color: #FFE600; color: #000;">BATTERY: 1%</span>
-        </div>
-      </div>
-      <div class="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-bold tracking-wider">
-        <span>DRAFTSRUSH STUDIO</span>
-        <span>draftsrush.com</span>
-      </div>
-    </div>
-
-    <!-- FRAME 05: The Blackout / Withholding Point -->
-    <div id="frame-05" class="reel-frame">
-      <div class="flex items-center justify-between">
-        <div class="badge-header">RULE 04: INFORMATION</div>
-        <div class="counter-header">05/10</div>
-      </div>
-      <div class="b-card">
-        <div class="badge-pill">THE PIVOT</div>
-        <h3 class="text-2xl font-black brand-font leading-tight">Cut the Lifeline at the Target</h3>
-      </div>
-      <div class="b-card" style="background-color: #EFE4D6;">
-        <div class="badge-pill">KILL CERTAINTY</div>
-        <p style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;">
-          Amateur writers resolve the tension too quickly.
-        </p>
-        <p style="font-size: 12px; font-weight: 600; color: #4B5563; line-height: 1.45;">
-          If the character reads the license plate number, the mystery evaporates. Cut their connection two seconds before they memorize the crucial detail. Turn safe tools into dead bricks.
-        </p>
-      </div>
-      <div class="b-card bg-white">
-        <div class="badge-pill">THE SCENE EXPERIMENT: ESCALATION 3</div>
-        <div class="grid grid-cols-2 gap-2 text-center font-mono" style="font-size: 9px; font-weight: 700;">
-          <div class="info-item" style="background-color: #2ECC71; color: #000;">MODEL: WHITE SEDAN</div>
-          <div class="info-item line-through" style="background-color: #111317; color: #FFF;">SCREEN DIES (0%)</div>
-        </div>
-      </div>
-      <div class="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-bold tracking-wider">
-        <span>DRAFTSRUSH STUDIO</span>
-        <span>draftsrush.com</span>
-      </div>
-    </div>
-
-    <!-- FRAME 06: The False Arrival -->
-    <div id="frame-06" class="reel-frame">
-      <div class="flex items-center justify-between">
-        <div class="badge-header">RULE 05: AMBIGUITY</div>
-        <div class="counter-header">06/10</div>
-      </div>
-      <div class="b-card">
-        <div class="badge-pill">THE DILEMMA</div>
-        <h3 class="text-2xl font-black brand-font leading-tight">Turn Relief into Suspicion</h3>
-      </div>
-      <div class="b-card" style="background-color: #FFF6CF;">
-        <div class="badge-pill">CONTRADICTING SIGNALS</div>
-        <p style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;">
-          The solution arrives, but without proof of safety.
-        </p>
-        <p style="font-size: 12px; font-weight: 600; color: #4B5563; line-height: 1.45;">
-          When an answer presents itself, make it look partially right and potentially catastrophic. The human mind naturally panics when forced to choose between isolation and unknown risk.
-        </p>
-      </div>
-      <div class="b-card bg-white">
-        <div class="badge-pill">THE SCENE EXPERIMENT: ESCALATION 4</div>
-        <div class="border-2 border-black p-2 flex items-center justify-between font-mono" style="background-color: #E2E4E9; font-size: 10px; font-weight: 700;">
-          <div class="info-item bg-white">WHITE SEDAN IDLES</div>
-          <span style="font-size: 14px; font-weight: 900;">≠</span>
-          <div class="info-item" style="background-color: #FF6B6B; color: #000;">NO VISIBLE APP LOGO</div>
-        </div>
-      </div>
-      <div class="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-bold tracking-wider">
-        <span>DRAFTSRUSH STUDIO</span>
-        <span>draftsrush.com</span>
-      </div>
-    </div>
-
-    <!-- FRAME 07: Micro-Actions -->
-    <div id="frame-07" class="reel-frame">
-      <div class="flex items-center justify-between">
-        <div class="badge-header">RULE 06: VISUAL BEATS</div>
-        <div class="counter-header">07/10</div>
-      </div>
-      <div class="b-card">
-        <div class="badge-pill">SUBTLE DETAILS</div>
-        <h3 class="text-2xl font-black brand-font leading-tight">Use Mechanical Micro-Actions</h3>
-      </div>
-      <div class="b-card" style="background-color: #DDE8DF;">
-        <div class="badge-pill">BEHAVIOR OVER WORDS</div>
-        <p style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;">
-          Stop using internal dialogue to explain how someone feels.
-        </p>
-        <p style="font-size: 12px; font-weight: 600; color: #4B5563; line-height: 1.45;">
-          Show physical hesitations: a hand hovering over a cold door handle, brake lights reflecting in puddles, a tinted driver window rolling down halfway. Let physical actions deliver the pressure.
-        </p>
-      </div>
-      <div class="b-card bg-white">
-        <div class="badge-pill">THE SCENE EXPERIMENT: ESCALATION 5</div>
-        <div class="grid grid-cols-3 gap-1.5 font-mono text-center" style="font-size: 9px; font-weight: 700;">
-          <div class="info-item" style="background-color: #F3F4F6;">BRAKES HISS</div>
-          <div class="info-item" style="background-color: #FFE600; color: #000;">DOORS UNLOCK</div>
-          <div class="info-item" style="background-color: #FF6B6B; color: #000;">CABIN SILENT</div>
-        </div>
-      </div>
-      <div class="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-bold tracking-wider">
-        <span>DRAFTSRUSH STUDIO</span>
-        <span>draftsrush.com</span>
-      </div>
-    </div>
-
-    <!-- FRAME 08: The Pressure Fork -->
-    <div id="frame-08" class="reel-frame">
-      <div class="flex items-center justify-between">
-        <div class="badge-header">RULE 07: CHOICE</div>
-        <div class="counter-header">08/10</div>
-      </div>
-      <div class="b-card">
-        <div class="badge-pill">THE CLIMAX POINT</div>
-        <h3 class="text-2xl font-black brand-font leading-tight">Force an Unforgiving Choice</h3>
-      </div>
-      <div class="b-card" style="background-color: #FFE600;">
-        <div class="badge-pill">NO EASY OUT</div>
-        <p style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;">
-          Suspense breaks if the protagonist can simply step away.
-        </p>
-        <p style="font-size: 12px; font-weight: 600; color: #111317; line-height: 1.45;">
-          Option A carries extreme danger. Option B guarantees immediate exposure. If walking away is safe, the scene has zero stakes. Force an immediate decision where both outcomes carry risk.
-        </p>
-      </div>
-      <div class="b-card bg-white">
-        <div class="badge-pill">THE SCENE EXPERIMENT: THE CHOICE</div>
-        <div class="flex items-center justify-between font-mono" style="font-size: 10px; font-weight: 700;">
-          <div class="info-item" style="background-color: #F3F4F6;">GET INSIDE UNVERIFIED</div>
-          <span style="font-size: 12px; font-weight: 900;">VS</span>
-          <div class="info-item" style="background-color: #F3F4F6;">STRANDED IN THE DARK</div>
-        </div>
-      </div>
-      <div class="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-bold tracking-wider">
-        <span>DRAFTSRUSH STUDIO</span>
-        <span>draftsrush.com</span>
-      </div>
-    </div>
-
-    <!-- FRAME 09: The Formula Recap -->
-    <div id="frame-09" class="reel-frame">
-      <div class="flex items-center justify-between">
-        <div class="badge-header">THE BLUEPRINT</div>
-        <div class="counter-header">09/10</div>
-      </div>
-      <div class="b-card">
-        <div class="badge-pill">THE ENGINE</div>
-        <h3 class="text-2xl font-black brand-font leading-tight">The Everyday Suspense Loop</h3>
-      </div>
-      <div class="b-card" style="background-color: #D6E4EE;">
-        <div class="badge-pill">THREE STEPS</div>
-        <p style="font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;">
-          Keep this exact formula handy whenever drafting a thriller beat.
-        </p>
-        <p style="font-size: 12px; font-weight: 600; color: #4B5563; line-height: 1.45;">
-          1. Establish a simple routine need.<br>
-          2. Strip away the character's verification tool.<br>
-          3. Deliver an ambiguous answer they are forced to trust.
-        </p>
-      </div>
-      <div class="b-card bg-white">
-        <div class="badge-pill">THE THREE-BEAT TIMELINE</div>
-        <div class="grid grid-cols-3 gap-1.5 font-mono text-center" style="font-size: 9px; font-weight: 700;">
-          <div class="info-item" style="background-color: #E2E4E9;">01: ROUTINE</div>
-          <div class="info-item" style="background-color: #FFE600; color: #000;">02: BLIND SPOT</div>
-          <div class="info-item" style="background-color: #2ECC71; color: #000;">03: PRESSURE</div>
-        </div>
-      </div>
-      <div class="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-bold tracking-wider">
-        <span>DRAFTSRUSH STUDIO</span>
-        <span>draftsrush.com</span>
-      </div>
-    </div>
-
-    <!-- FRAME 10: The CTA Frame -->
-    <div id="frame-10" class="reel-frame" style="background-color: #FFE600;">
-      <div class="flex items-center justify-between">
-        <div class="badge-header bg-black text-white">NEXT STEP</div>
-        <div class="counter-header">10/10</div>
-      </div>
-      <div class="b-card bg-white">
-        <h2 class="text-2xl font-black brand-font text-black leading-tight mb-2">
-          TURN ORDINARY LIFE<br>INTO TIGHT SCENES.
+      <div class="b-card text-center flex flex-col items-center">
+        <div class="badge-pill-dark">YOUR TURN</div>
+        <h2 class="brand-font" style="font-weight: 900; font-size: 26px; line-height: 1.2; color: #111317; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 12px;">
+          Built your own scene?
         </h2>
-        <p style="font-size: 12px; font-weight: 700; color: #374151; line-height: 1.4; margin-bottom: 12px;">
-          Have a short film, script outline, or video concept? We build focused, production-ready screenplays with zero fluff and proven dramatic pacing.
+        <p style="font-size: 14px; font-weight: 700; color: #374151; line-height: 1.45; margin-bottom: 24px;">
+          Send your draft to our DMs. We review community scripts and feature our favorites.
         </p>
-        <div class="border-2 border-black p-3 b-card-sm" style="background-color: #D6E4EE;">
-          <div class="badge-pill mb-1">FREE SCENE AUDIT</div>
-          <p style="font-size: 11px; font-weight: 700; color: #111317; line-height: 1.3;">
-            DM us your scene idea or logline. We will review your obstacle placement, verification gap, and pacing structure for free.
-          </p>
+        <div class="brand-font b-card-sm w-full" style="background-color: #111317; color: #FFE600; font-weight: 900; font-size: 12px; text-transform: uppercase; padding: 14px; border: 2px solid #111317;">
+          DM US ON INSTAGRAM
         </div>
-      </div>
-      <div class="flex flex-col gap-2">
-        <div class="bg-black text-center font-black brand-font text-xs uppercase border-2 border-black b-card-sm" style="color: #2ECC71; padding: 12px 8px;">
-          DM "SUSPENSE" ON INSTAGRAM
-        </div>
-        <div class="text-black text-center font-black brand-font text-xs uppercase border-2 border-black b-card-sm" style="background-color: #FFE600; padding: 10px 8px;">
-          OR VISIT DRAFTSRUSH.COM
-        </div>
-      </div>
-      <div class="text-center font-bold text-xs font-mono text-black border-t-2 border-black pt-3">
-        DRAFTSRUSH STUDIO • 2026
       </div>
     </div>
 
@@ -502,17 +147,17 @@
   <script>
     async function downloadAllFrames() {
       const btn = document.getElementById('download-btn');
-      btn.innerText = 'PREPARING ASSETS & FONTS...';
+      btn.innerText = 'PREPARING FONTS...';
       btn.disabled = true;
 
       await document.fonts.ready;
 
-      const pixelRatio = 1080 / 405; // 2.6666667 (exact multiplier to 1080x1920)
+      const pixelRatio = 1080 / 405;
 
-      for (let i = 1; i <= 10; i++) {
-        const frameId = `frame-${i < 10 ? '0' + i : i}`;
+      for (let i = 1; i <= 2; i++) {
+        const frameId = `frame-0${i}`;
         const node = document.getElementById(frameId);
-        btn.innerText = `EXPORTING FRAME ${i} OF 10...`;
+        btn.innerText = `EXPORTING FRAME ${i} OF 2...`;
 
         try {
           const dataUrl = await htmlToImage.toPng(node, {
@@ -524,7 +169,7 @@
           });
 
           const link = document.createElement('a');
-          link.download = `draftsrush-suspense-${i < 10 ? '0' + i : i}.png`;
+          link.download = `draftsrush-frame-0${i}.png`;
           link.href = dataUrl;
           document.body.appendChild(link);
           link.click();
@@ -536,7 +181,7 @@
         }
       }
 
-      btn.innerText = 'DOWNLOAD ALL 10 FRAMES (1080x1920 PNG)';
+      btn.innerText = 'DOWNLOAD 2 FRAMES (PNG)';
       btn.disabled = false;
     }
   </script>
