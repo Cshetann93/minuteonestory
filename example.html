@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Minute Story</title>
+<title>One Minute Story - Charcoal Art</title>
 <style>
   * {
     box-sizing: border-box;
@@ -24,19 +24,17 @@
     overflow: hidden;
   }
 
-  /* 9:16 Vertical Screen Container */
   .viewport-wrapper {
     position: relative;
     width: 100vw;
     height: 100vh;
     max-width: calc(100vh * (9 / 16));
-    background: #020202;
+    background: #080808;
     overflow: hidden;
     display: flex;
     flex-direction: column;
   }
 
-  /* Segmented Story Progress Line */
   .progress-bar-container {
     position: absolute;
     top: 18px;
@@ -50,7 +48,7 @@
   .progress-segment {
     flex: 1;
     height: 2px;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 1px;
     overflow: hidden;
   }
@@ -59,84 +57,101 @@
     width: 0%;
     height: 100%;
     background: #ffffff;
-    opacity: 0.85;
+    opacity: 0.9;
     transition: width 0.08s linear;
   }
 
-  /* Charcoal Sketch Canvas */
-  #sketchCanvas {
-    position: absolute;
-    inset: 0;
+  .stage {
+    position: relative;
     width: 100%;
     height: 100%;
-    z-index: 1;
-    filter: brightness(0.24) contrast(1.45) blur(0.4px);
-    opacity: 0.32;
-    transform: scale(1.02);
-    transition: transform 3.8s cubic-bezier(0.1, 1, 0.1, 1);
   }
 
-  .viewport-wrapper.animating #sketchCanvas {
-    transform: scale(1.06);
-  }
-
-  /* Atmospheric Smog and Deep Edge Vignette */
-  .vignette {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.18) 10%, rgba(0, 0, 0, 0.86) 72%, #000000 98%);
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  /* Centered Captions */
-  .content-layer {
+  .slide {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 36px;
-    z-index: 10;
+    padding: 0 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease-in-out;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Charcoal Sketch SVG Layer */
+  .sketch-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.55;
+    filter: contrast(1.3) drop-shadow(0 0 10px rgba(0,0,0,0.8));
+    transform: scale(1.02);
+    transition: transform 4s cubic-bezier(0.1, 1, 0.1, 1);
+  }
+
+  .slide.active .sketch-art {
+    transform: scale(1.07);
+  }
+
+  /* Fog and Atmospheric Texture */
+  .fog-layer {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(15, 15, 15, 0.4) 0%, rgba(5, 5, 5, 0.85) 75%, #000000 100%);
+    z-index: 2;
     pointer-events: none;
   }
 
+  /* Centered Captions */
+  .content {
+    position: relative;
+    z-index: 10;
+    max-width: 100%;
+  }
+
   .caption {
-    font-size: 27px;
-    line-height: 1.4;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+    font-size: 26px;
+    line-height: 1.45;
+    font-weight: 800;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: #f5f5f5;
-    text-shadow: 0 2px 16px rgba(0, 0, 0, 1), 0 0 4px rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 1), 0 0 8px rgba(0, 0, 0, 1);
     transform: translateY(10px);
     opacity: 0;
     transition: transform 0.5s ease-out 0.15s, opacity 0.5s ease-out 0.15s;
   }
 
-  .caption.active {
+  .slide.active .caption {
     transform: translateY(0);
     opacity: 1;
   }
 
-  /* Minimalist Controls */
   .controls {
     position: fixed;
     bottom: 16px;
     display: flex;
     gap: 10px;
     z-index: 100;
-    background: rgba(12, 12, 12, 0.85);
+    background: rgba(15, 15, 15, 0.9);
     padding: 8px 14px;
     border-radius: 8px;
-    border: 1px solid #222222;
+    border: 1px solid #282828;
   }
 
   button {
-    background: #181818;
-    color: #d4d4d4;
-    border: 1px solid #333333;
+    background: #1c1c1c;
+    color: #e5e5e5;
+    border: 1px solid #383838;
     padding: 7px 14px;
     font-size: 12px;
     font-weight: 600;
@@ -146,8 +161,7 @@
   }
 
   button:hover {
-    background: #262626;
-    color: #ffffff;
+    background: #2c2c2c;
   }
 </style>
 </head>
@@ -155,10 +169,213 @@
 
 <div class="viewport-wrapper" id="viewport">
   <div class="progress-bar-container" id="progressBar"></div>
-  <canvas id="sketchCanvas"></canvas>
-  <div class="vignette"></div>
-  <div class="content-layer">
-    <div class="caption active" id="captionText"></div>
+
+  <div class="stage">
+
+    <!-- Frame 1 -->
+    <div class="slide active" data-duration="3800">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M40 500 Q 120 440 180 340" stroke-width="5" stroke="#999" opacity="0.7"/>
+        <ellipse cx="180" cy="270" rx="95" ry="95" stroke-width="4" stroke="#e0e0e0" opacity="0.9"/>
+        <ellipse cx="180" cy="270" rx="85" ry="85" stroke-dasharray="8 6" opacity="0.4"/>
+        <path d="M125 255 C 135 245, 160 245, 165 255" stroke-width="2.5" opacity="0.7"/>
+        <path d="M195 255 C 200 245, 225 245, 235 255" stroke-width="2.5" opacity="0.7"/>
+        <circle cx="145" cy="270" r="10" fill="#ffffff" stroke="none" opacity="0.95"/>
+        <circle cx="215" cy="270" r="10" fill="#ffffff" stroke="none" opacity="0.95"/>
+        <path d="M135 285 L 225 285" stroke-width="2" opacity="0.5"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">VIKRAM CHECKED HIS BIKE MIRROR FOR THE FOURTH TIME.</div></div>
+    </div>
+
+    <!-- Frame 2 -->
+    <div class="slide" data-duration="3800">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <path d="M20 120 L 110 640" stroke-width="3" opacity="0.6"/>
+        <path d="M340 120 L 250 640" stroke-width="3" opacity="0.6"/>
+        <path d="M100 370 L 130 310 L 230 310 L 260 370 Z" stroke-width="3" stroke="#e5e5e5" opacity="0.8"/>
+        <path d="M85 370 L 275 370 L 270 425 L 90 425 Z" stroke-width="3.5" stroke="#e5e5e5" opacity="0.8"/>
+        <ellipse cx="125" cy="395" rx="14" ry="10" fill="#ffffff" stroke="none" opacity="0.95"/>
+        <ellipse cx="235" cy="395" rx="14" ry="10" fill="#ffffff" stroke="none" opacity="0.95"/>
+        <path d="M125 405 L 80 520" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.4"/>
+        <path d="M235 405 L 280 520" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.4"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">A WHITE SWIFT WAS TAILING HIM THROUGH THE DARK SERVICE LANES.</div></div>
+    </div>
+
+    <!-- Frame 3 -->
+    <div class="slide" data-duration="3400">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <path d="M120 80 L 120 380 Q 120 440 40 470" stroke-width="4" stroke="#ffffff" opacity="0.8"/>
+        <path d="M240 80 L 240 300 Q 240 370 340 420" stroke-width="4" stroke="#ffffff" opacity="0.8"/>
+        <path d="M80 180 L 120 220" opacity="0.3"/>
+        <path d="M60 250 L 120 310" opacity="0.3"/>
+        <path d="M40 320 L 120 400" opacity="0.3"/>
+        <path d="M180 520 Q 150 460 140 410" stroke-dasharray="7 7" stroke-width="3" opacity="0.7"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">EVERY TURN HE MADE, THE CAR MADE TOO.</div></div>
+    </div>
+
+    <!-- Frame 4 -->
+    <div class="slide" data-duration="3700">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <rect x="70" y="240" width="130" height="230" rx="6" stroke-width="3.5" opacity="0.8"/>
+        <rect x="85" y="260" width="100" height="60" stroke-width="2" opacity="0.5"/>
+        <path d="M200 320 C 235 320, 240 400, 225 430" stroke-width="3.5" opacity="0.7"/>
+        <circle cx="285" cy="370" r="14" fill="#ffffff" stroke="none" opacity="0.95"/>
+        <path d="M285 345 L 285 395" stroke-width="2" opacity="0.7"/>
+        <path d="M260 370 L 310 370" stroke-width="2" opacity="0.7"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">NEAR A CLOSED PETROL PUMP, VIKRAM FLICKED HIS RIGHT INDICATOR.</div></div>
+    </div>
+
+    <!-- Frame 5 -->
+    <div class="slide" data-duration="3400">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <path d="M80 380 L 125 240 L 235 240 L 280 380 L 80 380 Z" stroke-width="3.5" opacity="0.8"/>
+        <path d="M100 380 L 100 450 L 260 450 L 260 380" stroke-width="3.5" opacity="0.8"/>
+        <circle cx="180" cy="390" r="15" fill="#ffffff" stroke="none" opacity="0.95"/>
+        <circle cx="130" cy="470" r="18" stroke-width="3.5" opacity="0.7"/>
+        <circle cx="230" cy="470" r="18" stroke-width="3.5" opacity="0.7"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">HE WAITED FOR AN ONCOMING AUTO TO PASS.</div></div>
+    </div>
+
+    <!-- Frame 6 -->
+    <div class="slide" data-duration="3700">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <path d="M40 160 L 40 600" stroke-width="4" opacity="0.8"/>
+        <path d="M150 160 L 150 460" stroke-width="4" opacity="0.8"/>
+        <path d="M290 580 Q 210 520 100 380" stroke-width="4" stroke="#ffffff" opacity="0.9"/>
+        <path d="M305 595 Q 225 535 115 395" stroke-width="2" stroke-dasharray="6 6" opacity="0.5"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">THEN HE CUT HARD INTO THE NARROW LEFT ALLEY INSTEAD.</div></div>
+    </div>
+
+    <!-- Frame 7 -->
+    <div class="slide" data-duration="3400">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <line x1="145" y1="560" x2="165" y2="280" stroke-width="3" stroke-dasharray="8 8" opacity="0.6"/>
+        <line x1="215" y1="560" x2="195" y2="280" stroke-width="3" stroke-dasharray="8 8" opacity="0.6"/>
+        <rect x="155" y="270" width="50" height="35" rx="4" stroke-width="2.5" opacity="0.8"/>
+        <circle cx="165" cy="300" r="4" fill="#fff" stroke="none"/>
+        <circle cx="195" cy="300" r="4" fill="#fff" stroke="none"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">THE SWIFT DIDN'T TURN.</div></div>
+    </div>
+
+    <!-- Frame 8 -->
+    <div class="slide" data-duration="3700">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <path d="M180 80 L 70 540" stroke-width="1.5" opacity="0.25"/>
+        <path d="M180 80 L 290 540" stroke-width="1.5" opacity="0.25"/>
+        <circle cx="180" cy="80" r="8" fill="#ffffff" stroke="none" opacity="0.9"/>
+        <rect x="110" y="380" width="140" height="60" rx="6" stroke-width="3.5" opacity="0.8"/>
+        <circle cx="135" cy="445" r="12" stroke-width="3" opacity="0.8"/>
+        <circle cx="225" cy="445" r="12" stroke-width="3" opacity="0.8"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">IT ROLLED INTO THE EMPTY CROSSROADS AND STOPPED DEAD.</div></div>
+    </div>
+
+    <!-- Frame 9 -->
+    <div class="slide" data-duration="3700">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <path d="M30 480 Q 180 430 330 480" stroke-width="5" stroke="#ffffff" opacity="0.8"/>
+        <path d="M30 480 L 15 540" stroke-width="6" stroke="#999" opacity="0.8"/>
+        <path d="M330 480 L 345 540" stroke-width="6" stroke="#999" opacity="0.8"/>
+        <circle cx="180" cy="435" r="28" stroke-width="3.5" opacity="0.85"/>
+        <line x1="180" y1="435" x2="195" y2="425" stroke-width="3" stroke="#fff"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">VIKRAM PULLED OVER THIRTY METERS AHEAD, HEART RACING.</div></div>
+    </div>
+
+    <!-- Frame 10 -->
+    <div class="slide" data-duration="3600">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <circle cx="110" cy="330" r="18" fill="#ffffff" stroke="none" opacity="0.95"/>
+        <circle cx="250" cy="330" r="18" fill="#ffffff" stroke="none" opacity="0.95"/>
+        <line x1="110" y1="290" x2="110" y2="370" stroke-width="2" opacity="0.6"/>
+        <line x1="70" y1="330" x2="150" y2="330" stroke-width="2" opacity="0.6"/>
+        <line x1="250" y1="290" x2="250" y2="370" stroke-width="2" opacity="0.6"/>
+        <line x1="210" y1="330" x2="290" y2="330" stroke-width="2" opacity="0.6"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">THE CAR’S HAZARD LIGHTS STARTED BLINKING IN THE DARK.</div></div>
+    </div>
+
+    <!-- Frame 11 -->
+    <div class="slide" data-duration="3800">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <path d="M90 320 L 40 410" stroke-width="3.5" opacity="0.6"/>
+        <circle cx="205" cy="220" r="22" stroke-width="3.5" opacity="0.85"/>
+        <path d="M205 245 L 205 410" stroke-width="5" stroke="#ffffff" opacity="0.85"/>
+        <path d="M205 410 L 175 560" stroke-width="4" opacity="0.75"/>
+        <path d="M205 410 L 235 560" stroke-width="4" opacity="0.75"/>
+        <path d="M205 290 L 165 370" stroke-width="3.5" opacity="0.75"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">THE DRIVER STEPPED OUT INTO THE GLOW OF VIKRAM'S HEADLIGHT.</div></div>
+    </div>
+
+    <!-- Frame 12 -->
+    <div class="slide" data-duration="3600">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <rect x="80" y="240" width="200" height="150" rx="8" stroke-width="4" stroke="#ffffff" opacity="0.85"/>
+        <line x1="180" y1="240" x2="180" y2="390" stroke-width="3" stroke-dasharray="6 4" opacity="0.6"/>
+        <path d="M100 280 L 160 280" opacity="0.4"/>
+        <path d="M100 310 L 160 310" opacity="0.4"/>
+        <path d="M100 340 L 160 340" opacity="0.4"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">IN HIS HAND WAS A WORN BROWN LEATHER WALLET.</div></div>
+    </div>
+
+    <!-- Frame 13 -->
+    <div class="slide" data-duration="3800">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <rect x="90" y="230" width="180" height="160" rx="6" stroke-width="4" opacity="0.85"/>
+        <rect x="110" y="260" width="90" height="60" rx="4" stroke-width="2.5" stroke="#ffffff" opacity="0.95"/>
+        <circle cx="135" cy="285" r="10" opacity="0.7"/>
+        <path d="M155 275 L 190 275" opacity="0.6"/>
+        <path d="M155 295 L 190 295" opacity="0.6"/>
+        <path d="M230 350 L 205 310" stroke-width="4" stroke="#ffffff" opacity="0.9"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">HE HELD IT UP, TAPPING THE DRIVING LICENSE INSIDE.</div></div>
+    </div>
+
+    <!-- Frame 14 -->
+    <div class="slide" data-duration="3600">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <path d="M180 120 L 180 540" stroke-width="3.5" opacity="0.5"/>
+        <path d="M165 280 L 165 420" stroke-width="5" stroke="#ffffff" opacity="0.9"/>
+        <circle cx="165" cy="285" r="5" fill="#ffffff" stroke="none"/>
+        <path d="M120 320 Q 150 340 160 380" stroke-width="4" opacity="0.75"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">VIKRAM FELT HIS KURTA POCKET.</div></div>
+    </div>
+
+    <!-- Frame 15 -->
+    <div class="slide" data-duration="4400">
+      <svg class="sketch-art" viewBox="0 0 360 640" stroke="#cccccc" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <ellipse cx="180" cy="320" rx="45" ry="105" stroke-width="4.5" stroke="#ffffff" opacity="0.95"/>
+        <path d="M180 215 L 180 425" stroke-width="2" stroke-dasharray="6 6" opacity="0.4"/>
+        <line x1="160" y1="210" x2="200" y2="210" stroke-width="4" opacity="0.7"/>
+        <line x1="160" y1="430" x2="200" y2="430" stroke-width="4" opacity="0.7"/>
+      </svg>
+      <div class="fog-layer"></div>
+      <div class="content"><div class="caption">THE ZIP WAS UNDONE. IT WAS COMPLETELY EMPTY.</div></div>
+    </div>
+
   </div>
 </div>
 
@@ -168,48 +385,18 @@
 </div>
 
 <script>
-  const story = [
-    { text: "VIKRAM CHECKED HIS BIKE MIRROR FOR THE FOURTH TIME.", duration: 3800, draw: drawSlide1 },
-    { text: "A WHITE SWIFT WAS TAILING HIM THROUGH THE DARK SERVICE LANES.", duration: 3800, draw: drawSlide2 },
-    { text: "EVERY TURN HE MADE, THE CAR MADE TOO.", duration: 3400, draw: drawSlide3 },
-    { text: "NEAR A CLOSED PETROL PUMP, VIKRAM FLICKED HIS RIGHT INDICATOR.", duration: 3700, draw: drawSlide4 },
-    { text: "HE WAITED FOR AN ONCOMING AUTO TO PASS.", duration: 3400, draw: drawSlide5 },
-    { text: "THEN HE CUT HARD INTO THE NARROW LEFT ALLEY INSTEAD.", duration: 3700, draw: drawSlide6 },
-    { text: "THE SWIFT DIDN'T TURN.", duration: 3400, draw: drawSlide7 },
-    { text: "IT ROLLED INTO THE EMPTY CROSSROADS AND STOPPED DEAD.", duration: 3700, draw: drawSlide8 },
-    { text: "VIKRAM PULLED OVER THIRTY METERS AHEAD, HEART RACING.", duration: 3700, draw: drawSlide9 },
-    { text: "THE CAR’S HAZARD LIGHTS STARTED BLINKING IN THE DARK.", duration: 3600, draw: drawSlide10 },
-    { text: "THE DRIVER STEPPED OUT INTO THE GLOW OF VIKRAM'S HEADLIGHT.", duration: 3800, draw: drawSlide11 },
-    { text: "IN HIS HAND WAS A WORN BROWN LEATHER WALLET.", duration: 3600, draw: drawSlide12 },
-    { text: "HE HELD IT UP, TAPPING THE DRIVING LICENSE INSIDE.", duration: 3800, draw: drawSlide13 },
-    { text: "VIKRAM FELT HIS KURTA POCKET.", duration: 3600, draw: drawSlide14 },
-    { text: "THE ZIP WAS UNDONE. IT WAS COMPLETELY EMPTY.", duration: 4400, draw: drawSlide15 }
-  ];
-
-  const canvas = document.getElementById('sketchCanvas');
-  const ctx = canvas.getContext('2d');
-  const viewport = document.getElementById('viewport');
-  const captionEl = document.getElementById('captionText');
+  const slides = Array.from(document.querySelectorAll('.slide'));
   const progressContainer = document.getElementById('progressBar');
   const restartBtn = document.getElementById('restartBtn');
   const toggleBtn = document.getElementById('toggleBtn');
 
   let currentIndex = 0;
-  let isPaused = false;
-  let elapsed = 0;
   let progressTimer = null;
-  let cw = 0;
-  let ch = 0;
+  let isPaused = false;
+  let currentSlideDuration = 3800;
+  let elapsed = 0;
 
-  function resizeCanvas() {
-    cw = canvas.width = viewport.clientWidth;
-    ch = canvas.height = viewport.clientHeight;
-    renderCurrentFrame();
-  }
-  window.addEventListener('resize', resizeCanvas);
-
-  // Setup Progress Indicator
-  story.forEach(() => {
+  slides.forEach(() => {
     const seg = document.createElement('div');
     seg.className = 'progress-segment';
     const fill = document.createElement('div');
@@ -217,237 +404,15 @@
     seg.appendChild(fill);
     progressContainer.appendChild(seg);
   });
+
   const fills = Array.from(document.querySelectorAll('.progress-fill'));
-
-  // Charcoal & Smudged Graphite Helpers
-  function charcoalLine(x1, y1, x2, y2, opacity = 0.25, width = 1.2) {
-    ctx.save();
-    ctx.strokeStyle = `rgba(240, 240, 240, ${opacity})`;
-    ctx.lineWidth = width;
-    ctx.beginPath();
-    const mx = (x1 + x2) / 2 + (Math.random() - 0.5) * 4;
-    const my = (y1 + y2) / 2 + (Math.random() - 0.5) * 4;
-    ctx.moveTo(x1, y1);
-    ctx.quadraticCurveTo(mx, my, x2, y2);
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function charcoalHatch(x, y, w, h, count = 20, opacity = 0.15) {
-    for (let i = 0; i < count; i++) {
-      const sx = x + Math.random() * w;
-      const sy = y + Math.random() * h;
-      charcoalLine(sx, sy, sx + (Math.random() * 26 - 13), sy + (Math.random() * 26 - 13), opacity, 0.8);
-    }
-  }
-
-  function applyFogAndTexture() {
-    ctx.fillStyle = '#040404';
-    ctx.fillRect(0, 0, cw, ch);
-
-    // Fog patches
-    for (let i = 0; i < 5; i++) {
-      const fx = Math.random() * cw;
-      const fy = Math.random() * ch;
-      const fr = 120 + Math.random() * 160;
-      const grad = ctx.createRadialGradient(fx, fy, 10, fx, fy, fr);
-      grad.addColorStop(0, 'rgba(160, 160, 160, 0.08)');
-      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, cw, ch);
-    }
-
-    // Rough graphite paper speckles
-    for (let i = 0; i < 1100; i++) {
-      ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.035})`;
-      ctx.fillRect(Math.random() * cw, Math.random() * ch, 1.2, 1.2);
-    }
-  }
-
-  // Slide 1: Close-up round handlebar mirror with glowing car eyes in reflection
-  function drawSlide1() {
-    charcoalLine(cw * 0.05, ch * 0.75, cw * 0.42, ch * 0.52, 0.45, 3.5);
-    ctx.strokeStyle = 'rgba(230, 230, 230, 0.45)';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.arc(cw * 0.5, ch * 0.45, 120, 0, Math.PI * 2);
-    ctx.stroke();
-
-    // Blurred Swift front inside mirror glass
-    ctx.strokeStyle = 'rgba(200, 200, 200, 0.25)';
-    ctx.strokeRect(cw * 0.38, ch * 0.42, cw * 0.24, 30);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-    ctx.beginPath();
-    ctx.arc(cw * 0.42, ch * 0.45, 8, 0, Math.PI * 2);
-    ctx.arc(cw * 0.58, ch * 0.45, 8, 0, Math.PI * 2);
-    ctx.fill();
-    charcoalHatch(cw * 0.32, ch * 0.28, 140, 140, 45, 0.16);
-  }
-
-  // Slide 2: White Swift tailing motorcycle through narrow service lane
-  function drawSlide2() {
-    // Looming alley walls
-    charcoalLine(0, ch * 0.15, cw * 0.26, ch * 0.95, 0.35, 2.5);
-    charcoalLine(cw, ch * 0.15, cw * 0.74, ch * 0.95, 0.35, 2.5);
-    // Car grille and roof outline
-    ctx.strokeStyle = 'rgba(230, 230, 230, 0.35)';
-    ctx.strokeRect(cw * 0.32, ch * 0.42, cw * 0.36, 52);
-    // Beaming headlights cutting smog
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
-    ctx.beginPath();
-    ctx.arc(cw * 0.37, ch * 0.49, 10, 0, Math.PI * 2);
-    ctx.arc(cw * 0.63, ch * 0.49, 10, 0, Math.PI * 2);
-    ctx.fill();
-    charcoalHatch(cw * 0.22, ch * 0.48, cw * 0.56, 120, 55, 0.14);
-  }
-
-  // Slide 3: Sharp blind turn with tire tracks
-  function drawSlide3() {
-    charcoalLine(cw * 0.35, 0, cw * 0.35, ch * 0.65, 0.45, 2.5);
-    charcoalLine(cw * 0.35, ch * 0.65, 0, ch * 0.9, 0.45, 2.5);
-    charcoalLine(cw * 0.75, 0, cw * 0.75, ch * 0.48, 0.35, 2.5);
-    charcoalLine(cw * 0.75, ch * 0.48, cw, ch * 0.78, 0.35, 2.5);
-    charcoalHatch(0, 0, cw * 0.35, ch * 0.75, 75, 0.18);
-  }
-
-  // Slide 4: Shuttered petrol pump unit & flicked right indicator
-  function drawSlide4() {
-    ctx.strokeStyle = 'rgba(220, 220, 220, 0.35)';
-    ctx.strokeRect(cw * 0.2, ch * 0.32, cw * 0.35, 150);
-    ctx.strokeRect(cw * 0.24, ch * 0.36, cw * 0.27, 42);
-    charcoalLine(cw * 0.55, ch * 0.44, cw * 0.64, ch * 0.62, 0.45, 2.5); // Fuel hose
-    // Right indicator burst
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.beginPath();
-    ctx.arc(cw * 0.78, ch * 0.62, 8, 0, Math.PI * 2);
-    ctx.fill();
-    charcoalHatch(cw * 0.2, ch * 0.32, cw * 0.35, 150, 60, 0.16);
-  }
-
-  // Slide 5: Oncoming auto rickshaw passing in smog
-  function drawSlide5() {
-    ctx.beginPath();
-    ctx.moveTo(cw * 0.24, ch * 0.58);
-    ctx.lineTo(cw * 0.38, ch * 0.38);
-    ctx.lineTo(cw * 0.72, ch * 0.38);
-    ctx.lineTo(cw * 0.78, ch * 0.64);
-    ctx.lineTo(cw * 0.24, ch * 0.64);
-    ctx.closePath();
-    ctx.strokeStyle = 'rgba(230, 230, 230, 0.4)';
-    ctx.stroke();
-    // Auto center headlight
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-    ctx.beginPath();
-    ctx.arc(cw * 0.51, ch * 0.56, 12, 0, Math.PI * 2);
-    ctx.fill();
-    charcoalHatch(cw * 0.28, ch * 0.4, cw * 0.46, 70, 50, 0.16);
-  }
-
-  // Slide 6: Bike swerving sharply into narrow left gap
-  function drawSlide6() {
-    charcoalLine(cw * 0.55, ch * 0.85, cw * 0.2, ch * 0.52, 0.55, 3.5);
-    charcoalLine(cw * 0.58, ch * 0.87, cw * 0.22, ch * 0.54, 0.4, 2);
-    charcoalLine(cw * 0.12, ch * 0.15, cw * 0.12, ch * 0.95, 0.35, 2.5);
-    charcoalLine(cw * 0.35, ch * 0.15, cw * 0.35, ch * 0.72, 0.35, 2.5);
-  }
-
-  // Slide 7: Car continuing dead straight past the turn
-  function drawSlide7() {
-    charcoalLine(cw * 0.42, ch * 0.75, cw * 0.46, ch * 0.38, 0.35, 2);
-    charcoalLine(cw * 0.58, ch * 0.75, cw * 0.54, ch * 0.38, 0.35, 2);
-    ctx.strokeStyle = 'rgba(230, 230, 230, 0.35)';
-    ctx.strokeRect(cw * 0.44, ch * 0.4, 44, 24);
-  }
-
-  // Slide 8: Swift stopped dead under lone dim streetlight in the chowk
-  function drawSlide8() {
-    charcoalLine(cw * 0.5, ch * 0.12, cw * 0.15, ch * 0.75, 0.18, 1);
-    charcoalLine(cw * 0.5, ch * 0.12, cw * 0.85, ch * 0.75, 0.18, 1);
-    ctx.strokeStyle = 'rgba(230, 230, 230, 0.35)';
-    ctx.strokeRect(cw * 0.33, ch * 0.52, cw * 0.34, 42);
-    charcoalHatch(cw * 0.3, ch * 0.5, cw * 0.4, 50, 45, 0.18);
-  }
-
-  // Slide 9: Handlebars of idling bike pulled over in the shadows
-  function drawSlide9() {
-    charcoalLine(cw * 0.08, ch * 0.78, cw * 0.92, ch * 0.78, 0.5, 3.5);
-    charcoalLine(cw * 0.08, ch * 0.78, cw * 0.03, ch * 0.85, 0.55, 4.5);
-    charcoalLine(cw * 0.92, ch * 0.78, cw * 0.97, ch * 0.85, 0.55, 4.5);
-    ctx.strokeRect(cw * 0.43, ch * 0.71, 46, 30);
-  }
-
-  // Slide 10: Twin flashing hazard indicators in distance
-  function drawSlide10() {
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
-    ctx.beginPath();
-    ctx.arc(cw * 0.3, ch * 0.5, 14, 0, Math.PI * 2);
-    ctx.arc(cw * 0.7, ch * 0.5, 14, 0, Math.PI * 2);
-    ctx.fill();
-    charcoalLine(cw * 0.3, ch * 0.4, cw * 0.3, ch * 0.6, 0.35, 2);
-    charcoalLine(cw * 0.7, ch * 0.4, cw * 0.7, ch * 0.6, 0.35, 2);
-  }
-
-  // Slide 11: Driver silhouette stepping out into the headlight beam
-  function drawSlide11() {
-    charcoalLine(cw * 0.28, ch * 0.46, cw * 0.12, ch * 0.62, 0.5, 2.5); // Open car door
-    ctx.strokeStyle = 'rgba(240, 240, 240, 0.4)';
-    ctx.beginPath();
-    ctx.arc(cw * 0.56, ch * 0.36, 16, 0, Math.PI * 2); // Head
-    ctx.stroke();
-    charcoalLine(cw * 0.56, ch * 0.4, cw * 0.56, ch * 0.66, 0.55, 3.5); // Body
-    charcoalLine(cw * 0.56, ch * 0.66, cw * 0.5, ch * 0.85, 0.45, 3); // Leg
-    charcoalLine(cw * 0.56, ch * 0.66, cw * 0.62, ch * 0.85, 0.45, 3); // Leg
-  }
-
-  // Slide 12: Worn bifold wallet held forward
-  function drawSlide12() {
-    ctx.strokeStyle = 'rgba(230, 230, 230, 0.4)';
-    ctx.strokeRect(cw * 0.28, ch * 0.35, cw * 0.44, 120);
-    charcoalLine(cw * 0.5, ch * 0.35, cw * 0.5, ch * 0.35 + 120, 0.45, 2.5);
-    charcoalHatch(cw * 0.28, ch * 0.35, cw * 0.44, 120, 60, 0.18);
-  }
-
-  // Slide 13: Finger tapping laminated license in plastic sleeve
-  function drawSlide13() {
-    ctx.strokeStyle = 'rgba(230, 230, 230, 0.4)';
-    ctx.strokeRect(cw * 0.3, ch * 0.36, cw * 0.4, 100);
-    ctx.strokeRect(cw * 0.34, ch * 0.4, 55, 34); // License card
-    charcoalLine(cw * 0.58, ch * 0.44, cw * 0.7, ch * 0.44, 0.45, 2);
-    charcoalLine(cw * 0.58, ch * 0.52, cw * 0.7, ch * 0.52, 0.45, 2);
-  }
-
-  // Slide 14: Hand reaching down to feel kurta fabric
-  function drawSlide14() {
-    charcoalLine(cw * 0.5, ch * 0.18, cw * 0.5, ch * 0.88, 0.45, 3);
-    charcoalLine(cw * 0.47, ch * 0.44, cw * 0.47, ch * 0.68, 0.65, 3.5); // Zipper seam
-    ctx.strokeStyle = 'rgba(230, 230, 230, 0.35)';
-    ctx.strokeRect(cw * 0.34, ch * 0.48, 60, 38);
-  }
-
-  // Slide 15: Gap of an unzipped, empty pocket in total darkness
-  function drawSlide15() {
-    ctx.beginPath();
-    ctx.ellipse(cw * 0.5, ch * 0.5, 34, 78, 0, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(240, 240, 240, 0.5)';
-    ctx.lineWidth = 3;
-    ctx.stroke();
-    ctx.fillStyle = '#010101';
-    ctx.fill();
-    charcoalHatch(cw * 0.42, ch * 0.42, 55, 65, 40, 0.22);
-  }
-
-  function renderCurrentFrame() {
-    applyFogAndTexture();
-    story[currentIndex].draw();
-    captionEl.textContent = story[currentIndex].text;
-  }
 
   function updateProgressFills() {
     fills.forEach((fill, idx) => {
       if (idx < currentIndex) {
         fill.style.width = '100%';
       } else if (idx === currentIndex) {
-        const pct = Math.min(100, (elapsed / story[currentIndex].duration) * 100);
+        const pct = Math.min(100, (elapsed / currentSlideDuration) * 100);
         fill.style.width = pct + '%';
       } else {
         fill.style.width = '0%';
@@ -456,18 +421,13 @@
   }
 
   function showSlide(index) {
+    slides.forEach((s, idx) => {
+      s.classList.toggle('active', idx === index);
+    });
+
     currentIndex = index;
+    currentSlideDuration = parseInt(slides[index].getAttribute('data-duration'), 10) || 3800;
     elapsed = 0;
-
-    captionEl.classList.remove('active');
-    viewport.classList.remove('animating');
-
-    setTimeout(() => {
-      renderCurrentFrame();
-      captionEl.classList.add('active');
-      viewport.classList.add('animating');
-    }, 120);
-
     updateProgressFills();
   }
 
@@ -477,8 +437,8 @@
     elapsed += 50;
     updateProgressFills();
 
-    if (elapsed >= story[currentIndex].duration) {
-      if (currentIndex < story.length - 1) {
+    if (elapsed >= currentSlideDuration) {
+      if (currentIndex < slides.length - 1) {
         showSlide(currentIndex + 1);
       } else {
         clearInterval(progressTimer);
@@ -501,19 +461,18 @@
   });
 
   toggleBtn.addEventListener('click', () => {
-    if (currentIndex >= story.length - 1 && elapsed >= story[currentIndex].duration) {
+    if (currentIndex >= slides.length - 1 && elapsed >= currentSlideDuration) {
       showSlide(0);
       isPaused = false;
       toggleBtn.textContent = 'PAUSE';
       startPlayback();
       return;
     }
+
     isPaused = !isPaused;
     toggleBtn.textContent = isPaused ? 'PLAY' : 'PAUSE';
   });
 
-  // Start sequence
-  resizeCanvas();
   showSlide(0);
   startPlayback();
 </script>
