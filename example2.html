@@ -1,453 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Storyboard Charcoal Generator & Exporter</title>
-<!-- JSZip for single-click zip packaging -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reel Frames: Everyday Suspense Scene</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  body {
-    background-color: #080808;
-    color: #e0e0e0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    padding: 24px;
-  }
+    body {
+      background-color: #0d0f12;
+      color: #e6edf3;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  header {
-    max-width: 1200px;
-    margin: 0 auto 24px auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    border-bottom: 1px solid #222;
-    padding-bottom: 16px;
-  }
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+      max-width: 600px;
+    }
 
-  h1 {
-    font-size: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
+    header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
 
-  .actions {
-    display: flex;
-    gap: 12px;
-  }
+    header p {
+      font-size: 14px;
+      color: #8b949e;
+    }
 
-  button {
-    background: #181818;
-    color: #ffffff;
-    border: 1px solid #383838;
-    padding: 10px 18px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+    .frames-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      justify-content: center;
+      max-width: 1300px;
+      width: 100%;
+    }
 
-  button:hover {
-    background: #282828;
-    border-color: #555;
-  }
+    .frame-card {
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 16px;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
-  button.primary {
-    background: #ffffff;
-    color: #000000;
-    border: 1px solid #ffffff;
-  }
+    .frame-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #21262d;
+      padding-bottom: 8px;
+    }
 
-  button.primary:hover {
-    background: #cccccc;
-  }
+    .frame-tag {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #f2cc60;
+    }
 
-  .grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-  }
+    .frame-duration {
+      font-size: 12px;
+      color: #8b949e;
+      font-family: monospace;
+    }
 
-  .card {
-    background: #111;
-    border: 1px solid #222;
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
+    .screen-preview {
+      aspect-ratio: 9 / 16;
+      width: 100%;
+      background: radial-gradient(circle at center, #1b222c 0%, #0d1117 100%);
+      border-radius: 12px;
+      border: 1px solid #30363d;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 18px;
+    }
 
-  .canvas-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 9 / 16;
-    background: #000;
-  }
+    .screen-badge {
+      align-self: flex-start;
+      background-color: rgba(242, 204, 96, 0.15);
+      border: 1px solid rgba(242, 204, 96, 0.4);
+      color: #f2cc60;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-  canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+    .screen-center-text {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.35;
+      text-align: center;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    }
 
-  .card-footer {
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+    .screen-center-text span {
+      color: #f85149;
+    }
 
-  .caption-label {
-    font-size: 11px;
-    line-height: 1.35;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #aaa;
-    min-height: 30px;
-  }
+    .screen-footer {
+      font-size: 11px;
+      text-align: center;
+      color: #8b949e;
+      background-color: rgba(13, 17, 23, 0.7);
+      border-radius: 6px;
+      padding: 6px;
+      border: 1px solid #21262d;
+    }
 
-  .card-btn {
-    width: 100%;
-    padding: 6px 10px;
-    font-size: 11px;
-    text-align: center;
-  }
+    .details-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+    }
 
-  #status {
-    font-size: 12px;
-    color: #888;
-    margin-left: 8px;
-  }
-</style>
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .detail-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #58a6ff;
+    }
+
+    .detail-text {
+      color: #c9d1d9;
+      line-height: 1.45;
+    }
+
+    .dialogue-box {
+      background-color: #0d1117;
+      border-left: 3px solid #f2cc60;
+      padding: 8px 10px;
+      border-radius: 0 6px 6px 0;
+      color: #f0f6fc;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div>
-    <h1>15 Dark Charcoal Storyboard Frames</h1>
-    <span id="status">Ready</span>
+  <header>
+    <h1>Reel Storyboard: Turning Mundane Moments into Suspense</h1>
+    <p>Target Length: 55 Seconds | Format: 9:16 Vertical Reel</p>
+  </header>
+
+  <div class="frames-container">
+
+    <!-- Frame 1 -->
+    <div class="frame-card">
+      <div class="frame-meta">
+        <span class="frame-tag">Frame 1: The Scroll-Stopper</span>
+        <span class="frame-duration">0:00 - 0:08</span>
+      </div>
+      <div class="screen-preview">
+        <div class="screen-badge">Visual: Direct Eye Contact</div>
+        <div class="screen-center-text">
+          BEFORE YOU SKIP.<br>
+          <span>WRITE A SUSPENSE SCENE</span><br>
+          FROM REAL LIFE.
+        </div>
+        <div class="screen-footer">Cut from medium close-up directly into red highlight text.</div>
+      </div>
+      <div class="details-section">
+        <div class="detail-item">
+          <span class="detail-label">Action / Visual</span>
+          <span class="detail-text">Close-up straight to camera, handheld. You raise one finger before the viewer swipes. Rapid zoom cut on the final sentence.</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Spoken Audio</span>
+          <div class="dialogue-box">
+            "Before you skip, let's write a quick suspense scene from an everyday life situation. Every scary movie starts with an everyday mistake you made yesterday."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frame 2 -->
+    <div class="frame-card">
+      <div class="frame-meta">
+        <span class="frame-tag">Frame 2: The Setup</span>
+        <span class="frame-duration">0:08 - 0:19</span>
+      </div>
+      <div class="screen-preview">
+        <div class="screen-badge">Visual: Phone Battery Overlay</div>
+        <div class="screen-center-text">
+          12:40 AM.<br>
+          DESERTED ROAD.<br>
+          <span>BATTERY: 2%</span>
+        </div>
+        <div class="screen-footer">Show black lock screen with 2% red indicator.</div>
+      </div>
+      <div class="details-section">
+        <div class="detail-item">
+          <span class="detail-label">Action / Visual</span>
+          <span class="detail-text">Switch to low-angle, darker lighting. Hold your phone up toward camera showing a red 2% battery indicator while standing near a dim doorway or street.</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Spoken Audio</span>
+          <div class="dialogue-box">
+            "Take a boring situation: It is 12:40 AM, you are on an empty street, and you booked a cab. You look down at your screen, and your battery is at 2 percent."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frame 3 -->
+    <div class="frame-card">
+      <div class="frame-meta">
+        <span class="frame-tag">Frame 3: The Mistake</span>
+        <span class="frame-duration">0:19 - 0:31</span>
+      </div>
+      <div class="screen-preview">
+        <div class="screen-badge">Visual: Crossed Out Text</div>
+        <div class="screen-center-text">
+          AMATEUR:<br>
+          <span>GIVES THE MONSTER AWAY</span><br><br>
+          PRO:<br>
+          DELAYS THE ANSWER
+        </div>
+        <div class="screen-footer">A-roll side profile talking with quick jump cut.</div>
+      </div>
+      <div class="details-section">
+        <div class="detail-item">
+          <span class="detail-label">Action / Visual</span>
+          <span class="detail-text">Jump cut back to a well-lit shot. Clean graphic overlay comparing early revelation versus withholding information.</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Spoken Audio</span>
+          <div class="dialogue-box">
+            "Amateurs make a monster show up immediately. Screenwriters do the opposite. Suspense is built by delaying one critical piece of information."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frame 4 -->
+    <div class="frame-card">
+      <div class="frame-meta">
+        <span class="frame-tag">Frame 4: The Escalation</span>
+        <span class="frame-duration">0:31 - 0:46</span>
+      </div>
+      <div class="screen-preview">
+        <div class="screen-badge">Visual: Sound Effect Visualizer</div>
+        <div class="screen-center-text">
+          HEADLIGHTS SLOW DOWN.<br>
+          <span>SCREEN TURNS BLACK.</span>
+        </div>
+        <div class="screen-footer">Abrupt cut to completely black screen for 1 full second.</div>
+      </div>
+      <div class="details-section">
+        <div class="detail-item">
+          <span class="detail-label">Action / Visual</span>
+          <span class="detail-text">Fast atmospheric cuts: quiet breathing, headlights slowing down in the distance, you look down at the phone to check the license plate, and the screen dies.</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Spoken Audio</span>
+          <div class="dialogue-box">
+            "Watch: Headlights turn the corner. A white sedan slows down right in front of you. You look down to verify the plate number, and your phone goes black. Is that your driver, or someone else?"
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frame 5 -->
+    <div class="frame-card">
+      <div class="frame-meta">
+        <span class="frame-tag">Frame 5: The Takeaway</span>
+        <span class="frame-duration">0:46 - 0:55</span>
+      </div>
+      <div class="screen-preview">
+        <div class="screen-badge">Visual: Final Punchline</div>
+        <div class="screen-center-text">
+          SUSPENSE IS NOT DANGER.<br>
+          <span>IT IS UNCERTAINTY.</span>
+        </div>
+        <div class="screen-footer">Follow button animation with handle overlay.</div>
+      </div>
+      <div class="details-section">
+        <div class="detail-item">
+          <span class="detail-label">Action / Visual</span>
+          <span class="detail-text">Direct camera address. Clean text banner at the base of the frame. Confident and prompt close.</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Spoken Audio</span>
+          <div class="dialogue-box">
+            "Suspense is not danger. It is uncertainty. Save your battery, and follow if you want to turn everyday life into scenes."
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div class="actions">
-    <button class="primary" id="downloadAllBtn">DOWNLOAD ALL 15 FRAMES (.ZIP)</button>
-  </div>
-</header>
-
-<div class="grid" id="cardGrid"></div>
-
-<script>
-  const story = [
-    { text: "VIKRAM CHECKED HIS BIKE MIRROR FOR THE FOURTH TIME.", draw: drawFrame1 },
-    { text: "A WHITE SWIFT WAS TAILING HIM THROUGH THE DARK SERVICE LANES.", draw: drawFrame2 },
-    { text: "EVERY TURN HE MADE, THE CAR MADE TOO.", draw: drawFrame3 },
-    { text: "NEAR A CLOSED PETROL PUMP, VIKRAM FLICKED HIS RIGHT INDICATOR.", draw: drawFrame4 },
-    { text: "HE WAITED FOR AN ONCOMING AUTO TO PASS.", draw: drawFrame5 },
-    { text: "THEN HE CUT HARD INTO THE NARROW LEFT ALLEY INSTEAD.", draw: drawFrame6 },
-    { text: "THE SWIFT DIDN'T TURN.", draw: drawFrame7 },
-    { text: "IT ROLLED INTO THE EMPTY CROSSROADS AND STOPPED DEAD.", draw: drawFrame8 },
-    { text: "VIKRAM PULLED OVER THIRTY METERS AHEAD, HEART RACING.", draw: drawFrame9 },
-    { text: "THE CAR’S HAZARD LIGHTS STARTED BLINKING IN THE DARK.", draw: drawFrame10 },
-    { text: "THE DRIVER STEPPED OUT INTO THE GLOW OF VIKRAM'S HEADLIGHT.", draw: drawFrame11 },
-    { text: "IN HIS HAND WAS A WORN BROWN LEATHER WALLET.", draw: drawFrame12 },
-    { text: "HE HELD IT UP, TAPPING THE DRIVING LICENSE INSIDE.", draw: drawFrame13 },
-    { text: "VIKRAM FELT HIS KURTA POCKET.", draw: drawFrame14 },
-    { text: "THE ZIP WAS UNDONE. IT WAS COMPLETELY EMPTY.", draw: drawFrame15 }
-  ];
-
-  const W = 1080;
-  const H = 1920;
-  const grid = document.getElementById('cardGrid');
-  const canvases = [];
-
-  // Low Exposure Paper, Texture & Fog Engine
-  function setupDarkCharcoalPaper(ctx) {
-    ctx.fillStyle = "#0c0d10";
-    ctx.fillRect(0, 0, W, H);
-
-    // Fog gradient
-    const fog = ctx.createRadialGradient(W * 0.5, H * 0.45, 50, W * 0.5, H * 0.45, W * 0.75);
-    fog.addColorStop(0, "rgba(80, 85, 95, 0.18)");
-    fog.addColorStop(0.6, "rgba(30, 32, 38, 0.12)");
-    fog.addColorStop(1, "rgba(0, 0, 0, 0.45)");
-    ctx.fillStyle = fog;
-    ctx.fillRect(0, 0, W, H);
-
-    // Rough paper grain
-    for (let i = 0; i < 7000; i++) {
-      ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.035})`;
-      ctx.fillRect(Math.random() * W, Math.random() * H, 2.2, 2.2);
-    }
-  }
-
-  function pLine(ctx, x1, y1, x2, y2, opacity = 0.55, width = 3.5) {
-    ctx.save();
-    ctx.strokeStyle = `rgba(215, 220, 225, ${opacity})`;
-    ctx.lineWidth = width;
-    ctx.lineCap = "round";
-    ctx.beginPath();
-    const mx = (x1 + x2) / 2 + (Math.random() - 0.5) * 8;
-    const my = (y1 + y2) / 2 + (Math.random() - 0.5) * 8;
-    ctx.moveTo(x1, y1);
-    ctx.quadraticCurveTo(mx, my, x2, y2);
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function pHatch(ctx, x, y, w, h, count = 35, opacity = 0.22) {
-    for (let i = 0; i < count; i++) {
-      const sx = x + Math.random() * w;
-      const sy = y + Math.random() * h;
-      pLine(ctx, sx, sy, sx + (Math.random() * 50 - 25), sy + (Math.random() * 50 - 25), opacity, 1.8);
-    }
-  }
-
-  // 15 Scene Art Routines
-  function drawFrame1(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    pLine(ctx, 120, H * 0.78, W * 0.48, H * 0.52, 0.7, 8);
-    ctx.strokeStyle = "rgba(220,225,230,0.85)";
-    ctx.lineWidth = 9;
-    ctx.beginPath();
-    ctx.arc(W * 0.5, H * 0.46, 320, 0, Math.PI * 2);
-    ctx.stroke();
-    // Headlights reflecting in glass
-    ctx.fillStyle = "rgba(255,255,255,0.92)";
-    ctx.beginPath();
-    ctx.arc(W * 0.4, H * 0.46, 32, 0, Math.PI * 2);
-    ctx.arc(W * 0.6, H * 0.46, 32, 0, Math.PI * 2);
-    ctx.fill();
-    pHatch(ctx, W * 0.28, H * 0.32, 480, 480, 120, 0.22);
-  }
-
-  function drawFrame2(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    pLine(ctx, 40, H * 0.15, W * 0.28, H * 0.95, 0.6, 6);
-    pLine(ctx, W - 40, H * 0.15, W * 0.72, H * 0.95, 0.6, 6);
-    ctx.strokeStyle = "rgba(225,230,235,0.8)";
-    ctx.lineWidth = 8;
-    ctx.strokeRect(W * 0.3, H * 0.42, W * 0.4, 150);
-    ctx.fillStyle = "rgba(255,255,255,0.95)";
-    ctx.beginPath();
-    ctx.arc(W * 0.37, H * 0.49, 32, 0, Math.PI * 2);
-    ctx.arc(W * 0.63, H * 0.49, 32, 0, Math.PI * 2);
-    ctx.fill();
-    pHatch(ctx, W * 0.22, H * 0.46, W * 0.56, 300, 140, 0.25);
-  }
-
-  function drawFrame3(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    pLine(ctx, W * 0.38, 120, W * 0.38, H * 0.65, 0.75, 7);
-    pLine(ctx, W * 0.38, H * 0.65, 60, H * 0.9, 0.75, 7);
-    pLine(ctx, W * 0.76, 120, W * 0.76, H * 0.5, 0.65, 7);
-    pLine(ctx, W * 0.76, H * 0.5, W - 40, H * 0.8, 0.65, 7);
-    pHatch(ctx, 0, 0, W * 0.38, H * 0.75, 180, 0.3);
-  }
-
-  function drawFrame4(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    ctx.strokeStyle = "rgba(220,225,230,0.8)";
-    ctx.lineWidth = 8;
-    ctx.strokeRect(W * 0.18, H * 0.32, W * 0.38, 420);
-    ctx.strokeRect(W * 0.24, H * 0.36, W * 0.26, 110);
-    pLine(ctx, W * 0.56, H * 0.44, W * 0.66, H * 0.65, 0.7, 7);
-    ctx.fillStyle = "rgba(255,255,255,0.95)";
-    ctx.beginPath();
-    ctx.arc(W * 0.82, H * 0.62, 28, 0, Math.PI * 2);
-    ctx.fill();
-    pHatch(ctx, W * 0.18, H * 0.32, W * 0.38, 420, 140, 0.22);
-  }
-
-  function drawFrame5(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    ctx.beginPath();
-    ctx.moveTo(W * 0.22, H * 0.62);
-    ctx.lineTo(W * 0.36, H * 0.36);
-    ctx.lineTo(W * 0.74, H * 0.36);
-    ctx.lineTo(W * 0.82, H * 0.68);
-    ctx.lineTo(W * 0.22, H * 0.68);
-    ctx.closePath();
-    ctx.strokeStyle = "rgba(225,230,235,0.85)";
-    ctx.lineWidth = 8;
-    ctx.stroke();
-    ctx.fillStyle = "rgba(255,255,255,0.95)";
-    ctx.beginPath();
-    ctx.arc(W * 0.52, H * 0.58, 38, 0, Math.PI * 2);
-    ctx.fill();
-    pHatch(ctx, W * 0.26, H * 0.38, W * 0.52, 240, 120, 0.25);
-  }
-
-  function drawFrame6(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    pLine(ctx, W * 0.65, H * 0.88, W * 0.22, H * 0.52, 0.85, 9);
-    pLine(ctx, W * 0.68, H * 0.9, W * 0.25, H * 0.54, 0.6, 5);
-    pLine(ctx, W * 0.12, 140, W * 0.12, H * 0.95, 0.65, 7);
-    pLine(ctx, W * 0.36, 140, W * 0.36, H * 0.7, 0.65, 7);
-  }
-
-  function drawFrame7(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    pLine(ctx, W * 0.42, H * 0.78, W * 0.47, H * 0.35, 0.6, 5);
-    pLine(ctx, W * 0.58, H * 0.78, W * 0.53, H * 0.35, 0.6, 5);
-    ctx.strokeStyle = "rgba(220,225,230,0.8)";
-    ctx.lineWidth = 7;
-    ctx.strokeRect(W * 0.43, H * 0.38, 140, 75);
-  }
-
-  function drawFrame8(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    pLine(ctx, W * 0.5, H * 0.1, W * 0.15, H * 0.75, 0.35, 3);
-    pLine(ctx, W * 0.5, H * 0.1, W * 0.85, H * 0.75, 0.35, 3);
-    ctx.strokeStyle = "rgba(225,230,235,0.8)";
-    ctx.lineWidth = 8;
-    ctx.strokeRect(W * 0.32, H * 0.52, W * 0.36, 120);
-    pHatch(ctx, W * 0.3, H * 0.5, W * 0.4, 150, 110, 0.25);
-  }
-
-  function drawFrame9(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    pLine(ctx, 80, H * 0.78, W - 80, H * 0.78, 0.85, 10);
-    pLine(ctx, 80, H * 0.78, 20, H * 0.88, 0.85, 12);
-    pLine(ctx, W - 80, H * 0.78, W - 20, H * 0.88, 0.85, 12);
-    ctx.strokeRect(W * 0.42, H * 0.7, 160, 100);
-  }
-
-  function drawFrame10(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    ctx.fillStyle = "rgba(255,255,255,0.92)";
-    ctx.beginPath();
-    ctx.arc(W * 0.28, H * 0.5, 42, 0, Math.PI * 2);
-    ctx.arc(W * 0.72, H * 0.5, 42, 0, Math.PI * 2);
-    ctx.fill();
-    pLine(ctx, W * 0.28, H * 0.38, W * 0.28, H * 0.62, 0.6, 5);
-    pLine(ctx, W * 0.72, H * 0.38, W * 0.72, H * 0.62, 0.6, 5);
-  }
-
-  function drawFrame11(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    pLine(ctx, W * 0.28, H * 0.46, W * 0.1, H * 0.65, 0.75, 7);
-    ctx.strokeStyle = "rgba(230,235,240,0.85)";
-    ctx.lineWidth = 8;
-    ctx.beginPath();
-    ctx.arc(W * 0.56, H * 0.34, 46, 0, Math.PI * 2);
-    ctx.stroke();
-    pLine(ctx, W * 0.56, H * 0.38, W * 0.56, H * 0.66, 0.85, 10);
-    pLine(ctx, W * 0.56, H * 0.66, W * 0.48, H * 0.88, 0.75, 8);
-    pLine(ctx, W * 0.56, H * 0.66, W * 0.64, H * 0.88, 0.75, 8);
-  }
-
-  function drawFrame12(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    ctx.strokeStyle = "rgba(225,230,235,0.85)";
-    ctx.lineWidth = 9;
-    ctx.strokeRect(W * 0.25, H * 0.35, W * 0.5, 340);
-    pLine(ctx, W * 0.5, H * 0.35, W * 0.5, H * 0.35 + 340, 0.75, 7);
-    pHatch(ctx, W * 0.25, H * 0.35, W * 0.5, 340, 140, 0.25);
-  }
-
-  function drawFrame13(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    ctx.strokeStyle = "rgba(225,230,235,0.85)";
-    ctx.lineWidth = 9;
-    ctx.strokeRect(W * 0.28, H * 0.36, W * 0.44, 280);
-    ctx.strokeRect(W * 0.33, H * 0.41, 150, 95);
-    pLine(ctx, W * 0.6, H * 0.45, W * 0.78, H * 0.45, 0.7, 6);
-    pLine(ctx, W * 0.6, H * 0.54, W * 0.78, H * 0.54, 0.7, 6);
-  }
-
-  function drawFrame14(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    pLine(ctx, W * 0.5, 160, W * 0.5, H * 0.9, 0.75, 8);
-    pLine(ctx, W * 0.46, H * 0.42, W * 0.46, H * 0.7, 0.9, 10);
-    ctx.strokeRect(W * 0.32, H * 0.46, 160, 110);
-  }
-
-  function drawFrame15(ctx) {
-    setupDarkCharcoalPaper(ctx);
-    ctx.beginPath();
-    ctx.ellipse(W * 0.5, H * 0.5, 100, 240, 0, 0, Math.PI * 2);
-    ctx.strokeStyle = "rgba(235,240,245,0.9)";
-    ctx.lineWidth = 10;
-    ctx.stroke();
-    ctx.fillStyle = "#020202";
-    ctx.fill();
-    pHatch(ctx, W * 0.42, H * 0.42, 160, 180, 80, 0.3);
-  }
-
-  // Build the 15 UI Cards and Render Canvases
-  story.forEach((item, index) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'canvas-wrapper';
-
-    const canvas = document.createElement('canvas');
-    canvas.width = W;
-    canvas.height = H;
-    wrapper.appendChild(canvas);
-
-    const ctx = canvas.getContext('2d');
-    item.draw(ctx);
-    canvases.push(canvas);
-
-    const footer = document.createElement('div');
-    footer.className = 'card-footer';
-
-    const caption = document.createElement('div');
-    caption.className = 'caption-label';
-    caption.textContent = `${index + 1}. ${item.text}`;
-
-    const btn = document.createElement('button');
-    btn.className = 'card-btn';
-    btn.textContent = `DOWNLOAD FRAME ${index + 1}`;
-    btn.addEventListener('click', () => downloadCanvas(canvas, `frame_${String(index + 1).padStart(2, '0')}.png`));
-
-    footer.appendChild(caption);
-    footer.appendChild(btn);
-    card.appendChild(wrapper);
-    card.appendChild(footer);
-    grid.appendChild(card);
-  });
-
-  function downloadCanvas(canvas, filename) {
-    const link = document.createElement('a');
-    link.download = filename;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-  }
-
-  // Single-Click Zip Archive Export
-  document.getElementById('downloadAllBtn').addEventListener('click', async () => {
-    const status = document.getElementById('status');
-    status.textContent = 'Packaging zip file...';
-
-    const zip = new JSZip();
-    for (let i = 0; i < canvases.length; i++) {
-      const dataUrl = canvases[i].toDataURL('image/png');
-      const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
-      const fileName = `frame_${String(i + 1).padStart(2, '0')}.png`;
-      zip.file(fileName, base64Data, { base64: true });
-    }
-
-    const content = await zip.generateAsync({ type: "blob" });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(content);
-    link.download = "storyboard_charcoal_frames.zip";
-    link.click();
-
-    status.textContent = 'All 15 frames downloaded.';
-  });
-</script>
 
 </body>
 </html>
