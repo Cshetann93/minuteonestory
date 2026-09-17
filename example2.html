@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DraftsRush - 2 Reel Frames</title>
+  <title>DraftsRush - 2 Reel Frames Fixed</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,6 @@
     .brand-font { font-family: 'Space Grotesk', sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace, Courier; }
 
-    /* Exact 9:16 display (405x720) -> Renders to 1080x1920 */
     .reel-frame {
       width: 405px;
       height: 720px;
@@ -71,10 +70,11 @@
       font-weight: 900;
       text-transform: uppercase;
       font-size: 11px;
-      padding: 4px 10px;
-      line-height: 14px;
+      padding: 6px 12px;
+      line-height: 1;
       margin-bottom: 16px;
       border: 2px solid #111317;
+      white-space: nowrap;
     }
 
     .badge-pill-dark {
@@ -85,10 +85,11 @@
       font-weight: 800;
       text-transform: uppercase;
       font-size: 11px;
-      padding: 4px 10px;
-      line-height: 14px;
+      padding: 6px 12px;
+      line-height: 1;
       margin-bottom: 16px;
       border: 2px solid #111317;
+      white-space: nowrap;
     }
 
     .flex { display: flex; }
@@ -102,18 +103,16 @@
 </head>
 <body class="flex flex-col items-center justify-center">
 
-  <!-- Download & Action Bar -->
   <div class="w-full max-w-4xl mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-4 border-black p-5 b-card" style="background-color: #FFE600; margin-bottom: 32px;">
     <div>
       <h1 class="brand-font" style="font-weight: 900; font-size: 20px; text-transform: uppercase; letter-spacing: -0.025em;">2 Standalone Reel Frames</h1>
-      <p class="font-mono" style="font-size: 11px; font-weight: 700; margin-top: 4px; color: #111317;">Yellow Anchor Canvas (1080x1920 Ready)</p>
+      <p class="font-mono" style="font-size: 11px; font-weight: 700; margin-top: 4px; color: #111317;">Yellow Anchor Canvas (1080x1920 Ready - Padding Fixed)</p>
     </div>
     <button id="download-btn" onclick="downloadAllFrames()" class="brand-font" style="background-color: #111317; color: #FFFFFF; font-weight: 900; font-size: 11px; text-transform: uppercase; border: 2px solid #111317; padding: 14px 24px; cursor: pointer; box-shadow: 4px 4px 0px #000000;">
       Download 2 Frames (PNG)
     </button>
   </div>
 
-  <!-- Frames Container -->
   <div class="flex flex-wrap gap-8 justify-center items-center">
 
     <!-- FRAME 1: Yellow background, centered black box, refined copy -->
@@ -151,7 +150,6 @@
       btn.disabled = true;
 
       await document.fonts.ready;
-
       const pixelRatio = 1080 / 405;
 
       for (let i = 1; i <= 2; i++) {
